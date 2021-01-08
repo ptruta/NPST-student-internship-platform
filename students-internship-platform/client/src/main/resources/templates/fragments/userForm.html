@@ -28,8 +28,8 @@
     <input type="text" id="id" th:value="${id}" th:field="*{id}" name="id"
            th:hidden="true" hidden="true"/>
     <div class="form-group" id="usernameContainer">
-        <label class=" col-sm-7" for="username">Username:</label>
-        <div class="col-sm-7">
+        <label for="username">Username:</label>
+        <div>
             <input type="text" id="username" th:value="${username}" th:field="*{username}" name="username"
                    autofocus="autofocus"
                    placeholder="username"
@@ -37,62 +37,62 @@
         </div>
     </div>
     <div class="form-group" id="passwordContainer">
-        <label class="col-sm-7" for="password">Password:</label>
-        <div class="col-sm-7">
+        <label for="password">Password:</label>
+        <div>
             <input type="password" th:value="${password}" id="password" name="password"
                    placeholder="password" th:required="required"
                    class="form-control"/>
         </div>
     </div>
     <div class="form-group" id="confirmPasswordContainer">
-        <label class="col-sm-7" for="confirmPassword">Confirm Password:</label>
-        <div class="col-sm-7">
+        <label for="confirmPassword">Confirm Password:</label>
+        <div>
             <input type="password" th:value="${confirmPassword}" id="confirmPassword" name="confirmPassword"
                    placeholder="password" th:required="required"
                    class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-7" for="firstName">First title:</label>
-        <div class="col-sm-7">
+        <label for="firstName">First title:</label>
+        <div>
             <input type="text" id="firstName" th:value="${firstName}" th:field="*{firstName}" name="firstName"
                    placeholder="first title"
                    th:required="required" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-7" for="lastName">Last title:</label>
-        <div class="col-sm-7">
+        <label for="lastName">Last title:</label>
+        <div>
             <input type="text" id="lastName" th:value="${lastName}" th:field="*{lastName}" name="lastName"
                    placeholder="last title"
                    th:required="required" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-7" for="email">Email:</label>
-        <div class="col-sm-7">
+        <label for="email">Email:</label>
+        <div>
             <input type="email" th:value="${email}" id="email" name="email" th:field="*{email}" th:required="required"
                    placeholder="email"
                    class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-7" for="address">Address (optional):</label>
-        <div class="col-sm-7">
+        <label for="address">Address (optional):</label>
+        <div>
             <input type="text" id="address" th:value="${address}" th:field="*{address}" name="address"
                    placeholder="address" class="form-control"/>
         </div>
     </div>
     <div class="form-group" id="skillsContainer">
-        <label class="col-sm-7" for="skills">Skills:</label>
-        <div class="col-sm-7">
+        <label for="skills">Skills:</label>
+        <div>
             <input type="text" id="skills" name="skills" th:value="${skills}" th:field="*{skills}"
                    placeholder="skills"
                    class="form-control"/>
         </div>
     </div>
     <div class="form-group" id="birthDateContainer">
-        <label class="col-sm-7" for="birthDate">Birth Date:</label>
+        <label for="birthDate">Birth Date:</label>
         <div class="input-group input-append date col-sm-7" id="dateRangePicker"
              style="width:30%; padding-right: 15px;padding-left: 15px">
             <input type="text" class="form-control" name="birthDate" id="birthDate" th:value="${birthDate}"
@@ -102,7 +102,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-7" for="gender">Gender:</label>
+        <label for="gender">Gender:</label>
         <select class="form-control col-sm-7" data-style="btn-primary" style="margin-left: 15px;margin-right:
                 15px;display: inline-block;width: inherit;" name="gender" id="gender" th:required="required">
             <option th:each="gender : ${T(ro.ubbcluj.model.enums.GenderEnum).values()}"
@@ -112,8 +112,8 @@
         </select>
     </div>
     <div class="form-group">
-        <label class="col-sm-7" for="bio">Bio (optional):</label>
-        <div class="col-sm-7">
+        <label for="bio">Bio (optional):</label>
+        <div>
                     <textarea class="form-control" id="bio" name="bio"
                               th:inline="text" rows="5" placeholder="Bio"
                               th:value="${bio}" th:field="*{bio}"></textarea>

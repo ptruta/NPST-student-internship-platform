@@ -13,7 +13,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    text-align: center;
     padding-left: 20px;
 }
 
@@ -25,7 +24,12 @@ h3, h4 {
 }
 
 .container {
-	padding: 80px 120px;
+	padding: 110px 100px;
+}
+
+label {
+    margin-right:-20%;
+    margin-left:20%;
 }
 
 .person {

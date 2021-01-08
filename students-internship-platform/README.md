@@ -1,4 +1,4 @@
-#SIP - Students Internship Platform
+#NPST - Internship Platform
 
 It contains a Spring Boot basic structure and a thymeleaf structure with some basic screens.
 
