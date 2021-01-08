@@ -31,20 +31,20 @@
 <div id="band" class="container text-center">
     <h2>Welcome to NPST-Internship Platform</h2>
     <div style="margin-bottom:0px">
-        <div style="margin-bottom:0px">
-            <div sec:authorize="isAuthenticated()">
-                <div>
-                    <div class="alert alert-success" style="margin-bottom:0px">
-                        <strong> You are logged in.</strong>
-                    </div>
-                </div>
-            </div>
-            <div sec:authorize="!isAuthenticated()">
-                <div class="alert alert-danger" style="margin-bottom:0px">
-                    <strong>You are not logged in.</strong>
-                </div>
-            </div>
-        </div>
+<!--        <div style="margin-bottom:0px">-->
+<!--            <div sec:authorize="isAuthenticated()">-->
+<!--                <div>-->
+<!--                    <div class="alert alert-success" style="margin-bottom:0px">-->
+<!--                        <strong> You are logged in.</strong>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div sec:authorize="!isAuthenticated()">-->
+<!--                <div class="alert alert-danger" style="margin-bottom:0px">-->
+<!--                    <strong>You are not logged in.</strong>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div sec:authorize="!isAuthenticated()">
             <p>
