@@ -1,0 +1,103 @@
+@startuml
+
+package "req[package]UserRquirements" {
+    class StudentInternshipPlatform  {
+    }
+
+	class EditProfile <<requirement>> {
+    	txt
+    	edit user information
+    }
+
+    StudentInternshipPlatform <-- EditProfile : <<trace>>
+
+    class EditStudentProfile <<UseCase>> {
+    }
+
+    EditProfile <. EditStudentProfile : <<refine>>
+
+    hide members
+    hide circle
+    show <<requirement>> fields
+
+    class Description <<requirement>> {
+        txt
+        The description must
+        represent the user's
+        personal data
+    }
+
+    EditProfile +-- Description
+
+    class PersonalData <<requirement>> {
+        txt
+        The personal data should
+        contain the first and last
+        title, the date of birth
+    }
+
+    note "The first and last title \nand also the date of birth are \n more than sufficient" as N1
+    Description <.. N1 : <<deriveReqt>>
+    N1 .. PersonalData
+
+    class AddPersonalData <<activity>> {
+    }
+
+    note "<<rationale>>\nAnalysis of this activity \nshows that adding personal \ndata is possible" as N2
+    PersonalData <.. N2 : <<satisfy>>
+    N2 .. AddPersonalData
+
+    class Experience <<requirement>> {
+        txt
+        The experince may
+        include volunteering,
+        study, job
+    }
+
+    EditProfile +-- Experience
+
+    class CV <<requirement>> {
+        txt
+        edit user information
+    }
+
+    EditProfile +-- CV
+
+    class UploadCV <<activity>> {
+    }
+
+    note "<<rationale>>\nAnalysis of this activity \nshows that uploading \na CV is possible" as N3
+    CV <.. N3: <<satisfy>>
+    N3 .. UploadCV
+
+    class Picture <<requirement>> {
+            txt
+            edit user information
+    }
+
+    EditProfile +-- Picture
+
+    class UploadPicture <<activity>> {
+    }
+
+    note "<<rationale>>\nAnalysis of this activity \nshows that uploading \na CV is possible" as N4
+    Picture <.. N4: <<satisfy>>
+    N4 .. UploadPicture
+
+    class Skill <<requirement>> {
+            txt
+            edit user information
+    }
+
+    EditProfile +-- Skill
+
+    class RateSkill <<activity>> {
+    }
+
+    note "<<rationale>>\nAnalysis of this activity \nshows that rating \na skill is possible" as N5
+    Skill <.. N5: <<satisfy>>
+    N5 .. RateSkill
+
+}
+
+@enduml

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Students Internship Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://fonts.googleapis.com/css?family=Lato"
+          rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat"
+          rel="stylesheet" type="text/css"/>
+    <link
+            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen"/>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+
+    <script src="../../static/js/bootstrap.min.js"
+            th:src="@{~/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var message = [[${message}]];
+            var errorMsg = [[${errorMsg}]];
+            if (message) {
+                toastr.info(message);
+            }
+            if (errorMsg) {
+                toastr.error(errorMsg);
+            }
+        });
+
+        function getApplications(announcementId) {
+            document.getElementById("announcementsForm").submit();
+        }
+
+        function isValid(applicationStatus) {
+            return applicationStatus === "WAITING"
+        }
+
+        function checkForEdit(applicationStatus) {
+            if (isValid(applicationStatus)) {
+                return true;
+            } else {
+                toastr.error('Application cannot be edited! Since it has the status either ENDED or CONFIRMED');
+                return false;
+            }
+        }
+
+        function checkForDelete(applicationStatus) {
+            if (isValid(applicationStatus)) {
+                return true;
+            } else {
+                toastr.error('Application cannot be deleted! Since it has the status either ENDED or CONFIRMED');
+                return false;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+<div th:include="fragments/header :: header"></div>
+<div class="container table-responsive">
+    <h2 class="text-center">Applications Management</h2>
+    <br/>
+    <br/>
+
+    <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
+        <label class="control-label col-sm-8" for="announcementSearch">Search all applications by announcement title:</label>
+        <div class="col-md-4" th:object="${announcement}">
+            <form action="#" th:action="@{/announcementManagement/applicationsManagement}" th:object="${searchOption}"
+                  th:method="POST" id="announcementsForm">
+
+                <select class="form-control col-sm-8" data-style="btn-primary" style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;" id="announcementSearch"
+                        name="announcementSearch"
+                        th:field="*{announcementId}">
+                    <option th:value="0"
+                            th:text="All"
+                            th:onclick="'javascript:getApplications(\''+ 0 +'\');'"></option>
+                    <option th:each="announcement : ${announcements} "
+                            th:value="${announcement.id}"
+                            th:text="${announcement.title}"
+                            th:onclick="'javascript:getApplications(\''+ ${announcement.id} +'\');'"></option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Applicant</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Company</th>
+            <th style="text-align: right">Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="application:${applications}">
+        <tr>
+            <td th:text="${application.title}"></td>
+            <td th:text="${application.startDate}"></td>
+            <td th:text="${application.endDate}"></td>
+            <td th:text="${application.personName}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')" th:text="${application.companyName}"></td>
+            <td>
+                <form class="col-md-4" method="POST"
+                      th:action="@{/announcementManagement/applicationsManagement/delete/{id}(id=${application.id})}"
+                      style="height: 50%;width: 50%;"
+                      th:onclick="'javascript:return checkForDelete();'">
+                    <button type="submit" name="submit" value="value"><img
+                            src="../../static/images/action/delete.png" width="70px" height="70px"
+                            class="img-rounded img-responsive"
+                            th:src="@{../images/action/delete.png}"/></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="table-pagination">
+        <ul class="pagination">
+            <li th:class="${page.firstPage}?'disabled':''">
+                <span th:if='${page.firstPage}'>← First</span>
+                <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>← First</a>
+            </li>
+            <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                <span th:if='${not page.hasPreviousPage}'>«</span>
+                <a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(page=${page.number-2},size=${page.size})}'
+                   title='Go to previous page'>«</a>
+            </li>
+            <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                <span th:if='${item.current}' th:text='${item.number}'>1</span>
+                <a th:if='${not item.current}' th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span
+                        th:text='${item.number}'>1</span></a>
+            </li>
+            <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                <span th:if='${not page.hasNextPage}'>»</span>
+                <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}'
+                   title='Go to next page'>»</a>
+            </li>
+            <li th:class="${page.lastPage}? 'disabled' : ''">
+                <span th:if='${page.lastPage}'>Last →</span>
+                <a th:if='${not page.lastPage}' th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last
+                    →</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
+                Back
+            </button>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

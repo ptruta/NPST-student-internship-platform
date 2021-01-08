@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Students Internship Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://fonts.googleapis.com/css?family=Lato"
+          rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat"
+          rel="stylesheet" type="text/css"/>
+    <link
+            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen"/>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+
+    <script src="../../static/js/bootstrap.min.js"
+            th:src="@{~/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css"/>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
+    <style type="text/css">
+        #dateRangeForm .form-control-feedback {
+            top: 0;
+            right: -15px;
+        }
+    </style>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $("#password").prop('required', false);
+            $("#confirmPassword").prop('required', false);
+            disableInputs();
+
+
+            $("#editButton").click(function () {
+                $('#userFormContainer input').prop('readonly', false);
+                $('#bio').prop('readonly', false);
+                $("#saveButton").prop('disabled', false);
+
+            });
+        });
+
+        function disableInputs() {
+            $('#passwordContainer').hide();
+            $('#confirmPasswordContainer').hide();
+            $('#userFormContainer input').prop('readonly', true);
+            $('#gender').attr("disabled", true);
+            $('#bio').prop('readonly', true);
+            $('#dateRangePicker')
+                .datepicker({
+                    format: 'mm/dd/yyyy',
+                    startDate: '01/01/1910',
+                    endDate: '01/31/2010'
+                });
+            var userDTO = [[${userDTO}]];
+            $("#birthDate").datepicker('update', new Date(userDTO.birthDate));
+            $("#saveButton").prop('disabled', true);
+            $("#birthDate").prop('disabled', true);
+            $('#birthDate').datepicker({}).on('show', function (e) {
+                $('.day').click(function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                });
+            });
+        }
+    </script>
+</head>
+
+<body>
+<div th:include="fragments/header :: header"></div>
+<div class="container">
+    <h3 class="text-center">My Account</h3>
+
+    <div class="row">
+        <form action="#" th:action="@{/myAccount}" th:object="${userDTO}" method="post" class="form-horizontal"
+              id="userFormContainer">
+            <div th:include="fragments/userForm :: userForm"></div>
+            <div class="col-md-4 text-center">
+                <button type="submit" class="btn btn-primary btn-lg btn-success pull-right" id="saveButton">Save
+                </button>
+            </div>
+
+        </form>
+        <div class="col-md-4 text-center">
+            <button class="btn btn-primary btn-lg btn-success pull-right" id="editButton">Edit
+            </button>
+        </div>
+        <div class="col-md-4 text-center">
+            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">Back</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

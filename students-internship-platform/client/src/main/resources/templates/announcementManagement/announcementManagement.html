@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Students Internship Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://fonts.googleapis.com/css?family=Lato"
+          rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat"
+          rel="stylesheet" type="text/css"/>
+    <link
+            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen"/>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+
+    <script src="../../static/js/bootstrap.min.js"
+            th:src="@{~/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+
+</head>
+
+<body>
+<div th:include="fragments/header :: header"></div>
+<div class="container table-responsive">
+    <h2 class="text-center">Announcement Management</h2>
+    <br/>
+    <br/>
+    <div sec:authorize="hasAuthority('ADMIN')" class="row">
+        <div class="form-group col-md-12" id="searchAnnouncementContainer">
+            <label class="control-label col-sm-4" for="announcementSearch">Search Announcement:</label>
+            <form action="#" th:action="@{/announcementManagement/searchAnnouncement}"
+                  th:object="${announcementSearch}" method="post" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <input type="text" id="announcementSearch" th:value="${announcementSearch}" name="announcementSearch"
+                           autofocus="autofocus"
+                           placeholder="search"
+                           th:required="required" class="form-control"/>
+                </div>
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary btn-md btn-success ">
+                        Search Announcement
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <!--<th>Id</th>-->
+            <th>Title</th>
+            <th>Description</th>
+            <th>Technologies</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Deadline</th>
+            <th style="text-align: center">Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="announcement:${announcements}">
+        <tr>
+            <!--<td th:text="${announcement.id}"></td>-->
+            <td th:text="${announcement.title}"></td>
+            <td th:text="${announcement.description}"></td>
+            <td th:text="${announcement.technologies}"></td>
+            <td th:text="${announcement.startDate}"></td>
+            <td th:text="${announcement.endDate}"></td>
+            <td th:text="${announcement.deadline}"></td>
+            <td sec:authorize="hasAuthority('STUDENT')">
+                <form class="col-md-4" method="POST"
+                      th:action="@{/announcementManagement/apply/{announcementId}(announcementId=${announcement.id})}"
+                      style="height: 50%;width: 50%;">
+                    <button type="submit" name="submit" value="value"><img
+                            src="../../static/images/action/Apply-Now-Button.png" width="1000px" height="1000px"
+                            class="img-rounded img-responsive"
+                            th:src="@{../images/action/Apply-Now-Button.png}"/></button>
+                </form>
+            </td>
+            <td sec:authorize="hasAnyAuthority('ADMIN','COMPANY')">
+                <form class="col-md-4" method="GET"
+                      th:action="@{/announcementManagement/announcementInfo/{id}(id=${announcement.id})}"
+                      style="height: 50%;width: 50%;">
+                    <button type="submit" name="submit" value="value"><img
+                            src="../../static/images/action/edit.png" width="100px" height="100px"
+                            class="img-rounded img-responsive"
+                            th:src="@{../images/action/edit.png}"/></button>
+                </form>
+                <form class="col-md-4" method="POST"
+                      th:action="@{/announcementManagement/delete/{id}(id=${announcement.id})}"
+                      style="height: 50%;width: 50%;"
+                      id="deleteRoomForm">
+                    <button type="submit" th:type="submit" value="value"><img
+                            src="../../static/images/action/delete.png" width="100px" height="100px"
+                            class="img-rounded img-responsive"
+                            th:src="@{../images/action/delete.png}"/>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="table-pagination">
+        <ul class="pagination">
+            <div class="table-pagination">
+                <ul class="pagination">
+                    <li th:class="${page.firstPage}?'disabled':''">
+                        <span th:if='${page.firstPage}'>← First</span>
+                        <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>← First</a>
+                    </li>
+                    <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                        <span th:if='${not page.hasPreviousPage}'>«</span>
+                        <a th:if='${page.hasPreviousPage}'
+                           th:href='@{${page.url}(page=${page.number-2},size=${page.size})}'
+                           title='Go to previous page'>«</a>
+                    </li>
+                    <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                        <span th:if='${item.current}' th:text='${item.number}'>1</span>
+                        <a th:if='${not item.current}'
+                           th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span
+                                th:text='${item.number}'>1</span></a>
+                    </li>
+                    <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                        <span th:if='${not page.hasNextPage}'>»</span>
+                        <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}'
+                           title='Go to next page'>»</a>
+                    </li>
+                    <li th:class="${page.lastPage}? 'disabled' : ''">
+                        <span th:if='${page.lastPage}'>Last →</span>
+                        <a th:if='${not page.lastPage}'
+                           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last →</a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+    </div>
+    <div class="row">
+        <div sec:authorize="hasAnyAuthority('ADMIN','COMPANY')" class="col-md-6 text-center">
+            <button class="btn btn-primary btn-lg btn-success " onclick="location.href='/announcementManagement/addAnnouncement'">Add
+                Announcement
+            </button>
+        </div>
+        <div class="col-md-6 text-center">
+            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
+                Back
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

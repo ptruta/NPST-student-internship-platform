@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Students Internship Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+    <link
+            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen"/>
+    <link href="http://fonts.googleapis.com/css?family=Lato"
+          rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat"
+          rel="stylesheet" type="text/css"/>
+    <script src="../static/css/js/bootstrap.min.js"
+            th:src="@{~/js/bootstrap.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+</head>
+
+<body style="height: 100vh">
+<div th:include="fragments/header :: header">&nbsp;</div>
+
+<div id="band" class="container text-center" style="height:90%">
+    <h2>SUCCESS!</h2>
+
+    <div>
+        <h3>Your account has been created!</h3>
+    </div>
+    <div class="text-center">
+        An email has been sent to you with detailed instructions on how to activate it.
+    </div>
+
+    <div class="col-sm-12">
+        <br></br>
+        <a href="/"> <img
+                src="../../static/images/success.jpg"
+                th:src="@{images/success.jpg}" class="person" style="width: 100%"/>
+        </a>
+    </div>
+</div>
+
+<footer class="text-center">
+    <h3>
+        <a class="up-arrow" href="/" data-toggle="tooltip"
+           title="Home"> <span class="glyphicon glyphicon-home"> </span> Go back home
+        </a>
+    </h3>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Students Internship Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://fonts.googleapis.com/css?family=Lato"
+          rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat"
+          rel="stylesheet" type="text/css"/>
+    <link
+            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen"/>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+
+    <script src="../../static/js/bootstrap.min.js"
+            th:src="@{~/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css"/>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
+    <style type="text/css">
+        #dateRangeForm .form-control-feedback {
+            top: 0;
+            right: -15px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('#startDateRangePicker')
+                .datepicker({
+                    format: 'mm/dd/yyyy',
+                    startDate: '01/01/2018',
+                    endDate: '01/31/2030'
+                });
+            $('#endDateRangePicker')
+                .datepicker({
+                    format: 'mm/dd/yyyy',
+                    startDate: '01/01/2018',
+                    endDate: '01/31/2030'
+                })
+        });
+    </script>
+</head>
+
+<body>
+<div th:include="fragments/header :: header"></div>
+<div class="container">
+    <h3 class="text-center">Add New Announcement</h3>
+
+    <div class="row">
+        <form action="#" th:action="@{/announcementManagement/addAnnouncement}" th:object="${announcementDTO}" method="post"
+              class="form-horizontal"
+              id="announcementFormContainer">
+
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementName">Title:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementName" th:value="${title}" th:field="*{title}" name="announcementName"
+                               placeholder="Your announcement title here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="description">Description:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="description" th:value="${description}" th:field="*{description}" name="description"
+                               placeholder="Your announcement description here"
+                        th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="technologies">Technologies:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="technologies" th:value="${technologies}" th:field="*{technologies}" name="technologies"
+                               placeholder="Your technologies here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group" id="startDateContainer">
+                    <label class="control-label col-sm-2" for="startDate">Start Date:</label>
+                    <div class="input-group input-append date col-sm-10" id="startDateRangePicker"
+                         style="padding-right: 15px;padding-left: 15px">
+                        <input type="text" class="form-control" name="startDate" id="startDate" th:value="${startDate}"
+                               th:field="*{startDate}"
+                               th:required="required"/>
+                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </div>
+                <div class="form-group" id="endDateContainer">
+                    <label class="control-label col-sm-2" for="endDate">End Date:</label>
+                    <div class="input-group input-append date col-sm-10" id="endDateRangePicker"
+                         style="padding-right: 15px;padding-left: 15px">
+                        <input type="text" class="form-control" name="endDate" id="endDate" th:value="${endDate}"
+                               th:field="*{endDate}"
+                               th:required="required"/>
+                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <input type="submit" class="btn btn-primary btn-lg btn-success" id="saveButton" value="Add"/>
+            </div>
+
+        </form>
+        <div class="col-md-6 text-center">
+            <button class="btn btn-primary btn-lg btn-success pull-right"
+                    onclick="location.href='/announcementManagement/'">Back
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

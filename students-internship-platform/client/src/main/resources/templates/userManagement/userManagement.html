@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Students Internship Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://fonts.googleapis.com/css?family=Lato"
+          rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat"
+          rel="stylesheet" type="text/css"/>
+    <link
+            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen"/>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+
+    <script src="../../static/js/bootstrap.min.js"
+            th:src="@{~/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+
+    <script th:inline="javascript">
+        function getUsers(announcementId) {
+            console.log(announcementId);
+            document.getElementById("announcementsForm").submit();
+        }
+    </script>
+
+</head>
+
+<body>
+<div th:include="fragments/header :: header"></div>
+<div class="container table-responsive">
+    <h2 class="text-center">User Management</h2>
+
+    <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
+        <label class="control-label col-sm-8" for="announcementSearch">Search all users by announcements:</label>
+        <div class="col-md-4" th:object="${announcement}">
+            <form action="#" th:action="@{/userManagement}" th:object="${searchOption}"
+                  th:method="POST" id="announcementsForm">
+
+                <select class="form-control col-sm-8" data-style="btn-primary" style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;" id="announcementSearch"
+                        name="announcementSearch"
+                        th:field="*{announcementId}">
+                    <option th:value="0"
+                            th:text="All"
+                            th:onclick="'javascript:getUsers(\''+ 0 +'\');'"></option>
+                    <option th:each="announcement : ${announcements} "
+                            th:value="${announcement.id}"
+                            th:text="${announcement.title}"
+                            th:onclick="'javascript:getUsers(\''+ ${announcement.id} +'\');'"></option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Birth Date</th>
+            <th>Registration Date</th>
+            <th style="text-align: right">Action</th>
+        </tr>
+        </thead>
+        <tbody th:each="user:${users}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.birthDate}"></td>
+            <td th:text="${user.registrationDate}"></td>
+            <td>
+            </td>
+            <td>
+                <form class="col-md-4" method="GET"
+                      th:action="@{/userManagement/edit/{id}(id=${user.id})}"
+                      style="height: 50%;width: 50%;">
+                    <button type="submit" name="submit" value="value"><img
+                            src="../../static/images/action/edit.png" width="1000px" height="1000px"
+                            class="img-rounded img-responsive"
+                            th:src="@{../images/action/edit.png}"/></button>
+                </form>
+
+                <form class="col-md-4" method="POST"
+                      th:action="@{/userManagement/delete/{id}(id=${user.id})}"
+                      style="height: 50%;width: 50%;">
+                    <button type="submit" name="submit" value="value"><img
+                            src="../../static/images/action/delete.png" width="1000px" height="1000px"
+                            class="img-rounded img-responsive"
+                            th:src="@{../images/action/delete.png}"/></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="table-pagination">
+        <ul class="pagination">
+            <div class="table-pagination">
+                <ul class="pagination">
+                    <li th:class="${page.firstPage}?'disabled':''">
+                        <span th:if='${page.firstPage}'>← First</span>
+                        <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>← First</a>
+                    </li>
+                    <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                        <span th:if='${not page.hasPreviousPage}'>«</span>
+                        <a th:if='${page.hasPreviousPage}'
+                           th:href='@{${page.url}(page=${page.number-2},size=${page.size})}'
+                           title='Go to previous page'>«</a>
+                    </li>
+                    <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                        <span th:if='${item.current}' th:text='${item.number}'>1</span>
+                        <a th:if='${not item.current}'
+                           th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span
+                                th:text='${item.number}'>1</span></a>
+                    </li>
+                    <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                        <span th:if='${not page.hasNextPage}'>»</span>
+                        <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}'
+                           title='Go to next page'>»</a>
+                    </li>
+                    <li th:class="${page.lastPage}? 'disabled' : ''">
+                        <span th:if='${page.lastPage}'>Last →</span>
+                        <a th:if='${not page.lastPage}'
+                           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last →</a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <button class="btn btn-primary btn-lg btn-success pull-right" id="addUserButton"
+                    onclick="location.href='/userManagement/addAccount'">Add Account
+            </button>
+        </div>
+        <div class="col-md-4 text-center"></div>
+        <div class="col-md-4 text-center">
+            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">Back</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

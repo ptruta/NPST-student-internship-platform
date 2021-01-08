@@ -1,0 +1,1 @@
+# NPST-student-internship-platform
