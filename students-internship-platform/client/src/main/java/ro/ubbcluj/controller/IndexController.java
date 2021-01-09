@@ -138,7 +138,7 @@ public class IndexController {
             return "/emailError";
 
         } else {
-            emailService.sendEmail(userAuthenticationDTO.getEmail(), ANNOUNCEMENT_EMAIL, SUBJECT, TEXT);
+           // emailService.sendEmail(userAuthenticationDTO.getEmail(), ANNOUNCEMENT_EMAIL, SUBJECT, TEXT);
             userAuthenticationDTO.setPassword(bCryptPasswordEncoder.encode(userAuthenticationDTO.getPassword()));
             userAuthenticationDTO.setRole(RoleEnum.APPLICANT);
             userAuthenticationDTO.setRegistrationDate(new Date());
