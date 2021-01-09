@@ -20,5 +20,4 @@ public interface InternshipAnnouncementRepository extends JpaRepository<Internsh
     Page<InternshipAnnouncement> findByAvailabilityAndUserAuthenticationAccountUsername(boolean b, String username, Pageable pageable);
 
     InternshipAnnouncement findByUserAuthenticationAccountUsername(String username);
-
 }

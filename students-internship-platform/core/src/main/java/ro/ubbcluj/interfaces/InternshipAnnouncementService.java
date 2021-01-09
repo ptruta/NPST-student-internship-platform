@@ -32,17 +32,13 @@ public interface InternshipAnnouncementService {
 
     void applyForAnnouncement(String username, Long announcementId);
 
-//    Page<InternshipAnnouncementDTO> findAnnouncementsByLocation(String location, Pageable pageable);
-//
-//    Page<InternshipAnnouncementDTO> findAnnouncementsByPostingDate(Date postingDate, Pageable pageable);
 
-//    Page<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
-//                                                                Date postingDate,
-//                                                                Date startingDate,
-//                                                                Date endDate,
-//                                                                String domains,
-//                                                                boolean paidOrNot,
-//                                                                String duration,
-//                                                                String workingTime,
-//                                                                Pageable pageable);
+    List<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
+                                                                Date postingDate,
+                                                                Date startingDate,
+                                                                Date endDate,
+                                                                String domains,
+                                                                boolean paidOrNot,
+                                                                String duration,
+                                                                String workingTime);
 }

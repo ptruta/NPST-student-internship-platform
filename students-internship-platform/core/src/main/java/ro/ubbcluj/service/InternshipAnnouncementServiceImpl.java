@@ -15,6 +15,7 @@ import ro.ubbcluj.repository.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ro.ubbcluj.util.ValidationUtil.notNull;
 
@@ -225,30 +226,41 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         return (InternshipAnnouncementConverter.convertToDTOPage(internshipAnnouncementRepository.findByTitle(name, pageable)));
     }
 
-//    @Override
-//    public Page<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
-//                                                                       Date postingDate,
-//                                                                       Date startingDate,
-//                                                                       Date endDate,
-//                                                                       String domains,
-//                                                                       boolean paidOrNot,
-//                                                                       String duration,
-//                                                                       String workingTime,
-//                                                                       Pageable pageable) {
-//        notNull(location);
-//        notNull(postingDate);
-//        notNull(startingDate);
-//        notNull(endDate);
-//        notNull(domains);
-//        notNull(paidOrNot);
-//        notNull(duration);
-//        notNull(workingTime);
-//
-//        Page<InternshipAnnouncement> internshipAnnouncements = internshipAnnouncementRepository
-//                .findAll(pageable)
-//
-//        notNull(announcements);
-//
-//        return InternshipAnnouncementConverter.convertToDTOPage(announcements);
+    @Override
+    public List<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
+                                                                       Date postingDate,
+                                                                       Date startingDate,
+                                                                       Date endDate,
+                                                                       String domains,
+                                                                       boolean paidOrNot,
+                                                                       String duration,
+                                                                       String workingTime) {
+        notNull(location);
+        notNull(postingDate);
+        notNull(startingDate);
+        notNull(endDate);
+        notNull(domains);
+        notNull(paidOrNot);
+        notNull(duration);
+        notNull(workingTime);
+
+        List<InternshipAnnouncement> announcements = internshipAnnouncementRepository
+                .findAll()
+                .stream()
+                .filter(internshipAnnouncement -> internshipAnnouncement.getLocation().equals(location))
+                .filter(internshipAnnouncement -> internshipAnnouncement.getPostingDate().equals(postingDate))
+                .filter(internshipAnnouncement -> internshipAnnouncement.getEndDate().equals(endDate))
+                .filter(internshipAnnouncement -> internshipAnnouncement.getStartDate().equals(startingDate))
+                .filter(internshipAnnouncement -> internshipAnnouncement.getDomains().equals(domains))
+                .filter(internshipAnnouncement -> internshipAnnouncement.isPaidOrNot() == paidOrNot)
+                .filter(internshipAnnouncement -> internshipAnnouncement.getDuration().equals(duration))
+                .filter(internshipAnnouncement -> internshipAnnouncement.getWorkingTime().equals(workingTime))
+                .collect(Collectors.toList());
+
+
+        notNull(announcements);
+
+        return InternshipAnnouncementConverter.convertToDTOList(announcements);
     }
+}
 
