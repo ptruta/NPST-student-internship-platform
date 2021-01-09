@@ -84,13 +84,13 @@ public class ApplicationController {
 
         RoleEnum userRole = userAuthenticationService.findByUsername(username).getRole();
 
-//        if (userRole.equals(RoleEnum.ADMIN)) {
-//            applicationDTOPage = applicationService.getApplications(pageable);
-//            model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
-//            model.addAttribute("searchOption", new SearchOption());
-//        }
-
         if (userRole.equals(RoleEnum.RECRUITER)) {
+            applicationDTOPage = applicationService.getApplications(pageable);
+            model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
+            model.addAttribute("searchOption", new SearchOption());
+        }
+
+        if (userRole.equals(RoleEnum.APPLICANT)) {
             applicationDTOPage = applicationService.getApplicationsByUsername(username, pageable);
         }
 

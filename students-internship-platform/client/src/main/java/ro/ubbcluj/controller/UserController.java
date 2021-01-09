@@ -23,6 +23,7 @@ import ro.ubbcluj.pagination.PageWrapper;
 import ro.ubbcluj.utils.Constants;
 import ro.ubbcluj.utils.User;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -97,16 +98,16 @@ public class UserController {
 
         RoleEnum userRole = userAuthenticationService.findByUsername(username).getRole();
 
-//        if (userRole.equals(RoleEnum.ADMIN)) {
-//            userDTOPage = userAuthenticationService.getAvailableUsers(pageable);
-//            model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
-//            model.addAttribute("searchOption", new SearchOption());
-//        }
+        if (userRole.equals(RoleEnum.RECRUITER)) {
+            userDTOPage = userAuthenticationService.getAvailableUsers(pageable);
+            model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
+            model.addAttribute("searchOption", new SearchOption());
+        }
 
         if (userRole.equals(RoleEnum.RECRUITER)) {
             // TODO: list of Long instead of Long
-            Long announcementId = internshipAnnouncementService.findAnnouncementIdByManager(username);
-            userDTOPage = userAuthenticationService.getUsersByAnnouncement(announcementId, pageable);
+            List<Long> announcementIdByManagers = Collections.singletonList(internshipAnnouncementService.findAnnouncementIdByManager(username));
+            userDTOPage = userAuthenticationService.getUsersByAnnouncement(announcementIdByManagers.get(0), pageable);
         }
 
         page = new PageWrapper<>(userDTOPage, "userManagement");

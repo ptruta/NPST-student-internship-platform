@@ -29,4 +29,6 @@ public interface InternshipAnnouncementService {
     Long findAnnouncementIdByManager(String username);
 
     void applyForAnnouncement(String username, Long announcementId);
+
+    
 }
