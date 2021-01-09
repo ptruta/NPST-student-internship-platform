@@ -164,6 +164,7 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         applicationRepository.save(application);
     }
 
+
     /**
      * Method updates announcement info
      *
@@ -224,4 +225,30 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         return (InternshipAnnouncementConverter.convertToDTOPage(internshipAnnouncementRepository.findByTitle(name, pageable)));
     }
 
-}
+//    @Override
+//    public Page<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
+//                                                                       Date postingDate,
+//                                                                       Date startingDate,
+//                                                                       Date endDate,
+//                                                                       String domains,
+//                                                                       boolean paidOrNot,
+//                                                                       String duration,
+//                                                                       String workingTime,
+//                                                                       Pageable pageable) {
+//        notNull(location);
+//        notNull(postingDate);
+//        notNull(startingDate);
+//        notNull(endDate);
+//        notNull(domains);
+//        notNull(paidOrNot);
+//        notNull(duration);
+//        notNull(workingTime);
+//
+//        Page<InternshipAnnouncement> internshipAnnouncements = internshipAnnouncementRepository
+//                .findAll(pageable)
+//
+//        notNull(announcements);
+//
+//        return InternshipAnnouncementConverter.convertToDTOPage(announcements);
+    }
+

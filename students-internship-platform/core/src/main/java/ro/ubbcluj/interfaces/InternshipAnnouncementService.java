@@ -3,7 +3,9 @@ package ro.ubbcluj.interfaces;
 import ro.ubbcluj.dto.InternshipAnnouncementDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import ro.ubbcluj.entity.InternshipAnnouncement;
 
+import java.util.Date;
 import java.util.List;
 
 public interface InternshipAnnouncementService {
@@ -30,5 +32,17 @@ public interface InternshipAnnouncementService {
 
     void applyForAnnouncement(String username, Long announcementId);
 
-    
+//    Page<InternshipAnnouncementDTO> findAnnouncementsByLocation(String location, Pageable pageable);
+//
+//    Page<InternshipAnnouncementDTO> findAnnouncementsByPostingDate(Date postingDate, Pageable pageable);
+
+//    Page<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
+//                                                                Date postingDate,
+//                                                                Date startingDate,
+//                                                                Date endDate,
+//                                                                String domains,
+//                                                                boolean paidOrNot,
+//                                                                String duration,
+//                                                                String workingTime,
+//                                                                Pageable pageable);
 }

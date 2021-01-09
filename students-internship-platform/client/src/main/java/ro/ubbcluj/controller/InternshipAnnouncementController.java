@@ -21,6 +21,8 @@ import ro.ubbcluj.utils.ApplicationValidation;
 import ro.ubbcluj.utils.Constants;
 import ro.ubbcluj.utils.User;
 
+import java.util.Date;
+
 /**
  * This class controls the data flow that goes into announcements and updates the view whenever data changes
  */
@@ -152,16 +154,32 @@ public class InternshipAnnouncementController {
     /**
      * Method used to search announcements by title.
      *
-     * @param announcementSearch
+     * @param announcementSearch1
      * @param pageable
      * @param redirectAttributes
      * @return
      */
     @RequestMapping(value = "/announcementManagement/searchAnnouncement", method = RequestMethod.POST)
-    public String searchAnnouncement(@ModelAttribute(value = "announcementSearch") String announcementSearch,
+    public String searchAnnouncement(@ModelAttribute(value = "announcementSearch1") String announcementSearch1,
+//                                     @ModelAttribute(value = "announcementSearch2") Date announcementSearch2,
+//                                     @ModelAttribute(value = "announcementSearch3") Date announcementSearch3,
+//                                     @ModelAttribute(value = "announcementSearch4") Date announcementSearch4,
+//                                     @ModelAttribute(value = "announcementSearch5") String announcementSearch5,
+//                                     @ModelAttribute(value = "announcementSearch6") boolean announcementSearch6,
+//                                     @ModelAttribute(value = "announcementSearch3") String announcementSearch7,
+//                                     @ModelAttribute(value = "announcementSearch4") String announcementSearch8,
+//                                     @ModelAttribute(value = "announcementSearch5") String announcementSearch9,
                                      final @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable,
                                      RedirectAttributes redirectAttributes) {
-        final Page<InternshipAnnouncementDTO> announcementDTOPage = internshipAnnouncementService.findAnnouncementsByName(announcementSearch, pageable);
+        final Page<InternshipAnnouncementDTO> announcementDTOPage = internshipAnnouncementService.findAnnouncementsByName(announcementSearch1, pageable);
+//        final Page<InternshipAnnouncementDTO> announcementDTOPage2 = internshipAnnouncementService.findAnnouncementsByEndDate(announcementSearch3, pageable);
+//        final Page<InternshipAnnouncementDTO> announcementDTOPage3 = internshipAnnouncementService.findAnnouncementsByPostingDate(announcementSearch4, pageable);
+//        final Page<InternshipAnnouncementDTO> announcementDTOPage4 = internshipAnnouncementService.findAnnouncementsByDomains(announcementSearch5, pageable);
+//        final Page<InternshipAnnouncementDTO> announcementDTOPage5 = internshipAnnouncementService.findAnnouncementsByPaidOrNot(announcementSearch6, pageable);
+//        final Page<InternshipAnnouncementDTO> announcementDTOPage6 = internshipAnnouncementService.findAnnouncementsByDuration(announcementSearch7, pageable);
+//        final Page<InternshipAnnouncementDTO> announcementDTOPage7 = internshipAnnouncementService.findAnnouncementsByWorkingTime(announcementSearch8, pageable);
+//        final Page<InternshipAnnouncementDTO> announcementDTOPage8 = internshipAnnouncementService.findAnnouncementsByDuration(announcementSearch9, pageable);
+
         final PageWrapper<InternshipAnnouncementDTO> page = new PageWrapper<>(announcementDTOPage, "/announcementManagement/announcementSearch");
         redirectAttributes.addFlashAttribute("announcements", announcementDTOPage);
         redirectAttributes.addFlashAttribute("page", page);
