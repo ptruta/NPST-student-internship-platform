@@ -57,7 +57,7 @@
     <h3 class="text-center">Add New Announcement</h3>
 
     <div class="row">
-        <form action="#" th:action="@{/announcementManagement/addAnnouncement}" th:object="${announcementDTO}" method="post"
+        <form action="#" th:action="@{/announcementManagement/addAnnouncement}" th:object="${internshipAnnouncementDTO}" method="post"
               class="form-horizontal"
               id="announcementFormContainer">
 
@@ -66,7 +66,7 @@
                     <label class="control-label col-sm-2" for="announcementName">Title:</label>
                     <div class="col-sm-10">
                         <input type="text" id="announcementName" th:value="${title}" th:field="*{title}" name="announcementName"
-                               placeholder="Your announcement title here"
+                               placeholder="Your internshipAnnouncement title here"
                                th:required="required" class="form-control"/>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     <label class="control-label col-sm-2" for="description">Description:</label>
                     <div class="col-sm-10">
                         <input type="text" id="description" th:value="${description}" th:field="*{description}" name="description"
-                               placeholder="Your announcement description here"
+                               placeholder="Your internshipAnnouncement description here"
                         th:required="required" class="form-control"/>
                     </div>
                 </div>

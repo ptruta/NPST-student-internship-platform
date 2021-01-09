@@ -28,7 +28,7 @@ public class Role {
     private RoleEnum role;
 
     @OneToMany(mappedBy = "role")
-    private List<Person> person;
+    private List<UserAuthentication> userAuthentications;
 
     /**
      * Constructor.

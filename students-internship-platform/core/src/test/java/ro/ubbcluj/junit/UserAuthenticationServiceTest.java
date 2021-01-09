@@ -5,19 +5,18 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import ro.ubbcluj.dto.UserDTO;
+import ro.ubbcluj.dto.UserAuthenticationDTO;
 import ro.ubbcluj.entity.Account;
-import ro.ubbcluj.entity.Announcement;
-import ro.ubbcluj.entity.Person;
+import ro.ubbcluj.entity.InternshipAnnouncement;
 import ro.ubbcluj.entity.Role;
-import ro.ubbcluj.enums.GenderEnum;
+import ro.ubbcluj.entity.UserAuthentication;
 import ro.ubbcluj.enums.RoleEnum;
-import ro.ubbcluj.interfaces.UserService;
+import ro.ubbcluj.interfaces.UserAuthenticationService;
 import ro.ubbcluj.repository.AccountRepository;
-import ro.ubbcluj.repository.AnnouncementRepository;
-import ro.ubbcluj.repository.PersonRepository;
+import ro.ubbcluj.repository.InternshipAnnouncementRepository;
 import ro.ubbcluj.repository.RoleRepository;
-import ro.ubbcluj.service.UserServiceImpl;
+import ro.ubbcluj.repository.UserAuthenticationRepository;
+import ro.ubbcluj.service.UserAuthenticationServiceImpl;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +30,7 @@ import static org.mockito.Mockito.when;
  * This class contains junit tests for User Service
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
+public class UserAuthenticationServiceTest {
 
     private static final String USERNAME = "user";
     private static final String USERNAME1 = "user1";
@@ -48,13 +47,11 @@ public class UserServiceTest {
     private static final long ID = 1L;
     private static final long ID1 = 2L;
     @InjectMocks
-    private static final UserService userService = new UserServiceImpl();
+    private static final UserAuthenticationService USER_AUTHENTICATION_SERVICE = new UserAuthenticationServiceImpl();
     @Mock
     private static AccountRepository accountRepository;
     @Mock
-    private static PersonRepository personRepository;
-    @Mock
-    private static AnnouncementRepository announcementRepository;
+    private static InternshipAnnouncementRepository internshipAnnouncementRepository;
     @Mock
     private static RoleRepository roleRepository;
 
@@ -65,25 +62,22 @@ public class UserServiceTest {
      */
     private static List<Account> createAccounts() {
 
-        Announcement announcement = Announcement.builder()
+        InternshipAnnouncement internshipAnnouncement = InternshipAnnouncement.builder()
                 .title(ANNOUNCEMENT_TITLE)
-                .technologies(ANNOUNCEMENT_TECHNOLOGIES)
                 .build();
 
-        Person person = Person.builder()
+        UserAuthentication person = UserAuthentication.builder()
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
-                .birthDate(new Date())
                 .email(EMAIL)
-                .gender(GenderEnum.FEMALE)
-                .role(new Role(RoleEnum.COMPANY))
-                .announcements(Collections.singletonList(announcement))
+                .role(new Role(RoleEnum.RECRUITER))
+                .internshipAnnouncements(Collections.singletonList(internshipAnnouncement))
                 .build();
 
         Account account = Account.builder()
                 .id(ID)
                 .username(USERNAME)
-                .person(person)
+                .userAuthentication(person)
                 .active(true)
                 .registrationDate(new Date())
                 .build();
@@ -91,7 +85,7 @@ public class UserServiceTest {
         Account account1 = Account.builder()
                 .id(ID1)
                 .username(USERNAME)
-                .person(person)
+                .userAuthentication(person)
                 .active(true)
                 .registrationDate(new Date())
                 .build();
@@ -110,12 +104,12 @@ public class UserServiceTest {
                 .thenReturn(accounts);
 
         // call
-        List<UserDTO> userDTOList = userService.getUsers();
+        List<UserAuthenticationDTO> userAuthenticationDTOList = USER_AUTHENTICATION_SERVICE.getUsers();
 
         // then
-        assertNotNull(userDTOList);
-        assertEquals(accounts.size(), userDTOList.size());
-        assertEquals(accounts.get(0).getPerson().getFirstName(), userDTOList.get(0).getFirstName());
+        assertNotNull(userAuthenticationDTOList);
+        assertEquals(accounts.size(), userAuthenticationDTOList.size());
+        assertEquals(accounts.get(0).getUserAuthentication().getFirstName(), userAuthenticationDTOList.get(0).getFirstName());
     }
 
     @Test
@@ -127,70 +121,66 @@ public class UserServiceTest {
         when(accountRepository.findAllByActive(true)).thenReturn(accounts);
 
         // call
-        List<UserDTO> userDTOList = userService.getAvailableUsers();
+        List<UserAuthenticationDTO> userAuthenticationDTOList = USER_AUTHENTICATION_SERVICE.getAvailableUsers();
 
         // then
-        assertNotNull(userDTOList);
-        assertEquals(accounts.size(), userDTOList.size());
+        assertNotNull(userAuthenticationDTOList);
+        assertEquals(accounts.size(), userAuthenticationDTOList.size());
         assertEquals(accounts.get(0).isActive(), true);
     }
 
     @Test
     public void testCreateUser() {
 
-        UserDTO userDTO = UserDTO.builder()
+        UserAuthenticationDTO userAuthenticationDTO = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME)
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .email(EMAIL)
                 .announcement(ID)
-                .role(RoleEnum.COMPANY)
-                .birthDate(new Date())
-                .gender(GenderEnum.FEMALE)
+                .role(RoleEnum.RECRUITER)
                 .registrationDate(new Date())
-                .active(true)
+                .availability(true)
                 .build();
 
         //when
         when(accountRepository.findOne(ID)).thenReturn(createAccounts().get(0));
-        userService.createUser(userDTO);
+        USER_AUTHENTICATION_SERVICE.createUser(userAuthenticationDTO);
 
         //call
-        UserDTO expectedUserDTO = userService.getById(ID);
+        UserAuthenticationDTO expectedUserAuthenticationDTO = USER_AUTHENTICATION_SERVICE.getById(ID);
 
         //then
-        assertEquals(expectedUserDTO.getId(), userDTO.getId());
+        assertEquals(expectedUserAuthenticationDTO.getId(), userAuthenticationDTO.getId());
     }
 
     @Test
     public void testDeleteUser() {
 
-        UserDTO userDTO = UserDTO.builder()
+        UserAuthenticationDTO userAuthenticationDTO = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME)
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .email(EMAIL)
                 .announcement(ID)
-                .role(RoleEnum.COMPANY)
-                .birthDate(new Date())
-                .gender(GenderEnum.FEMALE)
+                .role(RoleEnum.RECRUITER)
                 .registrationDate(new Date())
-                .active(true)
+                .availability(true)
                 .build();
 
         //when
         when(accountRepository.findOne(ID)).thenReturn(createAccounts().get(0));
-        userService.createUser(userDTO);
+        USER_AUTHENTICATION_SERVICE.createUser(userAuthenticationDTO);
 
-        userService.deleteUser(userDTO.getId());
+        USER_AUTHENTICATION_SERVICE.deleteUser(userAuthenticationDTO.getId());
 
         //call
-        UserDTO expectedUserDTO = userService.getById(ID);
+        UserAuthenticationDTO expectedUserAuthenticationDTO = USER_AUTHENTICATION_SERVICE.getById(ID);
 
         //then
-        assertEquals(expectedUserDTO.isActive(), false);
+        assertEquals(expectedUserAuthenticationDTO.isAvailability(), false);
 
     }
 
@@ -198,18 +188,16 @@ public class UserServiceTest {
     public void testGetUsersByAnnouncement() {
         //given
         List<Account> accounts = createAccounts();
-        UserDTO userDTO = UserDTO.builder()
+        UserAuthenticationDTO userAuthenticationDTO = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME)
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .email(EMAIL)
                 .announcement(ID)
-                .role(RoleEnum.COMPANY)
-                .birthDate(new Date())
-                .gender(GenderEnum.FEMALE)
+                .role(RoleEnum.RECRUITER)
                 .registrationDate(new Date())
-                .active(true)
+                .availability(true)
                 .build();
 
         //when
@@ -217,90 +205,82 @@ public class UserServiceTest {
                 .thenReturn(accounts);
 
         // call
-        List<UserDTO> userDTOList = userService.getUsersByAnnouncement(ID);
+        List<UserAuthenticationDTO> userAuthenticationDTOList = USER_AUTHENTICATION_SERVICE.getUsersByAnnouncement(ID);
 
         // then
-        assertNotNull(userDTOList);
-        assertNotEquals(accounts.size(), userDTOList.size());
+        assertNotNull(userAuthenticationDTOList);
+        assertNotEquals(accounts.size(), userAuthenticationDTOList.size());
     }
 
     @Test
     public void testEditUser() {
 
-        UserDTO userDTO = UserDTO.builder()
+        UserAuthenticationDTO userAuthenticationDTO = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME)
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .email(EMAIL)
                 .announcement(ID)
-                .role(RoleEnum.COMPANY)
-                .birthDate(new Date())
-                .gender(GenderEnum.FEMALE)
+                .role(RoleEnum.RECRUITER)
                 .registrationDate(new Date())
-                .active(true)
+                .availability(true)
                 .build();
 
-        UserDTO userDTO1 = UserDTO.builder()
+        UserAuthenticationDTO userAuthenticationDTO1 = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME1)
-                .role(RoleEnum.ADMIN)
+                .role(RoleEnum.RECRUITER)
                 .build();
 
         //when
         when(accountRepository.findOne(ID)).thenReturn(createAccounts().get(0));
-        userService.createUser(userDTO);
-        userService.editUser(userDTO1);
+        USER_AUTHENTICATION_SERVICE.createUser(userAuthenticationDTO);
+        USER_AUTHENTICATION_SERVICE.editUser(userAuthenticationDTO1);
 
         //call
-        UserDTO expectedUserDTO = userService.getById(ID);
+        UserAuthenticationDTO expectedUserAuthenticationDTO = USER_AUTHENTICATION_SERVICE.getById(ID);
 
         //then
-        assertEquals(expectedUserDTO.getUsername(), USERNAME1);
-        assertEquals(expectedUserDTO.getRole(), RoleEnum.ADMIN);
+        assertEquals(expectedUserAuthenticationDTO.getUsername(), USERNAME1);
     }
 
     @Test
     public void testUpdateAccount() {
 
-        UserDTO userDTO = UserDTO.builder()
+        UserAuthenticationDTO userAuthenticationDTO = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME)
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .email(EMAIL)
-                .address(ADDRESS)
                 .announcement(ID)
-                .role(RoleEnum.STUDENT)
-                .birthDate(new Date())
-                .gender(GenderEnum.FEMALE)
+                .role(RoleEnum.APPLICANT)
                 .registrationDate(new Date())
-                .active(true)
+                .availability(true)
                 .build();
 
-        UserDTO userDTO1 = UserDTO.builder()
+        UserAuthenticationDTO userAuthenticationDTO1 = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME1)
                 .firstName(FIRST_NAME1)
                 .lastName(LAST_NAME1)
                 .email(EMAIL1)
-                .address(ADDRESS1)
                 .build();
 
         //when
         when(accountRepository.findOne(ID)).thenReturn(createAccounts().get(0));
-        userService.createUser(userDTO);
-        userService.updateAccount(userDTO1);
+        USER_AUTHENTICATION_SERVICE.createUser(userAuthenticationDTO);
+        USER_AUTHENTICATION_SERVICE.updateAccount(userAuthenticationDTO1);
 
         //call
-        UserDTO expectedUserDTO = userService.getById(ID);
+        UserAuthenticationDTO expectedUserAuthenticationDTO = USER_AUTHENTICATION_SERVICE.getById(ID);
 
         //then
-        assertEquals(expectedUserDTO.getUsername(), USERNAME1);
-        assertEquals(expectedUserDTO.getFirstName(), FIRST_NAME1);
-        assertEquals(expectedUserDTO.getLastName(), LAST_NAME1);
-        assertEquals(expectedUserDTO.getEmail(), EMAIL1);
-        assertEquals(expectedUserDTO.getAddress(), ADDRESS1);
+        assertEquals(expectedUserAuthenticationDTO.getUsername(), USERNAME1);
+        assertEquals(expectedUserAuthenticationDTO.getFirstName(), FIRST_NAME1);
+        assertEquals(expectedUserAuthenticationDTO.getLastName(), LAST_NAME1);
+        assertEquals(expectedUserAuthenticationDTO.getEmail(), EMAIL1);
 
     }
 }

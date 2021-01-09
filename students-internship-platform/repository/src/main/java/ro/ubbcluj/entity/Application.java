@@ -21,19 +21,19 @@ public class Application {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @JoinColumn(name = "user_authentication_id")
+    private UserAuthentication userAuthentication;
 
     @ManyToOne
-    @JoinColumn(name = "announcement_id")
-    private Announcement announcement;
+    @JoinColumn(name = "internship_announcement_id")
+    private InternshipAnnouncement internshipAnnouncement;
 
     /**
      * Constructor.
      *
-     * @param person     (required) the person that application belongs to.
+     * @param userAuthentication     (required) the userAuthentication that application belongs to.
      */
-    public Application(Person person) {
-        this.person = person;
+    public Application(UserAuthentication userAuthentication) {
+        this.userAuthentication = userAuthentication;
     }
 }

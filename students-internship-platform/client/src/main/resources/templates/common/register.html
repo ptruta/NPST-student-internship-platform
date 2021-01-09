@@ -87,7 +87,7 @@
     <h3 class="text-center">Client Registration</h3>
 
     <div class="row">
-        <form action="#" th:action="@{/register}" th:object="${userDTO}" method="post" class="form-horizontal"
+        <form action="#" th:action="@{/register}" th:object="${userAuthenticationDTO}" method="post" class="form-horizontal"
               id="registerFormContainer">
             <div th:include="fragments/userForm :: userForm"></div>
             <button type="submit" class="btn btn-primary btn-lg btn-success">Register

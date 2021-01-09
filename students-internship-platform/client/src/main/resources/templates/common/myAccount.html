@@ -60,8 +60,8 @@
                     startDate: '01/01/1910',
                     endDate: '01/31/2010'
                 });
-            var userDTO = [[${userDTO}]];
-            $("#birthDate").datepicker('update', new Date(userDTO.birthDate));
+            var userAuthenticationDTO = [[${userAuthenticationDTO}]];
+            $("#birthDate").datepicker('update', new Date(userAuthenticationDTO.birthDate));
             $("#saveButton").prop('disabled', true);
             $("#birthDate").prop('disabled', true);
             $('#birthDate').datepicker({}).on('show', function (e) {
@@ -80,7 +80,7 @@
     <h3 class="text-center" style="color:white;">My Account</h3>
 
     <div>
-        <form action="#" th:action="@{/myAccount}" th:object="${userDTO}" method="post" class="form-horizontal"
+        <form action="#" th:action="@{/myAccount}" th:object="${userAuthenticationDTO}" method="post" class="form-horizontal"
               id="userFormContainer">
             <div th:include="fragments/userForm :: userForm"></div>
             <div class="col-md-4 text-center">

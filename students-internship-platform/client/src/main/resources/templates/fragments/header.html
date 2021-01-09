@@ -40,23 +40,23 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li sec:authorize="isAuthenticated()"><a href="/myAccount">My Account</a></li>
-                    <li sec:authorize="hasAuthority('STUDENT')">
+                    <li sec:authorize="hasAuthority('APPLICANT')">
                         <a href="/applications/myApplications">My Applications</a>
                     </li>
 
-                    <li sec:authorize="hasAuthority('ADMIN')">
+                    <li sec:authorize="hasAuthority('RECRUITER')">
                         <a href="/userManagement">User Management</a>
                     </li>
 
-                    <li sec:authorize="hasAnyAuthority('ADMIN','COMPANY','STUDENT')"><a class="dropdown-toggle"
+                    <li sec:authorize="hasAnyAuthority('RECRUITER','APPLICANT')"><a class="dropdown-toggle"
                                                                               data-toggle="dropdown"
                                                                               href="#">Available Internships<span
                             class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li sec:authorize="hasAnyAuthority('ADMIN','COMPANY','STUDENT')">
+                            <li sec:authorize="hasAnyAuthority('RECRUITER','APPLICANT')">
                                 <a href="/announcementManagement">Available Internships</a>
                             </li>
-                            <li sec:authorize="hasAnyAuthority('ADMIN','COMPANY')">
+                            <li sec:authorize="hasAnyAuthority('RECRUITER')">
                                 <a href="/announcementManagement/applicationsManagement">Applications</a>
                             </li>
                         </ul>

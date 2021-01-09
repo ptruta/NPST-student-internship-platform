@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ro.ubbcluj.dto.AnnouncementDTO;
-import ro.ubbcluj.dto.UserDTO;
+import ro.ubbcluj.dto.InternshipAnnouncementDTO;
+import ro.ubbcluj.dto.UserAuthenticationDTO;
 import ro.ubbcluj.enums.RoleEnum;
-import ro.ubbcluj.interfaces.AnnouncementService;
-import ro.ubbcluj.interfaces.UserService;
+import ro.ubbcluj.interfaces.InternshipAnnouncementService;
+import ro.ubbcluj.interfaces.UserAuthenticationService;
 import ro.ubbcluj.model.frontObjects.SearchOption;
 import ro.ubbcluj.pagination.PageWrapper;
 import ro.ubbcluj.utils.Constants;
@@ -34,22 +34,22 @@ public class UserController {
 
     private static final String MY_ACCOUNT_PAGE = "/myAccount";
     private static final String USER_MANAGER_PAGE = "/userManagement";
-    private final UserService userService;
-    private final AnnouncementService announcementService;
+    private final UserAuthenticationService userAuthenticationService;
+    private final InternshipAnnouncementService internshipAnnouncementService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * Controller
      *
-     * @param userService
-     * @param announcementService
+     * @param userAuthenticationService
+     * @param internshipAnnouncementService
      * @param bCryptPasswordEncoder
      */
     @Autowired
-    public UserController(UserService userService, AnnouncementService announcementService,
+    public UserController(UserAuthenticationService userAuthenticationService, InternshipAnnouncementService internshipAnnouncementService,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userService = userService;
-        this.announcementService = announcementService;
+        this.userAuthenticationService = userAuthenticationService;
+        this.internshipAnnouncementService = internshipAnnouncementService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -62,23 +62,23 @@ public class UserController {
     @RequestMapping(value = MY_ACCOUNT_PAGE, method = RequestMethod.GET)
     public String myAccount(Model model) {
         final String username = User.getCurrentUserName();
-        final UserDTO userDTO = userService.findByUsername(username);
-        model.addAttribute("userDTO", userDTO);
+        final UserAuthenticationDTO userAuthenticationDTO = userAuthenticationService.findByUsername(username);
+        model.addAttribute("userAuthenticationDTO", userAuthenticationDTO);
         return "common/" + MY_ACCOUNT_PAGE;
     }
 
     /**
      * Method used to update the user information.
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @param model
      * @return
      */
     @RequestMapping(value = MY_ACCOUNT_PAGE, method = RequestMethod.POST)
-    public String updateAccount(@ModelAttribute(value = "userDTO") UserDTO userDTO, Model model) {
-        userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
-        userService.updateAccount(userDTO);
-        model.addAttribute("userDTO", userDTO);
+    public String updateAccount(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO, Model model) {
+        userAuthenticationDTO.setPassword(bCryptPasswordEncoder.encode(userAuthenticationDTO.getPassword()));
+        userAuthenticationService.updateAccount(userAuthenticationDTO);
+        model.addAttribute("userAuthenticationDTO", userAuthenticationDTO);
         return "common/" + MY_ACCOUNT_PAGE;
     }
 
@@ -92,20 +92,21 @@ public class UserController {
     public String userManagement(Model model, @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable) {
         String username = User.getCurrentUserName();
 
-        PageWrapper<UserDTO> page;
-        Page<UserDTO> userDTOPage = null;
+        PageWrapper<UserAuthenticationDTO> page;
+        Page<UserAuthenticationDTO> userDTOPage = null;
 
-        RoleEnum userRole = userService.findByUsername(username).getRole();
+        RoleEnum userRole = userAuthenticationService.findByUsername(username).getRole();
 
-        if (userRole.equals(RoleEnum.ADMIN)) {
-            userDTOPage = userService.getAvailableUsers(pageable);
-            model.addAttribute("announcements", announcementService.getAllAnnouncements());
-            model.addAttribute("searchOption", new SearchOption());
-        }
+//        if (userRole.equals(RoleEnum.ADMIN)) {
+//            userDTOPage = userAuthenticationService.getAvailableUsers(pageable);
+//            model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
+//            model.addAttribute("searchOption", new SearchOption());
+//        }
 
-        if (userRole.equals(RoleEnum.COMPANY)) {
-            Long announcementId = announcementService.findAnnouncementIdByManager(username);
-            userDTOPage = userService.getUsersByAnnouncement(announcementId, pageable);
+        if (userRole.equals(RoleEnum.RECRUITER)) {
+            // TODO: list of Long instead of Long
+            Long announcementId = internshipAnnouncementService.findAnnouncementIdByManager(username);
+            userDTOPage = userAuthenticationService.getUsersByAnnouncement(announcementId, pageable);
         }
 
         page = new PageWrapper<>(userDTOPage, "userManagement");
@@ -124,21 +125,21 @@ public class UserController {
     @RequestMapping(value = USER_MANAGER_PAGE, method = RequestMethod.POST)
     public String searchByAnnouncement(@ModelAttribute(value = "searchOption") SearchOption searchOption, Model model,
                                        @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable) {
-        PageWrapper<UserDTO> page;
-        Page<UserDTO> userDTOPage;
+        PageWrapper<UserAuthenticationDTO> page;
+        Page<UserAuthenticationDTO> userDTOPage;
 
         if (ObjectUtils.isEmpty(searchOption)
                 || searchOption.getAnnouncementId().equals(Integer.toString(Constants.DEFAULT_OPTION))) {
-            userDTOPage = userService.getAvailableUsers(pageable);
+            userDTOPage = userAuthenticationService.getAvailableUsers(pageable);
             page = new PageWrapper<>(userDTOPage, "userManagement/userManagement");
         } else {
-            userDTOPage = userService.getUsersByAnnouncement(Long.parseLong(searchOption.getAnnouncementId()),
+            userDTOPage = userAuthenticationService.getUsersByAnnouncement(Long.parseLong(searchOption.getAnnouncementId()),
                     pageable);
             page = new PageWrapper<>(userDTOPage, "userManagement/userManagement");
         }
 
         model.addAttribute("users", userDTOPage);
-        model.addAttribute("announcements", announcementService.getAllAnnouncements());
+        model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
         model.addAttribute("page", page);
         model.addAttribute("searchOption", searchOption);
         return "userManagement" + USER_MANAGER_PAGE;
@@ -153,8 +154,8 @@ public class UserController {
      */
     @RequestMapping(value = USER_MANAGER_PAGE + "/delete/{id}", method = RequestMethod.POST)
     public String deleteUser(@PathVariable Long id, Model model) {
-        userService.deleteUser(id);
-        model.addAttribute("users", userService.getAvailableUsers());
+        userAuthenticationService.deleteUser(id);
+        model.addAttribute("users", userAuthenticationService.getAvailableUsers());
         return "redirect:" + USER_MANAGER_PAGE;
     }
 
@@ -165,8 +166,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = USER_MANAGER_PAGE + "/addAccount", method = RequestMethod.GET)
-    public String addAccount(@ModelAttribute(value = "userDTO") UserDTO userDTO, Model model) {
-        final List<AnnouncementDTO> announcements = announcementService.getAllAnnouncements();
+    public String addAccount(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO, Model model) {
+        final List<InternshipAnnouncementDTO> announcements = internshipAnnouncementService.getAllAnnouncements();
         model.addAttribute("announcements", announcements);
         return "userManagement/addAccount";
     }
@@ -174,18 +175,18 @@ public class UserController {
     /**
      * Method used to create a new account for an employee or manager.
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @return
      */
     @RequestMapping(value = USER_MANAGER_PAGE + "/addAccount", method = RequestMethod.POST)
-    public String registerAccount(@ModelAttribute(value = "userDTO") UserDTO userDTO) {
-        if (userService.checkUsername(userDTO.getUsername())) {
+    public String registerAccount(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO) {
+        if (userAuthenticationService.checkUsername(userAuthenticationDTO.getUsername())) {
             return "/usernameError";
-        } else if (userService.checkEmail(userDTO.getEmail())) {
+        } else if (userAuthenticationService.checkEmail(userAuthenticationDTO.getEmail())) {
             return "/emailError";
         } else {
-            userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
-            userService.createUser(userDTO);
+            userAuthenticationDTO.setPassword(bCryptPasswordEncoder.encode(userAuthenticationDTO.getPassword()));
+            userAuthenticationService.createUser(userAuthenticationDTO);
             return "redirect:" + USER_MANAGER_PAGE;
         }
     }
@@ -200,7 +201,7 @@ public class UserController {
 
     @RequestMapping(value = USER_MANAGER_PAGE + "/edit/{id}", method = RequestMethod.GET)
     public String editAccount(@PathVariable Long id, Model model) {
-        model.addAttribute("userDTO", userService.getById(id));
+        model.addAttribute("userAuthenticationDTO", userAuthenticationService.getById(id));
         return "userManagement/editAccount";
     }
 
@@ -210,8 +211,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = USER_MANAGER_PAGE + "/edit", method = RequestMethod.POST)
-    public String editAccount(@ModelAttribute(value = "userDTO") UserDTO userDTO) {
-        userService.editUser(userDTO);
+    public String editAccount(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO) {
+        userAuthenticationService.editUser(userAuthenticationDTO);
         return "redirect:" + USER_MANAGER_PAGE;
     }
 

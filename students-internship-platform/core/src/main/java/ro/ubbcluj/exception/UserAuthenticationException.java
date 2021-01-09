@@ -4,12 +4,12 @@ package ro.ubbcluj.exception;
  * UserException is a class which contains all the
  * exceptions regarding User Management.
  */
-public class UserException extends GenericException {
+public class UserAuthenticationException extends GenericException {
 
     /**
      * Default constructor.
      */
-    public UserException() {
+    public UserAuthenticationException() {
         super();
     }
 
@@ -18,7 +18,7 @@ public class UserException extends GenericException {
      *
      * @param message
      */
-    public UserException(String message) {
+    public UserAuthenticationException(String message) {
         super("User exception: " + message);
     }
 
@@ -28,7 +28,7 @@ public class UserException extends GenericException {
      * @param message
      * @param cause
      */
-    public UserException(String message, Throwable cause) {
+    public UserAuthenticationException(String message, Throwable cause) {
         super("User exception: " + message, cause);
     }
 

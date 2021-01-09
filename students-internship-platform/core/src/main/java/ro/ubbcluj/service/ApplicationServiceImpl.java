@@ -9,9 +9,9 @@ import ro.ubbcluj.converter.ApplicationConverter;
 import ro.ubbcluj.dto.ApplicationDTO;
 import ro.ubbcluj.entity.Application;
 import ro.ubbcluj.interfaces.ApplicationService;
-import ro.ubbcluj.repository.AnnouncementRepository;
+import ro.ubbcluj.repository.InternshipAnnouncementRepository;
 import ro.ubbcluj.repository.ApplicationRepository;
-import ro.ubbcluj.repository.PersonRepository;
+import ro.ubbcluj.repository.UserAuthenticationRepository;
 
 import java.util.List;
 
@@ -27,10 +27,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     private ApplicationRepository applicationRepository;
 
     @Autowired
-    private PersonRepository personRepository;
+    private UserAuthenticationRepository userAuthenticationRepository;
 
     @Autowired
-    private AnnouncementRepository announcementRepository;
+    private InternshipAnnouncementRepository internshipAnnouncementRepository;
 
     /**
      * Method returns all the applications from the repository
@@ -64,7 +64,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     @Transactional(readOnly = true)
     public List<ApplicationDTO> getApplicationsByUsername(String username) {
-        return ApplicationConverter.convertToDTOList(applicationRepository.findAllByPerson_Account_Username(username));
+        return ApplicationConverter.convertToDTOList(applicationRepository.findAllByUserAuthenticationAccountUsername(username));
     }
 
     /**
@@ -79,10 +79,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public Page<ApplicationDTO> getApplicationsByUsername(String username, Pageable pageable) {
         notNull(username);
         notNull(pageable);
-        notNull(applicationRepository.findByAnnouncement_Person_Account_Username(username, pageable));
+        notNull(applicationRepository.findByInternshipAnnouncementUserAuthenticationAccountUsername(username, pageable));
 
         return ApplicationConverter.convertToDTOPage(
-                applicationRepository.findByAnnouncement_Person_Account_Username(username, pageable));
+                applicationRepository.findByInternshipAnnouncementUserAuthenticationAccountUsername(username, pageable));
     }
 
     /**
@@ -95,10 +95,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Transactional(readOnly = true)
     public List<ApplicationDTO> getApplicationsByAnnouncement(Long announcementId) {
         notNull(announcementId);
-        notNull(applicationRepository.findAllByAnnouncement_Id(announcementId));
+        notNull(applicationRepository.findAllByInternshipAnnouncementId(announcementId));
 
         return ApplicationConverter.convertToDTOList(
-                applicationRepository.findAllByAnnouncement_Id(announcementId));
+                applicationRepository.findAllByInternshipAnnouncementId(announcementId));
     }
 
     /**
@@ -113,10 +113,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public Page<ApplicationDTO> getApplicationsByAnnouncement(Long announcementId, Pageable pageable) {
         notNull(announcementId);
         notNull(pageable);
-        notNull(applicationRepository.findAllByAnnouncement_Id(announcementId, pageable));
+        notNull(applicationRepository.findAllByInternshipAnnouncementId(announcementId, pageable));
 
         return ApplicationConverter.convertToDTOPage(
-                applicationRepository.findAllByAnnouncement_Id(announcementId, pageable));
+                applicationRepository.findAllByInternshipAnnouncementId(announcementId, pageable));
     }
 
     /**
@@ -132,13 +132,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         Application application = new Application();
         if (applicationDTO.getUsername() != null) {
-            application.setPerson(personRepository.findByAccount_Username(applicationDTO.getUsername()));
+            application.setUserAuthentication(userAuthenticationRepository.findByAccountUsername(applicationDTO.getUsername()));
         }
         if (applicationDTO.getAnnouncementId() != null) {
-            application.setAnnouncement(announcementRepository.findOne(applicationDTO.getAnnouncementId()));
+            application.setInternshipAnnouncement(internshipAnnouncementRepository.findOne(applicationDTO.getAnnouncementId()));
         }
         if (applicationDTO.getUserId() != null) {
-            application.setPerson(personRepository.findOne(applicationDTO.getUserId()));
+            application.setUserAuthentication(userAuthenticationRepository.findOne(applicationDTO.getUserId()));
         }
         applicationRepository.save(application);
 

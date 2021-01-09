@@ -13,12 +13,12 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ro.ubbcluj.dto.AnnouncementDTO;
+import ro.ubbcluj.dto.InternshipAnnouncementDTO;
 import ro.ubbcluj.dto.ApplicationDTO;
 import ro.ubbcluj.enums.RoleEnum;
-import ro.ubbcluj.interfaces.AnnouncementService;
+import ro.ubbcluj.interfaces.InternshipAnnouncementService;
 import ro.ubbcluj.interfaces.ApplicationService;
-import ro.ubbcluj.interfaces.UserService;
+import ro.ubbcluj.interfaces.UserAuthenticationService;
 import ro.ubbcluj.model.frontObjects.ApplicationOption;
 import ro.ubbcluj.model.frontObjects.SearchOption;
 import ro.ubbcluj.pagination.PageWrapper;
@@ -37,9 +37,9 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
     @Autowired
-    private AnnouncementService announcementService;
+    private InternshipAnnouncementService internshipAnnouncementService;
     @Autowired
-    private UserService userService;
+    private UserAuthenticationService userAuthenticationService;
 
     /**
      * Method used to search applications by announcement.
@@ -63,7 +63,7 @@ public class ApplicationController {
         }
         model.addAttribute("applications", applicationDTOPage);
         model.addAttribute("page", new PageWrapper<>(applicationDTOPage, "announcementManagement/applicationsManagement"));
-        model.addAttribute("announcements", announcementService.getAllAnnouncements());
+        model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
         model.addAttribute("searchOption", searchOption);
         return "announcementManagement/applicationsManagement";
     }
@@ -82,15 +82,15 @@ public class ApplicationController {
         PageWrapper<ApplicationDTO> page;
         Page<ApplicationDTO> applicationDTOPage = null;
 
-        RoleEnum userRole = userService.findByUsername(username).getRole();
+        RoleEnum userRole = userAuthenticationService.findByUsername(username).getRole();
 
-        if (userRole.equals(RoleEnum.ADMIN)) {
-            applicationDTOPage = applicationService.getApplications(pageable);
-            model.addAttribute("announcements", announcementService.getAllAnnouncements());
-            model.addAttribute("searchOption", new SearchOption());
-        }
+//        if (userRole.equals(RoleEnum.ADMIN)) {
+//            applicationDTOPage = applicationService.getApplications(pageable);
+//            model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
+//            model.addAttribute("searchOption", new SearchOption());
+//        }
 
-        if (userRole.equals(RoleEnum.COMPANY)) {
+        if (userRole.equals(RoleEnum.RECRUITER)) {
             applicationDTOPage = applicationService.getApplicationsByUsername(username, pageable);
         }
 
@@ -108,7 +108,7 @@ public class ApplicationController {
      */
     @RequestMapping(value = "/applications/newApplication", method = RequestMethod.GET)
     public String newApplication(Model model) {
-        List<AnnouncementDTO> allAnnouncements = announcementService.getAllAnnouncements();
+        List<InternshipAnnouncementDTO> allAnnouncements = internshipAnnouncementService.getAllAnnouncements();
         model.addAttribute("announcements", allAnnouncements);
         model.addAttribute("applicationOption", new ApplicationOption());
         model.addAttribute("applicationDTO", new ApplicationDTO());

@@ -1,10 +1,8 @@
 package ro.ubbcluj.dto;
 
 import lombok.*;
-import ro.ubbcluj.enums.GenderEnum;
 import ro.ubbcluj.enums.RoleEnum;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,7 +13,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserAuthenticationDTO {
 
     private Long id;
     private String username;
@@ -26,21 +24,22 @@ public class UserDTO {
     private String email;
     private RoleEnum role;
     private Long announcement;
-    private Date birthDate;
-    private GenderEnum gender;
-    private String address;
     private String skills;
-    private String bio;
     private Date registrationDate;
-    private boolean active;
+    private boolean availability;
+    private String status;
+    private String education;
+    private String workHistory;
+    private String volunteerExperience;
+    private String domainsOInterest;
+    private String hobbies;
+    private String contact;
 
     @Override
     public String toString() {
-        SimpleDateFormat ft =
-                new SimpleDateFormat("yy-MM-dd");
         return String.format(
-                "User [Username='%s', First Name='%s', Last Name='%s', Email='%s', Role='%s', Date='%s', Gender='%s']",
-                username, firstName, lastName, email, role, ft.format(birthDate), gender
+                "User [Username='%s', First Name='%s', Last Name='%s', Email='%s', Role='%s']",
+                username, firstName, lastName, email, role
         );
     }
 

@@ -1,3 +1,4 @@
+
 package ro.ubbcluj.entity;
 
 import lombok.*;
@@ -30,8 +31,8 @@ public class Account {
     private boolean active;
 
     @OneToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @JoinColumn(name = "user_authentication_id", referencedColumnName="id")
+    private UserAuthentication userAuthentication;
 
     /**
      * Constructor.
@@ -40,10 +41,10 @@ public class Account {
      * @param password         (required) the password of the account.
      * @param registrationDate (required) the registration date of the account.
      */
-    public Account(String username, String password, Person person, Date registrationDate) {
+    public Account(String username, String password, UserAuthentication userAuthentication, Date registrationDate) {
         this.username = username;
         this.password = password;
-        this.person = person;
+        this.userAuthentication = userAuthentication;
         this.registrationDate = registrationDate;
     }
 

@@ -25,16 +25,16 @@ public class ApplicationConverter {
 
         return ApplicationDTO.builder()
                 .id(application.getId())
-                .personEmail(application.getPerson().getEmail())
-                .announcementId(application.getAnnouncement().getId())
-                .title(application.getAnnouncement().getTitle())
-                .username(application.getPerson().getAccount().getUsername())
-                .personName(application.getPerson().getFirstName() + " " + application.getPerson().getLastName())
-                .userId(application.getPerson().getId())
-                .startDate(application.getAnnouncement().getStartDate())
-                .endDate(application.getAnnouncement().getEndDate())
-                .companyName(application.getAnnouncement().getPerson().getFirstName() + " "
-                        + application.getAnnouncement().getPerson().getLastName())
+                .personEmail(application.getUserAuthentication().getEmail())
+                .announcementId(application.getInternshipAnnouncement().getId())
+                .title(application.getInternshipAnnouncement().getTitle())
+                .username(application.getUserAuthentication().getAccount().getUsername())
+                .personName(application.getUserAuthentication().getFirstName() + " " + application.getUserAuthentication().getLastName())
+                .userId(application.getUserAuthentication().getId())
+                .startDate(application.getInternshipAnnouncement().getStartDate())
+                .endDate(application.getInternshipAnnouncement().getEndDate())
+                .companyName(application.getInternshipAnnouncement().getUserAuthentication().getFirstName() + " "
+                        + application.getInternshipAnnouncement().getUserAuthentication().getLastName())
                 .build();
     }
 

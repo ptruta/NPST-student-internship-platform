@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
-    List<Application> findAllByPerson_Account_Username(String username);
+    List<Application> findAllByUserAuthenticationAccountUsername(String username);
 
-    List<Application> findAllByAnnouncement_Id(Long announcementId);
+    List<Application> findAllByInternshipAnnouncementId(Long announcementId);
 
-    Page<Application> findAllByAnnouncement_Id(Long announcementId, Pageable pageable);
+    Page<Application> findAllByInternshipAnnouncementId(Long announcementId, Pageable pageable);
 
-    Page<Application> findByAnnouncement_Person_Account_Username(String username, Pageable pageable);
+    Page<Application> findByInternshipAnnouncementUserAuthenticationAccountUsername(String username, Pageable pageable);
 }

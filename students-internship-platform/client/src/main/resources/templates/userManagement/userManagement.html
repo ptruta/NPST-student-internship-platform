@@ -38,9 +38,9 @@
 <div class="container table-responsive">
     <h2 class="text-center">User Management</h2>
 
-    <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
-        <label class="control-label col-sm-8" for="announcementSearch">Search all users by announcements:</label>
-        <div class="col-md-4" th:object="${announcement}">
+    <div sec:authorize="hasAuthority('RECRUITER')" class="form-group">
+        <label class="control-label col-sm-8" for="announcementSearch">Search all users by internshipAnnouncements:</label>
+        <div class="col-md-4" th:object="${internshipAnnouncement}">
             <form action="#" th:action="@{/userManagement}" th:object="${searchOption}"
                   th:method="POST" id="announcementsForm">
 
@@ -51,10 +51,10 @@
                     <option th:value="0"
                             th:text="All"
                             th:onclick="'javascript:getUsers(\''+ 0 +'\');'"></option>
-                    <option th:each="announcement : ${announcements} "
-                            th:value="${announcement.id}"
-                            th:text="${announcement.title}"
-                            th:onclick="'javascript:getUsers(\''+ ${announcement.id} +'\');'"></option>
+                    <option th:each="internshipAnnouncement : ${internshipAnnouncements} "
+                            th:value="${internshipAnnouncement.id}"
+                            th:text="${internshipAnnouncement.title}"
+                            th:onclick="'javascript:getUsers(\''+ ${internshipAnnouncement.id} +'\');'"></option>
                 </select>
             </form>
         </div>

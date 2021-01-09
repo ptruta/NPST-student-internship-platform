@@ -32,7 +32,7 @@
     <h2 class="text-center">Internships</h2>
     <br/>
     <br/>
-    <div sec:authorize="hasAuthority('ADMIN')" class="row">
+    <div sec:authorize="hasAuthority('RECRUITER')" class="row">
         <div class="form-group col-md-12" id="searchAnnouncementContainer">
             <label class="control-label col-sm-4" for="announcementSearch">Search Announcement:</label>
             <form action="#" th:action="@{/announcementManagement/searchAnnouncement}"
@@ -64,18 +64,18 @@
             <th style="text-align: center">Actions</th>
         </tr>
         </thead>
-        <tbody th:each="announcement:${announcements}">
+        <tbody th:each="internshipAnnouncement:${internshipAnnouncements}">
         <tr>
-            <!--<td th:text="${announcement.id}"></td>-->
-            <td th:text="${announcement.title}"></td>
-            <td th:text="${announcement.description}"></td>
-            <td th:text="${announcement.technologies}"></td>
-            <td th:text="${announcement.startDate}"></td>
-            <td th:text="${announcement.endDate}"></td>
-            <td th:text="${announcement.deadline}"></td>
-            <td sec:authorize="hasAuthority('STUDENT')">
+            <!--<td th:text="${internshipAnnouncement.id}"></td>-->
+            <td th:text="${internshipAnnouncement.title}"></td>
+            <td th:text="${internshipAnnouncement.description}"></td>
+            <td th:text="${internshipAnnouncement.technologies}"></td>
+            <td th:text="${internshipAnnouncement.startDate}"></td>
+            <td th:text="${internshipAnnouncement.endDate}"></td>
+            <td th:text="${internshipAnnouncement.deadline}"></td>
+            <td sec:authorize="hasAuthority('APPLICANT')">
                 <form class="col-md-4" method="POST"
-                      th:action="@{/announcementManagement/apply/{announcementId}(announcementId=${announcement.id})}"
+                      th:action="@{/announcementManagement/apply/{announcementId}(announcementId=${internshipAnnouncement.id})}"
                       style="height: 50%;width: 50%;">
                     <button type="submit" name="submit" value="value"><img
                             src="../../static/images/action/Apply-Now-Button.png" width="1000px" height="1000px"
@@ -83,9 +83,9 @@
                             th:src="@{../images/action/Apply-Now-Button.png}"/></button>
                 </form>
             </td>
-            <td sec:authorize="hasAnyAuthority('ADMIN','COMPANY')">
+            <td sec:authorize="hasAnyAuthority('RECRUITER')">
                 <form class="col-md-4" method="GET"
-                      th:action="@{/announcementManagement/announcementInfo/{id}(id=${announcement.id})}"
+                      th:action="@{/announcementManagement/announcementInfo/{id}(id=${internshipAnnouncement.id})}"
                       style="height: 50%;width: 50%;">
                     <button type="submit" name="submit" value="value"><img
                             src="../../static/images/action/edit.png" width="100px" height="100px"
@@ -93,7 +93,7 @@
                             th:src="@{../images/action/edit.png}"/></button>
                 </form>
                 <form class="col-md-4" method="POST"
-                      th:action="@{/announcementManagement/delete/{id}(id=${announcement.id})}"
+                      th:action="@{/announcementManagement/delete/{id}(id=${internshipAnnouncement.id})}"
                       style="height: 50%;width: 50%;"
                       id="deleteRoomForm">
                     <button type="submit" th:type="submit" value="value"><img
@@ -141,7 +141,7 @@
         </ul>
     </div>
     <div class="row">
-        <div sec:authorize="hasAnyAuthority('ADMIN','COMPANY')" class="col-md-6 text-center">
+        <div sec:authorize="hasAnyAuthority('RECRUITER')" class="col-md-6 text-center">
             <button class="btn btn-primary btn-lg btn-success " onclick="location.href='/announcementManagement/addAnnouncement'">Add
                 Announcement
             </button>

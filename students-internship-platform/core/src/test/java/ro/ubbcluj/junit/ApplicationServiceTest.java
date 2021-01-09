@@ -7,14 +7,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import ro.ubbcluj.dto.ApplicationDTO;
 import ro.ubbcluj.entity.Account;
-import ro.ubbcluj.entity.Announcement;
 import ro.ubbcluj.entity.Application;
-import ro.ubbcluj.entity.Person;
-import ro.ubbcluj.enums.GenderEnum;
+import ro.ubbcluj.entity.InternshipAnnouncement;
+import ro.ubbcluj.entity.UserAuthentication;
 import ro.ubbcluj.interfaces.ApplicationService;
-import ro.ubbcluj.repository.AnnouncementRepository;
 import ro.ubbcluj.repository.ApplicationRepository;
-import ro.ubbcluj.repository.PersonRepository;
+import ro.ubbcluj.repository.InternshipAnnouncementRepository;
+import ro.ubbcluj.repository.UserAuthenticationRepository;
 import ro.ubbcluj.service.ApplicationServiceImpl;
 
 import java.util.Arrays;
@@ -56,9 +55,9 @@ public class ApplicationServiceTest {
     @Mock
     private static ApplicationRepository applicationRepository;
     @Mock
-    private static PersonRepository personRepository;
+    private static UserAuthenticationRepository personRepository;
     @Mock
-    private static AnnouncementRepository announcementRepository;
+    private static InternshipAnnouncementRepository internshipAnnouncementRepository;
 
     /**
      * Method used to mock application entities.
@@ -69,14 +68,14 @@ public class ApplicationServiceTest {
 
         Application firstApplicationEntity = Application.builder()
                 .id(ID1)
-                .person(createPeople().get(0))
-                .announcement(createAnnouncements().get(0))
+                .userAuthentication(createPeople().get(0))
+                .internshipAnnouncement(createAnnouncements().get(0))
                 .build();
 
         Application secondApplicationEntity = Application.builder()
                 .id(ID2)
-                .person(createPeople().get(0))
-                .announcement(createAnnouncements().get(1))
+                .userAuthentication(createPeople().get(0))
+                .internshipAnnouncement(createAnnouncements().get(1))
                 .build();
 
         return Arrays.asList(firstApplicationEntity, secondApplicationEntity);
@@ -87,17 +86,15 @@ public class ApplicationServiceTest {
      *
      * @return list of person
      */
-    private static List<Person> createPeople() {
+    private static List<UserAuthentication> createPeople() {
 
         Date date1 = new Date();
 
-        Person firstPersonEntity = Person.builder()
+        UserAuthentication firstPersonEntity = UserAuthentication.builder()
                 .id(ID1)
-                .birthDate(date1)
                 .email(EMAIL1)
                 .firstName(FIRST_NAME1)
                 .lastName(LAST_NAME1)
-                .gender(GenderEnum.FEMALE)
                 .account(createAccounts().get(0))
                 .build();
 
@@ -109,31 +106,27 @@ public class ApplicationServiceTest {
      *
      * @return list of announcements
      */
-    private static List<Announcement> createAnnouncements() {
+    private static List<InternshipAnnouncement> createAnnouncements() {
 
-        Announcement firstAnnouncementEntity = Announcement.builder()
+        InternshipAnnouncement firstInternshipAnnouncementEntity = InternshipAnnouncement.builder()
                 .id(ID1)
                 .title(ANNOUNCEMENT_NAME1)
-                .description(DESCRIPTION)
-                .technologies(TECHNOLOGIES)
                 .startDate(DATE1)
                 .endDate(DATE2)
                 .deadline(DATE3)
-                .person(createPeople().get(0))
+                .userAuthentication(createPeople().get(0))
                 .build();
 
-        Announcement secondAnnouncementEntity = Announcement.builder()
+        InternshipAnnouncement secondInternshipAnnouncementEntity = InternshipAnnouncement.builder()
                 .id(ID1)
                 .title(ANNOUNCEMENT_NAME2)
-                .description(DESCRIPTION)
-                .technologies(TECHNOLOGIES)
                 .startDate(DATE1)
                 .endDate(DATE2)
                 .deadline(DATE3)
-                .person(createPeople().get(0))
+                .userAuthentication(createPeople().get(0))
                 .build();
 
-        return Arrays.asList(firstAnnouncementEntity, secondAnnouncementEntity);
+        return Arrays.asList(firstInternshipAnnouncementEntity, secondInternshipAnnouncementEntity);
     }
 
     /**
@@ -176,7 +169,7 @@ public class ApplicationServiceTest {
         List<Application> applications = Collections.singletonList(createApplications().get(0));
 
         // when
-        when(applicationRepository.findAllByAnnouncement_Id(ID1))
+        when(applicationRepository.findAllByInternshipAnnouncementId(ID1))
                 .thenReturn(applications);
 
         // call
@@ -193,7 +186,7 @@ public class ApplicationServiceTest {
         List<Application> applications = Collections.singletonList(createApplications().get(0));
 
         // when
-        when(applicationRepository.findAllByPerson_Account_Username(USERNAME))
+        when(applicationRepository.findAllByUserAuthenticationAccountUsername(USERNAME))
                 .thenReturn(applications);
 
         // call
@@ -214,10 +207,10 @@ public class ApplicationServiceTest {
                 .build();
 
         //when
-        when(personRepository.findByAccount_Username(USERNAME))
+        when(personRepository.findByAccountUsername(USERNAME))
                 .thenReturn(createPeople().get(0));
 
-        when(announcementRepository.findOne(applicationDTO.getAnnouncementId()))
+        when(internshipAnnouncementRepository.findOne(applicationDTO.getAnnouncementId()))
                 .thenReturn(createAnnouncements().get(0));
 
         Application application = createApplications().get(0);

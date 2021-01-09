@@ -1,6 +1,6 @@
 DELETE FROM application;
 
-DELETE FROM announcement;
+DELETE FROM internshipAnnouncement;
 
 DELETE FROM account;
 
@@ -22,10 +22,10 @@ INSERT INTO person (id, address, birth_date, email, first_name, gender, last_nam
 VALUES (3, 'Oradea', '2010-01-24 00:00:00', 'dianadenisa25@gmail.ro', 'Diana', 1, 'Truta', TRUE, 3);
 
 -- ANNOUNCEMENT
-INSERT INTO announcement (id, title, description, technologies, start_date, end_date, deadline, active, person_id)
+INSERT INTO internshipAnnouncement (id, title, description, technologies, start_date, end_date, deadline, active, person_id)
 VALUES (1, 'Junior', 'Looking for a junior java developer', 'SpringBoot, JDK11', '2018-09-15 00:00:00',
         '2018-09-21 00:00:00', '2018-09-14 00:00:00', TRUE, 2);
-INSERT INTO announcement (id, title, description, technologies, start_date, end_date, deadline, active, person_id)
+INSERT INTO internshipAnnouncement (id, title, description, technologies, start_date, end_date, deadline, active, person_id)
 VALUES (2, 'Senior', 'Looking for a senior java developer', 'SpringBoot, JDK11, GraphQL', '2019-09-15 00:00:00',
         '2019-09-21 00:00:00', '2018-09-14 00:00:00', TRUE, 2);
 

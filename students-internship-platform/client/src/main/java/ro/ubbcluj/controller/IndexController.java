@@ -12,11 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ro.ubbcluj.dto.UserDTO;
+import ro.ubbcluj.dto.UserAuthenticationDTO;
 import ro.ubbcluj.enums.RoleEnum;
 import ro.ubbcluj.exception.HMSMailException;
 import ro.ubbcluj.interfaces.EmailService;
-import ro.ubbcluj.interfaces.UserService;
+import ro.ubbcluj.interfaces.UserAuthenticationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +33,7 @@ public class IndexController {
     private static final String SUBJECT = "Registration confirmation";
     private static final String TEXT = "Your account has been successfully created!";
     @Autowired
-    private UserService userService;
+    private UserAuthenticationService userAuthenticationService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
@@ -112,38 +112,38 @@ public class IndexController {
     /**
      * Method used to show the register page.
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showRegister(@ModelAttribute(value = "userDTO") UserDTO userDTO) {
+    public String showRegister(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO) {
         return "common/register";
     }
 
     /**
      * Method used to register a new user
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @return
      * @throws HMSMailException
      */
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerUser(@ModelAttribute(value = "userDTO") UserDTO userDTO) throws HMSMailException {
+    public String registerUser(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO) throws HMSMailException {
 
-        if (userService.checkUsername(userDTO.getUsername())) {
+        if (userAuthenticationService.checkUsername(userAuthenticationDTO.getUsername())) {
             return "/usernameError";
 
-        } else if (userService.checkEmail(userDTO.getEmail())) {
+        } else if (userAuthenticationService.checkEmail(userAuthenticationDTO.getEmail())) {
             return "/emailError";
 
         } else {
-            emailService.sendEmail(userDTO.getEmail(), ANNOUNCEMENT_EMAIL, SUBJECT, TEXT);
-            userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
-            userDTO.setRole(RoleEnum.STUDENT);
-            userDTO.setRegistrationDate(new Date());
-            userDTO.setActive(true);
-            userService.createUser(userDTO);
+            emailService.sendEmail(userAuthenticationDTO.getEmail(), ANNOUNCEMENT_EMAIL, SUBJECT, TEXT);
+            userAuthenticationDTO.setPassword(bCryptPasswordEncoder.encode(userAuthenticationDTO.getPassword()));
+            userAuthenticationDTO.setRole(RoleEnum.APPLICANT);
+            userAuthenticationDTO.setRegistrationDate(new Date());
+            userAuthenticationDTO.setAvailability(true);
+            userAuthenticationService.createUser(userAuthenticationDTO);
             return "common/userRegistered";
         }
     }

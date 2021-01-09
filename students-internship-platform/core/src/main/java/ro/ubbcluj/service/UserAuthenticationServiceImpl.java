@@ -8,16 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
-import ro.ubbcluj.converter.UserConverter;
-import ro.ubbcluj.dto.UserDTO;
+import ro.ubbcluj.converter.UserAuthenticationConverter;
+import ro.ubbcluj.dto.UserAuthenticationDTO;
 import ro.ubbcluj.entity.Account;
-import ro.ubbcluj.entity.Person;
 import ro.ubbcluj.entity.Role;
-import ro.ubbcluj.interfaces.UserService;
-import ro.ubbcluj.repository.AccountRepository;
-import ro.ubbcluj.repository.AnnouncementRepository;
-import ro.ubbcluj.repository.PersonRepository;
-import ro.ubbcluj.repository.RoleRepository;
+import ro.ubbcluj.entity.UserAuthentication;
+import ro.ubbcluj.interfaces.UserAuthenticationService;
+import ro.ubbcluj.repository.*;
 import ro.ubbcluj.util.ValidationUtil;
 
 import java.util.ArrayList;
@@ -30,50 +27,50 @@ import static java.util.Collections.singletonList;
  * This class contains all the business logic
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserAuthenticationServiceImpl implements UserAuthenticationService {
 
-    @Autowired
-    private PersonRepository personRepository;
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private AnnouncementRepository announcementRepository;
+    private InternshipAnnouncementRepository internshipAnnouncementRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UserAuthenticationRepository userAuthenticationRepository;
 
     /**
      * Method creates a new user DTO
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @return
      */
     @Override
     @Transactional
-    public UserDTO createUser(UserDTO userDTO) {
-        ValidationUtil.notNull(userDTO);
+    public UserAuthenticationDTO createUser(UserAuthenticationDTO userAuthenticationDTO) {
+        ValidationUtil.notNull(userAuthenticationDTO);
 
-        Person person = getPerson(userDTO);
+        UserAuthentication userAuthentication = getUserAuthentication(userAuthenticationDTO);
 
-        personRepository.save(person);
-        Account account = getAccount(userDTO, person);
+        userAuthenticationRepository.save(userAuthentication);
+        Account account = getAccount(userAuthenticationDTO, userAuthentication);
         accountRepository.save(account);
 
-        return userDTO;
+        return userAuthenticationDTO;
     }
 
     /**
      * Method used to return the account of a person
      *
-     * @param userDTO
-     * @param person
+     * @param userAuthenticationDTO
+     * @param userAuthentication
      * @return
      */
-    private Account getAccount(UserDTO userDTO, Person person) {
-        ValidationUtil.notNull(userDTO);
-        ValidationUtil.notNull(person);
+    private Account getAccount(UserAuthenticationDTO userAuthenticationDTO, UserAuthentication userAuthentication) {
+        ValidationUtil.notNull(userAuthenticationDTO);
+        ValidationUtil.notNull(userAuthentication);
 
-        Account account = UserConverter.convertToEntityAccount(userDTO);
-        account.setPerson(person);
+        Account account = UserAuthenticationConverter.convertToEntityAccount(userAuthenticationDTO);
+        account.setUserAuthentication(userAuthentication);
         account.setActive(true);
         return account;
     }
@@ -81,24 +78,24 @@ public class UserServiceImpl implements UserService {
     /**
      * Method used to extract a person from a user DTO
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @return
      */
-    private Person getPerson(UserDTO userDTO) {
-        ValidationUtil.notNull(userDTO);
+    private UserAuthentication getUserAuthentication(UserAuthenticationDTO userAuthenticationDTO) {
+        ValidationUtil.notNull(userAuthenticationDTO);
 
-        Person person = UserConverter.convertToEntityPerson(userDTO);
-        person.setActive(true);
+        UserAuthentication userAuthentication = UserAuthenticationConverter.convertToEntityUserAuthentication(userAuthenticationDTO);
+        userAuthentication.setAvailability(true);
 
-        if (userDTO.getAnnouncement() != null) {
-            person.setAnnouncements(singletonList(announcementRepository.findOne(userDTO.getAnnouncement())));
+        if (userAuthenticationDTO.getAnnouncement() != null) {
+            userAuthentication.setInternshipAnnouncements(singletonList(internshipAnnouncementRepository.findOne(userAuthenticationDTO.getAnnouncement())));
         }
 
-        if (userDTO.getRole() != null) {
-            person.setRole(roleRepository.findByRole(userDTO.getRole()));
+        if (userAuthenticationDTO.getRole() != null) {
+            userAuthentication.setRole(roleRepository.findByRole(userAuthenticationDTO.getRole()));
         }
 
-        return person;
+        return userAuthentication;
     }
 
     /**
@@ -108,12 +105,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<UserDTO> getAvailableUsers() {
+    public List<UserAuthenticationDTO> getAvailableUsers() {
 
         List<Account> accounts = accountRepository.findAllByActive(true);
 
         return accounts.stream()
-                .map(UserConverter::convertToDTO)
+                .map(UserAuthenticationConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -124,12 +121,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<UserDTO> getUsers() {
+    public List<UserAuthenticationDTO> getUsers() {
 
         List<Account> accounts = accountRepository.findAll();
 
         return accounts.stream()
-                .map(UserConverter::convertToDTO)
+                .map(UserAuthenticationConverter::convertToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -141,10 +138,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<UserDTO> getAvailableUsers(Pageable pageable) {
+    public Page<UserAuthenticationDTO> getAvailableUsers(Pageable pageable) {
         ValidationUtil.notNull(pageable);
 
-        return UserConverter.convertToDTOPage(
+        return UserAuthenticationConverter.convertToDTOPage(
                 accountRepository.findAllByActive(true, pageable));
     }
 
@@ -157,19 +154,19 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<UserDTO> getUsersByAnnouncement(Long announcementId, Pageable pageable) {
+    public Page<UserAuthenticationDTO> getUsersByAnnouncement(Long announcementId, Pageable pageable) {
         ValidationUtil.notNull(announcementId);
         ValidationUtil.notNull(pageable);
-        ValidationUtil.notNull(personRepository.findAllByAnnouncements_id(announcementId, pageable));
+        ValidationUtil.notNull(userAuthenticationRepository.findAllByInternshipAnnouncementsId(announcementId, pageable));
 
-        List<Person> people = personRepository.findAllByAnnouncements_id(announcementId);
+        List<UserAuthentication> people = userAuthenticationRepository.findAllByInternshipAnnouncementsId(announcementId, pageable);
         List<Account> accounts = new ArrayList<>();
 
         people.stream()
-                .filter(Person::isActive)
+                .filter(UserAuthentication::isAvailability)
                 .forEach(person -> accounts.add(accountRepository.findOne(person.getId())));
         Page<Account> accountPage = new PageImpl<>(accounts);
-        return UserConverter.convertToDTOPage(accountPage);
+        return UserAuthenticationConverter.convertToDTOPage(accountPage);
     }
 
     /**
@@ -180,12 +177,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public UserDTO getById(Long id) {
+    public UserAuthenticationDTO getById(Long id) {
         ValidationUtil.notNull(id);
         ValidationUtil.notNull(accountRepository.findOne(id));
 
         Account account = accountRepository.findOne(id);
-        return UserConverter.convertToDTO(account);
+        return UserAuthenticationConverter.convertToDTO(account);
     }
 
     /**
@@ -205,9 +202,9 @@ public class UserServiceImpl implements UserService {
         account.setActive(false);
         accountRepository.save(account);
 
-        Person person = account.getPerson();
-        person.setActive(false);
-        personRepository.save(person);
+        UserAuthentication person = account.getUserAuthentication();
+        person.setAvailability(false);
+        userAuthenticationRepository.save(person);
     }
 
     /**
@@ -218,15 +215,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public UserDTO findByUsername(String username) {
+    public UserAuthenticationDTO findByUsername(String username) {
         ValidationUtil.notNull(username);
 
         Account account = accountRepository.findByUsername(username);
         ValidationUtil.notNull(account);
 
-        Person person = account.getPerson();
+        UserAuthentication person = account.getUserAuthentication();
 
-        return UserDTO.builder()
+        return UserAuthenticationDTO.builder()
                 .id(account.getId())
                 .username(account.getUsername())
                 .password(account.getPassword())
@@ -234,14 +231,10 @@ public class UserServiceImpl implements UserService {
                 .lastName(person.getLastName())
                 .email(person.getEmail())
                 .role(person.getRole().getRole())
-                .announcement(CollectionUtils.isEmpty(person.getAnnouncements()) ? null : person.getAnnouncements().get(0).getId())
-                .birthDate(person.getBirthDate())
-                .gender(person.getGender())
-                .address(person.getAddress())
+                .announcement(CollectionUtils.isEmpty(person.getInternshipAnnouncements()) ? null : person.getInternshipAnnouncements().get(0).getId())
                 .skills(person.getSkills())
                 .registrationDate(account.getRegistrationDate())
-                .active(person.isActive())
-                .bio(person.getBio())
+                .availability(person.isAvailability())
                 .build();
     }
 
@@ -256,7 +249,7 @@ public class UserServiceImpl implements UserService {
     public boolean checkEmail(String email) {
         ValidationUtil.notNull(email);
 
-        Person person = personRepository.findByEmail(email);
+        UserAuthentication person = userAuthenticationRepository.findByEmail(email);
 
         return !ObjectUtils.isEmpty(person);
     }
@@ -269,18 +262,18 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<UserDTO> getUsersByAnnouncement(Long announcementId) {
+    public List<UserAuthenticationDTO> getUsersByAnnouncement(Long announcementId) {
         ValidationUtil.notNull(announcementId);
 
-        List<Person> people = personRepository.findAllByAnnouncements_id(announcementId);
+        List<UserAuthentication> people = userAuthenticationRepository.findAllByInternshipAnnouncementsId(announcementId);
         List<Account> accounts = new ArrayList<>();
 
         people.stream()
-                .filter(Person::isActive)
+                .filter(UserAuthentication::isAvailability)
                 .forEach(person -> accounts.add(accountRepository.findOne(person.getId())));
 
         return accounts.stream()
-                .map(UserConverter::convertToDTO)
+                .map(UserAuthenticationConverter::convertToDTO)
                 .collect(Collectors.toList());
 
     }
@@ -288,55 +281,54 @@ public class UserServiceImpl implements UserService {
     /**
      * Method edits the information of a user
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @return
      */
     @Override
     @Transactional
-    public UserDTO editUser(UserDTO userDTO) {
-        ValidationUtil.notNull(userDTO);
+    public UserAuthenticationDTO editUser(UserAuthenticationDTO userAuthenticationDTO) {
+        ValidationUtil.notNull(userAuthenticationDTO);
 
-        Account account = accountRepository.findOne(userDTO.getId());
+        Account account = accountRepository.findOne(userAuthenticationDTO.getId());
 
         ValidationUtil.notNull(account);
 
-        account.setUsername(userDTO.getUsername());
-        Person person = account.getPerson();
-        person.setRole(new Role(userDTO.getRole()));
+        account.setUsername(userAuthenticationDTO.getUsername());
+        UserAuthentication person = account.getUserAuthentication();
+        person.setRole(new Role(userAuthenticationDTO.getRole()));
 
         accountRepository.save(account);
-        personRepository.save(person);
+        userAuthenticationRepository.save(person);
 
-        return userDTO;
+        return userAuthenticationDTO;
     }
 
     /**
      * Method updates an account
      *
-     * @param userDTO
+     * @param userAuthenticationDTO
      * @return
      */
     @Override
     @Transactional
-    public UserDTO updateAccount(UserDTO userDTO) {
-        ValidationUtil.notNull(userDTO);
+    public UserAuthenticationDTO updateAccount(UserAuthenticationDTO userAuthenticationDTO) {
+        ValidationUtil.notNull(userAuthenticationDTO);
 
-        Account account = accountRepository.findOne(userDTO.getId());
+        Account account = accountRepository.findOne(userAuthenticationDTO.getId());
 
         ValidationUtil.notNull(account);
-        account.setUsername(userDTO.getUsername());
+        account.setUsername(userAuthenticationDTO.getUsername());
 
-        Person person = account.getPerson();
+        UserAuthentication person = account.getUserAuthentication();
 
-        person.setFirstName(userDTO.getFirstName());
-        person.setLastName(userDTO.getLastName());
-        person.setEmail(userDTO.getEmail());
-        person.setAddress(userDTO.getAddress());
+        person.setFirstName(userAuthenticationDTO.getFirstName());
+        person.setLastName(userAuthenticationDTO.getLastName());
+        person.setEmail(userAuthenticationDTO.getEmail());
 
         accountRepository.save(account);
-        personRepository.save(person);
+        userAuthenticationRepository.save(person);
 
-        return userDTO;
+        return userAuthenticationDTO;
     }
 
     /**

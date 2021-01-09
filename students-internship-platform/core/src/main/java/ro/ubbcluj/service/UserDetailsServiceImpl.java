@@ -1,7 +1,7 @@
 package ro.ubbcluj.service;
 
-import ro.ubbcluj.dto.UserDTO;
-import ro.ubbcluj.interfaces.UserService;
+import ro.ubbcluj.dto.UserAuthenticationDTO;
+import ro.ubbcluj.interfaces.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +22,7 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserAuthenticationService userAuthenticationService;
 
      /**
       * Method loads a user by username, used for log in
@@ -34,11 +34,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDTO userDTO = userService.findByUsername(username);
+        UserAuthenticationDTO userAuthenticationDTO = userAuthenticationService.findByUsername(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(userDTO.getRole().name()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(userAuthenticationDTO.getRole().name()));
 
-        return new User(userDTO.getUsername(), userDTO.getPassword(), grantedAuthorities);
+        return new User(userAuthenticationDTO.getUsername(), userAuthenticationDTO.getPassword(), grantedAuthorities);
     }
 }
