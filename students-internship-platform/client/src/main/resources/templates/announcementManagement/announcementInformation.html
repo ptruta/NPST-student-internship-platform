@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>NPST-Student Internship Platform</title>
+    <title>NPST-Student Internship Pladdddtform</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://fonts.googleapis.com/css?family=Lato"
@@ -17,11 +17,10 @@
     <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
             th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 
-
-    <script src="../../static/js/bootstrap.min.js"
+    <script src="../static/js/bootstrap.min.js"
             th:src="@{~/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" media="screen"
-          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+          href="../static/css/hms.css" th:href="@{/css/razv.css}"/>
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css"/>
 
@@ -79,7 +78,9 @@
 </head>
 
 <body>
-<div th:include="fragments/header :: header"></div>
+<div class="appWrapper">
+    <div th:include="fragments/header :: header"></div>
+    <div class="heroContainer">
 <h3 class="text-center">Announcement Information</h3>
 <div class="container">
     <form action="#" th:action="@{/announcementManagement/announcementInfo}" th:object="${internshipAnnouncementDTO}"
@@ -163,5 +164,8 @@
         </button>
     </div>
 </div>
+    </div>
+</div>
 </body>
+
 </html>

@@ -24,6 +24,9 @@
           href="../static/css/hms.css" th:href="@{/css/hms.css}"/>
 </head>
 <body>
+<div class="appWrapper">
+    <div th:include="fragments/header :: header"></div>
+    <div class="heroContainer">
 <div th:fragment="announcementForm">
     <div class="form-group" id="announcementNameContainer">
         <label class="control-label col-sm-2" for="name">Name:</label>
@@ -66,6 +69,8 @@
     </div>
 
 
+</div>
+    </div>
 </div>
 </body>
 </html>

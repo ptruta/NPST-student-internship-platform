@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <title>NPST-Student Internship Platform</title>
+    <title>NPST-Student Internship Pladdddtform</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://fonts.googleapis.com/css?family=Lato"
@@ -18,11 +18,10 @@
     <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
             th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 
-
-    <script src="../../static/js/bootstrap.min.js"
+    <script src="../static/js/bootstrap.min.js"
             th:src="@{~/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" media="screen"
-          href="../../static/css/hms.css" th:href="@{/css/hms.css}"/>
+          href="../static/css/hms.css" th:href="@{/css/razv.css}"/>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
@@ -69,7 +68,9 @@
 </head>
 
 <body>
-<div th:include="fragments/header :: header"></div>
+<div class="appWrapper">
+    <div th:include="fragments/header :: header"></div>
+    <div class="heroContainer">
 <div class="container table-responsive">
     <h2 class="text-center">Applications Management</h2>
     <br/>
@@ -164,6 +165,8 @@
         </div>
     </div>
 
+</div>
+    </div>
 </div>
 
 </body>
