@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ro.ubbcluj.entity.InternshipAnnouncement;
 
 import javax.net.ssl.SSLSession;
+import java.util.Date;
 import java.util.List;
 
 public interface InternshipAnnouncementRepository extends JpaRepository<InternshipAnnouncement, Long> {
@@ -19,4 +20,5 @@ public interface InternshipAnnouncementRepository extends JpaRepository<Internsh
     Page<InternshipAnnouncement> findByAvailabilityAndUserAuthenticationAccountUsername(boolean b, String username, Pageable pageable);
 
     InternshipAnnouncement findByUserAuthenticationAccountUsername(String username);
+
 }
