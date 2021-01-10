@@ -75,7 +75,7 @@ public class UserAuthenticationServiceIntegrationTest {
                 .lastName(LAST_NAME)
                 .email(EMAIL)
                 .announcement(ID)
-                .role(RoleEnum.STUDENT)
+                .role(RoleEnum.APPLICANT)
                 .registrationDate(new Date())
                 .build();
 
@@ -133,7 +133,7 @@ public class UserAuthenticationServiceIntegrationTest {
         UserAuthenticationDTO userAuthenticationDTO1 = UserAuthenticationDTO.builder()
                 .id(ID)
                 .username(USERNAME1)
-                .role(RoleEnum.COMPANY)
+                .role(RoleEnum.RECRUITER)
                 .build();
 
         userAuthenticationService.editUser(userAuthenticationDTO1);
