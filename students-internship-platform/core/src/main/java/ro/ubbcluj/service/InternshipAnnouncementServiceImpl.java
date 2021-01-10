@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static ro.ubbcluj.util.ValidationUtil.notNull;
 
@@ -235,30 +236,52 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
                                                                        boolean paidOrNot,
                                                                        String duration,
                                                                        String workingTime) {
-        notNull(location);
-        notNull(postingDate);
-        notNull(startingDate);
-        notNull(endDate);
-        notNull(domains);
-        notNull(paidOrNot);
-        notNull(duration);
-        notNull(workingTime);
-
-        List<InternshipAnnouncement> announcements = internshipAnnouncementRepository
+        Stream<InternshipAnnouncement> announcementsStream = internshipAnnouncementRepository
                 .findAll()
-                .stream()
-                .filter(internshipAnnouncement -> internshipAnnouncement.getLocation().equals(location))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getPostingDate().equals(postingDate))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getEndDate().equals(endDate))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getStartDate().equals(startingDate))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getDomains().equals(domains))
-                .filter(internshipAnnouncement -> internshipAnnouncement.isPaidOrNot() == paidOrNot)
-                .filter(internshipAnnouncement -> internshipAnnouncement.getDuration().equals(duration))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getWorkingTime().equals(workingTime))
-                .collect(Collectors.toList());
+                .stream();
+
+        if(!location.equals("")) {
+            announcementsStream = announcementsStream
+                    .filter(internshipAnnouncement -> internshipAnnouncement.getLocation().equals(location));
+        }
+
+        java.util.Date date=new java.util.Date();
 
 
-        notNull(announcements);
+        if(postingDate.getTime() < date.getTime()-60000) {
+            announcementsStream = announcementsStream
+                    .filter(internshipAnnouncement -> internshipAnnouncement.getPostingDate().equals(postingDate));
+        }
+
+        if(date.getTime()-70000 < startingDate.getTime() &&  startingDate.getTime() < date.getTime()-60000) {
+            announcementsStream = announcementsStream
+                    .filter(internshipAnnouncement -> internshipAnnouncement.getStartDate().equals(startingDate));
+        }
+
+        if(date.getTime()-70000 < endDate.getTime() && endDate.getTime() < date.getTime()-60000) {
+            announcementsStream = announcementsStream
+                    .filter(internshipAnnouncement -> internshipAnnouncement.getEndDate().equals(endDate));
+        }
+
+        if(!domains.equals("")) {
+            announcementsStream = announcementsStream
+                    .filter(internshipAnnouncement -> internshipAnnouncement.getDomains().equals(domains));
+        }
+
+        announcementsStream = announcementsStream
+                .filter(internshipAnnouncement -> internshipAnnouncement.isPaidOrNot() == paidOrNot);
+
+        if(!duration.contains("2021")) {
+            announcementsStream = announcementsStream
+                    .filter(internshipAnnouncement -> internshipAnnouncement.getDuration().equals(duration));
+        }
+
+        if(!workingTime.contains("2021")) {
+            announcementsStream = announcementsStream
+                    .filter(internshipAnnouncement -> internshipAnnouncement.getWorkingTime().equals(workingTime));
+        }
+
+        List<InternshipAnnouncement> announcements = announcementsStream.collect(Collectors.toList());
 
         return InternshipAnnouncementConverter.convertToDTOList(announcements);
     }
