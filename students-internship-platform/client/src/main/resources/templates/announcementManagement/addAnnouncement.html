@@ -20,7 +20,7 @@
     <script src="../static/js/bootstrap.min.js"
             th:src="@{~/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" media="screen"
-          href="../static/css/hms.css" th:href="@{/css/razv.css}"/>
+          href="../static/css/razv.css" th:href="@{/css/razv.css}"/>
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css"/>
 
@@ -86,16 +86,16 @@
                 >
 
                     <div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementName">Title:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementName" th:value="${title}" th:field="*{title}"
                                        name="announcementName"
-                                       placeholder="Your internshipAnnouncement title here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="title here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group" id="startDateContainer">
+                        <div class="authInputContainer" id="startDateContainer">
                             <label class="control-label col-sm-2" for="startDate">Start Date:</label>
                             <div class="input-group input-append date col-sm-10" id="startDateRangePicker"
                                  style="padding-right: 15px;padding-left: 15px">
@@ -107,7 +107,7 @@
                                         class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
-                        <div class="form-group" id="endDateContainer">
+                        <div class="authInputContainer" id="endDateContainer">
                             <label class="control-label col-sm-2" for="endDate">End Date:</label>
                             <div class="input-group input-append date col-sm-10" id="endDateRangePicker"
                                  style="padding-right: 15px;padding-left: 15px">
@@ -119,7 +119,7 @@
                                         class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
-                        <div class="form-group" id="postingDateContainer">
+                        <div class="authInputContainer" id="postingDateContainer">
                             <label class="control-label col-sm-2" for="postingDate">Posting Date:</label>
                             <div class="input-group input-append date col-sm-10" id="postingDatePicker"
                                  style="padding-right: 15px;padding-left: 15px">
@@ -131,110 +131,108 @@
                                         class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementCompany">Company:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementCompany" th:value="${company}" th:field="*{company}"
                                        name="announcementCompany"
-                                       placeholder="Your internshipAnnouncement company here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="company here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementLocation">Location:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementLocation" th:value="${location}"
                                        th:field="*{location}"
                                        name="announcementLocation"
-                                       placeholder="Your internshipAnnouncement location here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="location here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementDuration">Duration:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementDuration" th:value="${duration}"
                                        th:field="*{duration}"
                                        name="announcementDuration"
-                                       placeholder="Your internshipAnnouncement duration here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="duration here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementRemoteWork">Remote Work:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementRemoteWork" th:value="${possibilityOfRemoteWork}"
                                        th:field="*{possibilityOfRemoteWork}"
                                        name="announcementRemoteWork"
-                                       placeholder="Your internshipAnnouncement remote work here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="remote work here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementWorkingTime">Working time:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementWorkingTime" th:value="${workingTime}"
                                        th:field="*{workingTime}"
                                        name="announcementWorkingTime"
-                                       placeholder="Your internshipAnnouncement working time here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="working time here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="announcementNumberOfPositions">Number Of
-                                Positions:</label>
+                        <div class="authInputContainer">
+                            <label class="control-label col-sm-2" for="announcementNumberOfPositions">Positions:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementNumberOfPositions" th:value="${numberOfPositions}"
                                        th:field="*{numberOfPositions}"
                                        name="announcementNumberOfPositions"
-                                       placeholder="Your internshipAnnouncement number of positions here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="number of positions here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="announcementAvailabilityOfTrainingCourse">Availability
-                                of Training Course:</label>
+                        <div class="authInputContainer">
+                            <label class="control-label col-sm-2" for="announcementAvailabilityOfTrainingCourse">Training Course:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementAvailabilityOfTrainingCourse"
                                        th:value="${availabilityOfTrainingCourse}"
                                        th:field="*{availabilityOfTrainingCourse}"
                                        name="announcementAvailabilityOfTrainingCourse"
-                                       placeholder="Your internshipAnnouncement training course availability YES/NO here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="training course availability YES/NO here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="announcementPossibilityOfContract">Possibility Of
-                                Contract:</label>
+                        <div class="authInputContainer">
+                            <label class="control-label col-sm-2" for="announcementPossibilityOfContract">
+                                Contract after:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementPossibilityOfContract"
                                        th:value="${possibilityOfContract}" th:field="*{possibilityOfContract}"
                                        name="announcementPossibilityOfContract"
-                                       placeholder="Your internshipAnnouncement contract possibility YES/NO here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="contract possibility YES/NO here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementBenefits">Benefits:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementBenefits" th:value="${benefits}"
                                        th:field="*{benefits}"
                                        name="announcementBenefits"
-                                       placeholder="Your internshipAnnouncement benefits here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="benefits here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementNeededSkills">Needed Skills:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="announcementNeededSkills" th:value="${neededSkills}"
                                        th:field="*{neededSkills}"
                                        name="announcementNeededSkills"
-                                       placeholder="Your internshipAnnouncement needed skills here"
-                                       th:required="required" class="form-control"/>
+                                       placeholder="needed skills here"
+                                       th:required="required" class="authInputComponent"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="authInputContainer">
                             <label class="control-label col-sm-2" for="announcementPaidOrNot">Paid Or Not:</label>
                             <div class="col-sm-10">
                                 <select class="form-control col-sm-8" data-style="btn-primary" style="margin-left: 15px;margin-right:
@@ -245,7 +243,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group" id="deadlineContainer">
+                        <div class="authInputContainer" id="deadlineContainer">
                             <label class="control-label col-sm-2" for="startDate">Deadline:</label>
                             <div class="input-group input-append date col-sm-10" id="deadlineRangePicker"
                                  style="padding-right: 15px;padding-left: 15px">
@@ -260,11 +258,11 @@
                     </div>
 
                     <div class="col-md-6 text-center">
-                        <input type="submit" class="btn btn-primary btn-lg btn-success" id="saveButton" value="Add"/>
+                        <input type="submit" class="myButton" id="saveButton" value="Add"/>
                     </div>
                 </form>
                 <div class="col-md-6 text-center">
-                    <button class="btn btn-primary btn-lg btn-success pull-right"
+                    <button class="myButton"
                             onclick="location.href='/announcementManagement/'">Back
                     </button>
                 </div>

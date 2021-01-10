@@ -21,7 +21,7 @@
     <script src="../static/js/bootstrap.min.js"
             th:src="@{~/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" media="screen"
-          href="../static/css/hms.css" th:href="@{/css/razv.css}"/>
+          href="../static/css/razv.css" th:href="@{/css/razv.css}"/>
 
 </head>
 
@@ -38,58 +38,59 @@
     </div>
 </div>
 
-<div th:fragment="userForm">
+<div th:fragment="userForm" class="authForm">
     <input type="text" id="id" th:value="${id}" th:field="*{id}" name="id"
            th:hidden="true" hidden="true"/>
-    <div class="form-group" id="usernameContainer">
-        <label for="username">Username:</label>
-        <div>
-            <input type="text" id="username" th:value="${username}" th:field="*{username}" name="username"
-                   autofocus="autofocus"
-                   placeholder="username"
-                   th:required="required" class="form-control"/>
-        </div>
+
+    <div class="authInputContainer" id="usernameContainer" >
+        <label for="username" class="label">Username:</label>
+        <input type="text" id="username" th:value="${username}" th:field="*{username}" name="username"
+               autofocus="autofocus"
+               placeholder="JohnnyBoy"
+               th:required="required" class="authInputComponent"/>
     </div>
-    <div class="form-group" id="passwordContainer">
+    <div class="authInputContainer" id="passwordContainer">
         <label for="password">Password:</label>
         <div>
             <input type="password" th:value="${password}" id="password" name="password"
-                   placeholder="password" th:required="required"
-                   class="form-control"/>
+                   autofocus="autofocus"
+                   placeholder="not your bday" th:required="required"
+                   class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group" id="confirmPasswordContainer">
+    <div class="authInputContainer" id="confirmPasswordContainer">
         <label for="confirmPassword">Confirm Password:</label>
         <div>
             <input type="password" th:value="${confirmPassword}" id="confirmPassword" name="confirmPassword"
-                   placeholder="password" th:required="required"
-                   class="form-control"/>
+                   placeholder="not your bday again" th:required="required"
+                   class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label for="firstName">First name:</label>
         <input type="text" id="firstName" th:value="${firstName}" th:field="*{firstName}" name="firstName"
-               placeholder="first name"
-               th:required="required" class="form-control"/>
+               placeholder="John"
+               th:required="required" class="authInputComponent"/>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label for="lastName">Last name:</label>
         <input type="text" id="lastName" th:value="${lastName}" th:field="*{lastName}" name="lastName"
-               placeholder="last title"
-               th:required="required" class="form-control"/>
+               placeholder="Doe"
+               th:required="required" class="authInputComponent"/>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label for="email">Email:</label>
         <input type="email" th:value="${email}" id="email" name="email" th:field="*{email}" th:required="required"
-               placeholder="email"
-               class="form-control"/>
+               placeholder="johnDoe@mail.com"
+               class="authInputComponent"/>
     </div>
 
-    <div class="form-group">
+    <div class="authInputContainer">
         <label>Role:</label>
-    <select th:field="*{status}" style="color:black" class="selectBox">
+    <select th:field="*{status}" class="selectBox">
         <option th:value="'APPLICANT'" th:text="Applicant" style="color:black"></option>
         <option th:value="'RECRUITER'" th:text="Recruiter" style="color:black"></option>
+
     </select>
     </div>
 <!--    <div class="form-group">-->
@@ -98,23 +99,36 @@
 <!--               placeholder="availability"-->
 <!--               class="form-control"/>-->
 
-    <div class="form-group">
+    <div class="authInputContainer">
         <label for="skills">Skills:</label>
-        <input type="text" th:value="${skills}" id="skills" name="skills"  th:field="*{skills}" th:required="required"
+        <input type="text" th:value="${skills}" id="skills" name="skills"  th:field="*{skills}"
                placeholder="skills"
-               class="form-control"/>
+               class="authInputComponent"/>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label for="education">Education:</label>
-        <input type="text" th:value="${education}" id="education" name="education"  th:field="*{education}" th:required="required"
+        <input type="text" th:value="${education}" id="education" name="education"  th:field="*{education}"
                placeholder="education"
-               class="form-control"/>
+               class="authInputComponent"/>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label for="workHistory">Work history:</label>
-        <input type="text" th:value="${workHistory}" id="workHistory" name="workHistory"  th:field="*{workHistory}" th:required="required"
-               placeholder="workHistory"
-               class="form-control"/>
+        <input type="text" th:value="${workHistory}" id="workHistory" name="workHistory"  th:field="*{workHistory}"
+               placeholder="work history"
+               class="authInputComponent"/>
+    </div>
+
+    <div class="authInputContainer">
+        <label for="domainsOInterest">Domains Of Interest</label>
+        <input type="text" th:value="${domainsOInterest}" id="domainsOInterest" name="domainsOInterest"  th:field="*{domainsOInterest}"
+               placeholder="domains of interest"
+               class="authInputComponent"/>
+    </div>
+    <div class="authInputContainer">
+        <label for="contact">Contact</label>
+        <input type="text" th:value="${contact}" id="contact" name="contact"  th:field="*{contact}"
+               placeholder="contact"
+               class="authInputComponent"/>
     </div>
 <!--    <div class="form-group">-->
 <!--        <label for="education">Education:</label>-->

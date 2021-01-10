@@ -44,9 +44,9 @@
     <div class="row">
         <form action="#" th:action="@{/userManagement/edit}" th:object="${userAuthenticationDTO}" method="post" class="form-horizontal">
             <div th:include="fragments/editAccountForm :: editAccountForm"></div>
-            <button type="submit" class="btn btn-primary btn-lg btn-success">Submit
+            <button type="submit" class="authButton">Submit
             </button>
-            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/userManagement'">Back</button>
+            <button class="authButton" onclick="location.href='/userManagement'">Back</button>
         </form>
 
     </div>

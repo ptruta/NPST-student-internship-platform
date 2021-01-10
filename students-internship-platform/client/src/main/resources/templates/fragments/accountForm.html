@@ -25,56 +25,56 @@
 </head>
 <body>
 <div th:fragment="accountForm">
-    <div class="form-group" id="usernameContainer">
+    <div class="authInputContainer" id="usernameContainer">
         <label class="control-label col-sm-2" for="username">Username:</label>
         <div class="col-sm-10">
             <input type="text" id="username" th:value="${username}" th:field="*{username}" name="username"
                    autofocus="autofocus"
-                   placeholder="username"
-                   th:required="required" class="form-control"/>
+                   placeholder="JohhnyDoe"
+                   th:required="required" class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group" id="passwordContainer">
+    <div class="authInputContainer" id="passwordContainer">
         <label class="control-label col-sm-2" for="password">Password:</label>
         <div class="col-sm-10">
             <input type="password" th:value="${password}" id="password" name="password"
-                   placeholder="password" th:required="required"
-                   class="form-control"/>
+                   placeholder="not your bday" th:required="required"
+                   class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group" id="confirmPasswordContainer">
+    <div class="authInputContainer" id="confirmPasswordContainer">
         <label class="control-label col-sm-2" for="confirmPassword">Confirm Password:</label>
         <div class="col-sm-10">
             <input type="password" th:value="${confirmPassword}" id="confirmPassword" name="confirmPassword"
-                   placeholder="password" th:required="required"
-                   class="form-control"/>
+                   placeholder="not your bday again" th:required="required"
+                   class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label class="control-label col-sm-2" for="firstName">First title:</label>
         <div class="col-sm-10">
             <input type="text" id="firstName" th:value="${firstName}" th:field="*{firstName}" name="firstName"
-                   placeholder="first title"
-                   th:required="required" class="form-control"/>
+                   placeholder="John"
+                   th:required="required" class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label class="control-label col-sm-2" for="lastName">Last title:</label>
         <div class="col-sm-10">
             <input type="text" id="lastName" th:value="${lastName}" th:field="*{lastName}" name="lastName"
-                   placeholder="last title"
-                   th:required="required" class="form-control"/>
+                   placeholder="Doe"
+                   th:required="required" class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label class="control-label col-sm-2" for="email">Email:</label>
         <div class="col-sm-10">
             <input type="email" th:value="${email}" id="email" name="email" th:field="*{email}" th:required="required"
-                   placeholder="email"
-                   class="form-control"/>
+                   placeholder="johnDoe@mail.com"
+                   class="authInputComponent"/>
         </div>
     </div>
-    <div class="form-group">
+    <div class="authInputContainer">
         <label class="control-label col-sm-2" for="role">Role:</label>
         <div class="col-md-4" th:object="${role}">
             <select class="form-control col-sm-10" data-style="btn-primary" style="margin-right:

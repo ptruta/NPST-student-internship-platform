@@ -21,7 +21,7 @@
     <script src="../static/js/bootstrap.min.js"
             th:src="@{~/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" media="screen"
-          href="../static/css/hms.css" th:href="@{/css/razv.css}"/>
+          href="../static/css/razv.css" th:href="@{/css/razv.css}"/>
 
 </head>
 
@@ -41,7 +41,7 @@
             <div class="card custom-card text-center mr-2 mt-2 ml-2 mb-2"
                  style="width: 20rem; height: 20rem; display: inline-block">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${application.title}">Title</h5>
+                    <h5 class="card-titleMy" th:text="${application.title}">Title</h5>
                     <p class="card-text" th:text="${'End date:' + application.endDate}">endDate</p>
                     <p class="card-text" th:text="${'Start date:' + application.startDate}">startDate</p>
                     <!--                <a th:href="@{'/createforItemId/' + ${application.title}}"-->
@@ -53,12 +53,12 @@
     </table>
 
 
-    <div class="row">
-        <div class="col-md-6 text-center">
-            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
-                Back
+
+        <div class="authInputContainer">
+            <button class="authButton" onclick="location.href='/'">
+                    Back
             </button>
-        </div>
+
     </div>
 
 </div>

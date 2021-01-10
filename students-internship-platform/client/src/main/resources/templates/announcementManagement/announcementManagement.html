@@ -21,7 +21,7 @@
     <script src="../static/js/bootstrap.min.js"
             th:src="@{~/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" media="screen"
-          href="../static/css/hms.css" th:href="@{/css/razv.css}"/>
+          href="../static/css/razv.css" th:href="@{/css/razv.css}"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css"/>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
@@ -130,7 +130,7 @@
                 15px;display: inline-block;min-width: 200px;"/>
                         </div>
                         <div class="pull-right">
-                            <button type="submit" class="btn btn-primary btn-md btn-success ">
+                            <button type="submit" class="authButton ">
                                 Search Announcement
                             </button>
                         </div>
@@ -145,36 +145,36 @@
                      style="width: 150px; display: inline-block">
                     <div class="card-body">
 
-                        <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                                data-target="#myModal">Open Modal
-                        </button>
+<!--                        &lt;!&ndash; Trigger the modal with a button &ndash;&gt;-->
+<!--                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal"-->
+<!--                                data-target="#myModal">Open Modal-->
+<!--                        </button>-->
 
-                        <!-- Modal -->
-                        <div id="myModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
+<!--                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                        <div id="myModal" class="modal fade" role="dialog">-->
+<!--                            <div class="modal-dialog">-->
 
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p class="card-text" th:text="${announcement.company}">Company</p>
-                                        <p class="card-text" th:text="${'Location: ' + announcement.location}">
-                                            Location</p>
-                                        <p class="card-text" th:text="${'Duration: ' + announcement.duration}">
-                                            Duration</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
-                                        </button>
-                                    </div>
-                                </div>
+<!--                                &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--                                <div class="modal-content">-->
+<!--                                    <div class="modal-header">-->
+<!--                                        <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">-->
+<!--                                        <p class="card-text" th:text="${announcement.company}">Company</p>-->
+<!--                                        <p class="card-text" th:text="${'Location: ' + announcement.location}">-->
+<!--                                            Location</p>-->
+<!--                                        <p class="card-text" th:text="${'Duration: ' + announcement.duration}">-->
+<!--                                            Duration</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-footer">-->
+<!--                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
-                            </div>
-                        </div>
-                        <h5 class="card-title" th:text="${announcement.title}">Title</h5>
+<!--                            </div>-->
+<!--                        </div>-->
+                        <h5 class="card-titleMy" th:text="${announcement.title}">Title</h5>
                         <p class="card-text" th:text="${announcement.company}">Company</p>
                         <p class="card-text" th:text="${'Location: ' + announcement.location}">Location</p>
                         <p class="card-text" th:text="${'Duration: ' + announcement.duration}">Duration</p>
@@ -269,16 +269,16 @@
         <!--            </div>-->
         <!--        </ul>-->
         <!--    </div>-->
-        <div class="row">
-            <div sec:authorize="hasAnyAuthority('RECRUITER')" class="col-md-10 text-center">
-                <button class="btn btn-primary btn-lg btn-success "
+        <div class="authInputContainer">
+            <div sec:authorize="hasAnyAuthority('RECRUITER')" class="authInputContainer">
+                <button class="authButton"
                         onclick="location.href='/announcementManagement/addAnnouncement'">Add
                     Announcement
                 </button>
             </div>
             <br/>
-            <div class="col-md-6 text-center">
-                <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
+            <div class="authInputContainer">
+                <button class="myButton" onclick="location.href='/'">
                     Back
                 </button>
             </div>

@@ -105,10 +105,11 @@
         <div class="card custom-cardApp text-center mr-2 mt-2 ml-2 mb-2"
              style="width: 25rem; display: inline-block">
             <div class="card-body">
-                <h5 class="card-title" th:text="${application.title}">Title</h5>
+                <h5 class="card-titleMy" th:text="${application.title}">Title</h5>
                 <p class="card-text" th:text="${'End date:' + application.endDate}">endDate</p>
                 <p class="card-text" th:text="${'Start date:' + application.startDate}">startDate</p>
                 <p class="card-text" th:text="${'Person name:' + application.personName}">startDate</p>
+
                 <p>
 <!--                <form method="POST"-->
 <!--                      th:action="@{/announcementManagement/applicationsManagement/delete/{id}(id=${application.id})}"-->
@@ -156,8 +157,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 text-center">
-            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
+        <div class="authInputContainer">
+            <button class="authButton" onclick="location.href='/'">
                 Back
             </button>
         </div>

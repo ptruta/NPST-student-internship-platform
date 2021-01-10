@@ -38,9 +38,9 @@
             <form action="#" th:action="@{/register}" th:object="${userAuthenticationDTO}" method="post" class="form-horizontal"
                   id="registerFormContainer">
                 <div th:include="fragments/userForm :: userForm"></div>
-                <button type="submit" class="btn btn-primary btn-lg btn-success">Register
+                <button type="submit" class="authButton">Register
                 </button>
-                <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">Back</button>
+                <button class="authButton" onclick="location.href='/'">Back</button>
             </form>
 
 
