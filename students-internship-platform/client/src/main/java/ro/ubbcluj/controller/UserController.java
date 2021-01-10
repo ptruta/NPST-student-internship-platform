@@ -9,10 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ro.ubbcluj.dto.InternshipAnnouncementDTO;
 import ro.ubbcluj.dto.UserAuthenticationDTO;
 import ro.ubbcluj.enums.RoleEnum;
@@ -216,5 +213,5 @@ public class UserController {
         userAuthenticationService.editUser(userAuthenticationDTO);
         return "redirect:" + USER_MANAGER_PAGE;
     }
-
 }
+
