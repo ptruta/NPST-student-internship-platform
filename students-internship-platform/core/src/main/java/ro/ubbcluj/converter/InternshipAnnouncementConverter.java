@@ -77,7 +77,6 @@ public class InternshipAnnouncementConverter {
         return InternshipAnnouncement.builder()
                 .id(internshipAnnouncementDTO.getId())
                 .title(internshipAnnouncementDTO.getTitle())
-                .title(internshipAnnouncementDTO.getTitle())
                 .availability(internshipAnnouncementDTO.isAvailability())
                 .availabilityOfTrainingCourse(internshipAnnouncementDTO.getAvailabilityOfTrainingCourse())
                 .benefits(internshipAnnouncementDTO.getBenefits())

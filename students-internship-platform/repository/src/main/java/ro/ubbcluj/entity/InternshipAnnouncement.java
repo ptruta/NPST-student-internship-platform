@@ -41,16 +41,16 @@ public class InternshipAnnouncement {
     private String benefits;
     private String neededSkills;
 
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
 
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date postingDate;
 
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date deadline;
 
     private String username;
