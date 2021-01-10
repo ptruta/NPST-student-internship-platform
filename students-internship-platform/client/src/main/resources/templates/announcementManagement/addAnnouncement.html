@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>NPST-Student Internship Pladdddtform</title>
+    <title>HollyStart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://fonts.googleapis.com/css?family=Lato"
@@ -69,43 +69,43 @@
                                th:required="required" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="description">Description:</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="description" th:value="${description}" th:field="*{description}" name="description"
-                               placeholder="Your internshipAnnouncement description here"
-                        th:required="required" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="technologies">Technologies:</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="technologies" th:value="${technologies}" th:field="*{technologies}" name="technologies"
-                               placeholder="Your technologies here"
-                               th:required="required" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group" id="startDateContainer">
-                    <label class="control-label col-sm-2" for="startDate">Start Date:</label>
-                    <div class="input-group input-append date col-sm-10" id="startDateRangePicker"
-                         style="padding-right: 15px;padding-left: 15px">
-                        <input type="text" class="form-control" name="startDate" id="startDate" th:value="${startDate}"
-                               th:field="*{startDate}"
-                               th:required="required"/>
-                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
-                </div>
-                <div class="form-group" id="endDateContainer">
-                    <label class="control-label col-sm-2" for="endDate">End Date:</label>
-                    <div class="input-group input-append date col-sm-10" id="endDateRangePicker"
-                         style="padding-right: 15px;padding-left: 15px">
-                        <input type="text" class="form-control" name="endDate" id="endDate" th:value="${endDate}"
-                               th:field="*{endDate}"
-                               th:required="required"/>
-                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
-                </div>
-            </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label col-sm-2" for="description">Description:</label>-->
+<!--                    <div class="col-sm-10">-->
+<!--                        <input type="text" id="description" th:value="${description}" th:field="*{description}" name="description"-->
+<!--                               placeholder="Your internshipAnnouncement description here"-->
+<!--                        th:required="required" class="form-control"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="control-label col-sm-2" for="technologies">Technologies:</label>-->
+<!--                    <div class="col-sm-10">-->
+<!--                        <input type="text" id="technologies" th:value="${technologies}" th:field="*{technologies}" name="technologies"-->
+<!--                               placeholder="Your technologies here"-->
+<!--                               th:required="required" class="form-control"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-group" id="startDateContainer">-->
+<!--                    <label class="control-label col-sm-2" for="startDate">Start Date:</label>-->
+<!--                    <div class="input-group input-append date col-sm-10" id="startDateRangePicker"-->
+<!--                         style="padding-right: 15px;padding-left: 15px">-->
+<!--                        <input type="text" class="form-control" name="startDate" id="startDate" th:value="${startDate}"-->
+<!--                               th:field="*{startDate}"-->
+<!--                               th:required="required"/>-->
+<!--                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-group" id="endDateContainer">-->
+<!--                    <label class="control-label col-sm-2" for="endDate">End Date:</label>-->
+<!--                    <div class="input-group input-append date col-sm-10" id="endDateRangePicker"-->
+<!--                         style="padding-right: 15px;padding-left: 15px">-->
+<!--                        <input type="text" class="form-control" name="endDate" id="endDate" th:value="${endDate}"-->
+<!--                               th:field="*{endDate}"-->
+<!--                               th:required="required"/>-->
+<!--                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="col-md-6 text-center">
                 <input type="submit" class="btn btn-primary btn-lg btn-success" id="saveButton" value="Add"/>
             </div>

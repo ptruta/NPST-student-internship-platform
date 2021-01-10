@@ -1,3 +1,5 @@
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css");
+
 .authWrapper {
     display: flex;
     flex-direction: column;
@@ -146,3 +148,85 @@ transition: all 0.2s ease-in;
   align-items: center;
   justify-content: center;
  }
+
+
+.custom-card {
+    border-radius: 20px 50px;
+    border: 2px solid #C0C0C0;
+    padding: 20px;
+    width: 200px;
+    /*background-color: #ffffff;*/
+    color: whitesmoke;
+    opacity: 0.6;
+    height: 700px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    width: 40%;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+    padding: 30px;
+
+@media (max-width: 600px) {
+    box-shadow: none;
+    padding: 0;
+}}
+
+.custom-card:hover{
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.custom-cardApp {
+    border-radius: 20px 50px;
+    border: 2px solid #C0C0C0;
+    padding: 20px;
+    width: 200px;
+    /*background-color: #ffffff;*/
+    color: whitesmoke;
+    opacity: 0.6;
+    height: 200px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    width: 40%;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+    padding: 30px;
+
+@media (max-width: 600px) {
+    box-shadow: none;
+    padding: 0;
+}}
+
+.custom-cardApp:hover{
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+.modal.fade .modal-dialog {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    transform: scale(0.1);
+    top: 300px;
+    opacity: 100;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+
+}
+
+.modal.fade.in .modal-dialog {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform: translate3d(0, -300px, 0);
+    transform: translate3d(0, -300px, 0);
+    opacity:100;
+
+}

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <title>NPST-Student Internship Platform</title>
+    <title>HollyStart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
     <link href="http://fonts.googleapis.com/css?family=Lato"
           rel="stylesheet" type="text/css"/>
     <link href="http://fonts.googleapis.com/css?family=Montserrat"
@@ -16,14 +15,26 @@
             href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
             th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
             rel="stylesheet" media="screen"/>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 
-    <script src="../static/css/js/bootstrap.min.js"
+    <script src="../static/js/bootstrap.min.js"
             th:src="@{~/js/bootstrap.min.js}"></script>
-
     <link rel="stylesheet" type="text/css" media="screen"
-          href="../static/css/hms.css" th:href="@{/css/hms.css}"/>
+          href="../static/css/hms.css" th:href="@{/css/razv.css}"/>
+
 </head>
+
 <body>
+<div class="appWrapper">
+    <div th:include="fragments/header :: header"></div>
+    <div class="heroContainer">
+        <div class="authWrapper">
+            <div class="title">
+                <span class="white">Welcome to</span>
+                <span class="blue">HollyStart</span>
+            </div>
+
 <div th:fragment="userForm">
     <input type="text" id="id" th:value="${id}" th:field="*{id}" name="id"
            th:hidden="true" hidden="true"/>
@@ -53,13 +64,16 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="firstName">First title:</label>
+        <label for="firstName">First name:</label>
+        <input type="text" id="firstName" th:value="${firstName}" th:field="*{firstName}" name="firstName"
+               placeholder="first name"
+               th:required="required" class="form-control"/>
         <div>
 
         </div>
     </div>
     <div class="form-group">
-        <label for="lastName">Last title:</label>
+        <label for="lastName">Last name:</label>
         <input type="text" id="lastName" th:value="${lastName}" th:field="*{lastName}" name="lastName"
                placeholder="last title"
                th:required="required" class="form-control"/>
@@ -70,12 +84,49 @@
                placeholder="email"
                class="form-control"/>
     </div>
+
+    <div class="form-group">
+        <label for="status">Status:</label>
+    <select th:field="*{status}">
+        <option th:value="'APPLICANT'" th:text="Applicant"></option>
+        <option th:value="'RECRUITER'" th:text="Recruiter"></option>
+    </select>
+    </div>
+<!--    <div class="form-group">-->
+<!--        <label for="availability">Availability:</label>-->
+<!--        <input type="text" th:value="${availability}" id="availability" name="availability"  th:field="*{availability}" th:required="required"-->
+<!--               placeholder="availability"-->
+<!--               class="form-control"/>-->
+
     <div class="form-group">
         <label for="skills">Skills:</label>
         <input type="text" th:value="${skills}" id="skills" name="skills"  th:field="*{skills}" th:required="required"
                placeholder="skills"
                class="form-control"/>
     </div>
+    <div class="form-group">
+        <label for="education">Education:</label>
+        <input type="text" th:value="${education}" id="education" name="education"  th:field="*{education}" th:required="required"
+               placeholder="education"
+               class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="workHistory">Work history:</label>
+        <input type="text" th:value="${workHistory}" id="workHistory" name="workHistory"  th:field="*{workHistory}" th:required="required"
+               placeholder="workHistory"
+               class="form-control"/>
+    </div>
+<!--    <div class="form-group">-->
+<!--        <label for="education">Education:</label>-->
+<!--        <input type="text" th:value="${education}" id="education" name="education"  th:field="*{education}" th:required="required"-->
+<!--               placeholder="education"-->
+<!--               class="form-control"/>-->
+<!--    </div>-->
+
+</div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
+

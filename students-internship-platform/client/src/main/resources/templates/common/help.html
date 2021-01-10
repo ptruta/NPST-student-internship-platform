@@ -32,22 +32,11 @@
         <div class="authWrapper">
             <div class="title">
                 <span class="white">Welcome to</span>
-                <span class="blue">HollyStart</span>
+                <span class="blue">HolyStart</span>
             </div>
-
-            <form action="#" th:action="@{/register}" th:object="${userAuthenticationDTO}" method="post" class="form-horizontal"
-                  id="registerFormContainer">
-                <div th:include="fragments/userForm :: userForm"></div>
-                <button type="submit" class="btn btn-primary btn-lg btn-success">Register
-                </button>
-                <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">Back</button>
-            </form>
-
-
         </div>
     </div>
 </div>
-
 </body>
 </html>
 

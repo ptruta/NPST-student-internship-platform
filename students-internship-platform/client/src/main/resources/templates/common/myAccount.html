@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <title>NPST-Student Internship Pladdddtform</title>
+    <title>HollyStart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://fonts.googleapis.com/css?family=Lato"
@@ -151,12 +151,27 @@
                            placeholder="hobbies"
                            class="authInputComponent"/>
                 </div>
-                <div class="authInputContainer" sec:authorize="hasAuthority('APPLICANT')">
-                    <label for="education" class="label">Education:</label>
-                    <input type="text" id="education" name="education" th:value="${education}" th:field="*{education}" th:required="required"
-                           placeholder="education"
-                           class="authInputComponent"/>
-                </div>
+<!--                <div class="authInputContainer" sec:authorize="hasAuthority('APPLICANT')">-->
+<!--                    <label for="education" class="label">Education:</label>-->
+<!--                    <input type="text" id="education" name="education" th:value="${education}" th:field="*{education}" th:required="required"-->
+<!--                           placeholder="education"-->
+<!--                           class="authInputComponent"/>-->
+<!--                </div>-->
+
+<!--                    <div class="authInputContainer" sec:authorize="hasAuthority('APPLICANT')">-->
+<!--                        <label for="workHistory" class="label">Domains of interest:</label>-->
+<!--                        <input type="text" id="workHistory" name="workHistory" th:value="${workHistory}" th:field="*{workHistory}" th:required="required"-->
+<!--                               placeholder="workHistory"-->
+<!--                               class="authInputComponent"/>-->
+<!--                    </div>-->
+<!--                        <div class="authInputContainer" sec:authorize="hasAuthority('APPLICANT')">-->
+<!--                            <label for="volunteerExperience" class="label">Volunteer Experience:</label>-->
+<!--                            <input type="text" id="volunteerExperience" name="volunteerExperience" th:value="${volunteerExperience}" th:field="*{volunteerExperience}" th:required="required"-->
+<!--                                   placeholder="volunteerExperience"-->
+<!--                                   class="authInputComponent"/>-->
+<!--                        </div>-->
+
+
                 <button type="submit" class="authButton">Save
                 </button>
             </form>

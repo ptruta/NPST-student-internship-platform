@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <title>NPST-Student Internship Pladdddtform</title>
+    <title>HollyStart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://fonts.googleapis.com/css?family=Lato"
@@ -99,34 +99,32 @@
     </div>
 
     <table class="table">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Applicant</th>
-            <th style="text-align: right">Actions</th>
-        </tr>
-        </thead>
+
+
         <tbody th:each="application:${applications}">
-        <tr>
-            <td th:text="${application.title}"></td>
-            <td th:text="${application.startDate}"></td>
-            <td th:text="${application.endDate}"></td>
-            <td th:text="${application.personName}"></td>
-            <td>
-                <form class="col-md-4" method="POST"
+        <div class="card custom-cardApp text-center mr-2 mt-2 ml-2 mb-2"
+             style="width: 25rem; display: inline-block">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${application.title}">Title</h5>
+                <p class="card-text" th:text="${'End date:' + application.endDate}">endDate</p>
+                <p class="card-text" th:text="${'Start date:' + application.startDate}">startDate</p>
+                <p class="card-text" th:text="${'Person name:' + application.personName}">startDate</p>
+                <p>
+                <form method="POST"
                       th:action="@{/announcementManagement/applicationsManagement/delete/{id}(id=${application.id})}"
                       style="height: 50%;width: 50%;"
                       th:onclick="'javascript:return checkForDelete();'">
-                    <button type="submit" name="submit" value="value"><img
-                            src="../../static/images/action/delete.png" width="70px" height="70px"
-                            class="img-rounded img-responsive"
-                            th:src="@{../images/action/delete.png}"/></button>
+                    <button type="submit" name="submit" value="value">
+                        <img src="../../static/images/action/delete.png" width="70px" height="70px"
+                             class="img-rounded img-responsive"
+                             th:src="@{../images/action/delete.png}"/>
+                    </button>
                 </form>
-            </td>
-        </tr>
+                </p>
+            </div>
+        </div>
         </tbody>
+
     </table>
     <div class="table-pagination">
         <ul class="pagination">

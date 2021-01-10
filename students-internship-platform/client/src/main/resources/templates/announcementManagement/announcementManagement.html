@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <title>NPST-Student Internship Pladdddtform</title>
+    <title>HollyStart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link href="http://fonts.googleapis.com/css?family=Lato"
@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css"/>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 
     <script th:inline="javascript">
         $(document).ready(function () {
@@ -72,6 +75,7 @@
 </head>
 
 <body>
+
 
 <div class="appWrapper">
     <div th:include="fragments/header :: header"></div>
@@ -152,60 +156,90 @@
             </form>
         </div>
     </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <!--<th>Id</th>-->
-            <th>Title</th>
-            <th>Description</th>
-            <th>Technologies</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Deadline</th>
-            <th style="text-align: center">Actions</th>
-        </tr>
-        </thead>
-        <tbody th:each="internshipAnnouncement:${internshipAnnouncements}">
-        <tr>
-            <!--<td th:text="${internshipAnnouncement.id}"></td>-->
-            <td th:text="${internshipAnnouncement.company}"></td>
-            <td th:text="${internshipAnnouncement.domains}"></td>
-            <td th:text="${internshipAnnouncement.startDate}"></td>
-            <td th:text="${internshipAnnouncement.endDate}"></td>
-            <td th:text="${internshipAnnouncement.deadline}"></td>
-            <td sec:authorize="hasAuthority('APPLICANT')">
-                <form class="col-md-4" method="POST"
-                      th:action="@{/announcementManagement/apply/{announcementId}(announcementId=${internshipAnnouncement.id})}"
-                      style="height: 50%;width: 50%;">
-                    <button type="submit" name="submit" value="value"><img
-                            src="../../static/images/action/Apply-Now-Button.png" width="1000px" height="1000px"
-                            class="img-rounded img-responsive"
-                            th:src="@{../images/action/Apply-Now-Button.png}"/></button>
-                </form>
-            </td>
-            <td sec:authorize="hasAnyAuthority('RECRUITER')">
-                <form class="col-md-4" method="GET"
-                      th:action="@{/announcementManagement/announcementInfo/{id}(id=${internshipAnnouncement.id})}"
-                      style="height: 50%;width: 50%;">
-                    <button type="submit" name="submit" value="value"><img
-                            src="../../static/images/action/edit.png" width="100px" height="100px"
-                            class="img-rounded img-responsive"
-                            th:src="@{../images/action/edit.png}"/></button>
-                </form>
-                <form class="col-md-4" method="POST"
-                      th:action="@{/announcementManagement/delete/{id}(id=${internshipAnnouncement.id})}"
-                      style="height: 50%;width: 50%;"
-                      id="deleteRoomForm">
-                    <button type="submit" th:type="submit" value="value"><img
-                            src="../../static/images/action/delete.png" width="100px" height="100px"
-                            class="img-rounded img-responsive"
-                            th:src="@{../images/action/delete.png}"/>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <table class="table">
+
+            <tr th:each="announcement:${announcements}">
+                <div class="card custom-card text-center mr-2 mt-2 ml-2 mb-2"
+                     style="width: 150px; display: inline-block">
+                    <div class="card-body">
+
+                        <!-- Trigger the modal with a button -->
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="card-text" th:text="${announcement.company}">Company</p>
+                                        <p class="card-text" th:text="${'Location: ' + announcement.location}">Location</p>
+                                        <p class="card-text" th:text="${'Duration: ' + announcement.duration}">Duration</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <h5 class="card-title" th:text="${announcement.title}">Title</h5>
+                        <p class="card-text" th:text="${announcement.company}">Company</p>
+                        <p class="card-text" th:text="${'Location: ' + announcement.location}">Location</p>
+                        <p class="card-text" th:text="${'Duration: ' + announcement.duration}">Duration</p>
+                        <p class="card-text" th:text="${'Remote work: ' + announcement.possibilityOfRemoteWork}">Remote work</p>
+                        <p class="card-text" th:text="${'Working time: ' + announcement.workingTime}">workingTime</p>
+                        <p class="card-text" th:text="${'Number Of Positions: ' + announcement.numberOfPositions}">numberOfPositions</p>
+                        <p class="card-text" th:text="${'Availability Of TrainingCourse: ' + announcement.availabilityOfTrainingCourse}">availabilityOfTrainingCourse</p>
+                        <p class="card-text" th:text="${'Possibility Of Contract: ' + announcement.possibilityOfContract}">possibilityOfContract</p>
+
+                        <p class="card-text" th:text="${'Benefits: ' + announcement.benefits}">benefits</p>
+                        <p class="card-text" th:text="${'Needed Skills: ' + announcement.neededSkills}">neededSkills</p>
+                        <p class="card-text" th:text="${'Paid: ' + announcement. paidOrNot}"> paidOrNot</p>
+
+                        <p class="card-text" th:text="${'Start date: ' + announcement.startDate}">startDate</p>
+                        <p class="card-text" th:text="${'End date: ' + announcement.endDate}">endDate</p>
+                        <p class="card-text" th:text="${'Deadline: ' + announcement.deadline}">deadline</p>
+
+                        <p sec:authorize="hasAuthority('APPLICANT')">
+                        <form  method="POST"
+                               th:action="@{/announcementManagement/apply/{announcementId}(announcementId=${announcement.id})}"
+                               style="height: 25%;width: 25%;">
+                            <button type="submit" name="submit" value="value"><img
+                                    src="../../static/images/action/Apply-Now-Button.png" width="50px" height="50px"
+                                    class="img-rounded img-responsive"
+                                    th:src="@{../images/action/Apply-Now-Button.png}"/></button>
+                        </form>
+                        </p>
+                        <p sec:authorize="hasAnyAuthority('RECRUITER')">
+                        <form method="GET"
+                              th:action="@{/announcementManagement/announcementInfo/{id}(id=${announcement.id})}"
+                              style="height: 25%;width: 25%;">
+                            <button type="submit" name="submit" value="value"><img
+                                    src="../../static/images/action/edit.png" width="50px" height="50px"
+                                    class="img-rounded img-responsive"
+                                    th:src="@{../images/action/edit.png}"/></button>
+                        </form>
+                        <form class="col-md-4" method="POST"
+                              th:action="@{/announcementManagement/delete/{id}(id=${announcement.id})}"
+                              style="height: 25%;width: 25%;"
+                              id="deleteRoomForm">
+                            <button type="submit" th:type="submit" value="value"><img
+                                    src="../../static/images/action/delete.png" width="50px" height="50px"
+                                    class="img-rounded img-responsive"
+                                    th:src="@{../images/action/delete.png}"/>
+                            </button>
+                        </form>
+
+                        </p>
+                    </div>
+                </div>
+            </tr>
+        </table>
 <!--    <div class="table-pagination">-->
 <!--        <ul class="pagination">-->
 <!--            <div class="table-pagination">-->

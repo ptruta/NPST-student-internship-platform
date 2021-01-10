@@ -17,16 +17,23 @@
                         <a href="/myAccount">My Account</a></li>
                     <li sec:authorize="hasAuthority('RECRUITER')"
                         style="font-size: 20px; font-family: Roboto Mono;">
-                        <a href="/announcementManagement">My Internships</a></li>
+                        <a href="/announcementManagement">Posted announcements</a></li>
                     <li sec:authorize="hasAuthority('RECRUITER')"
                         style="font-size: 20px; font-family: Roboto Mono;">
-                        <a href="/announcementManagement/applicationsManagement">Internships Applications</a></li>
+                        <a href="/announcementManagement/applicationsManagement">Users</a></li>
                     <li sec:authorize="hasAuthority('APPLICANT')"
                         style="font-size: 20px; font-family: Roboto Mono;">
-                        <a href="/announcementManagement/applicationsManagement">My Applications</a></li>
+                        <a href="/announcementManagement">Internships</a></li>
                     <li sec:authorize="hasAuthority('APPLICANT')"
                         style="font-size: 20px; font-family: Roboto Mono;">
-                        <a href="/announcementManagement">Available Internships</a></li>
+                        <a href="/applications/myApplications">My Applications</a></li>
+                    <li sec:authorize="hasAuthority('APPLICANT')"
+                        style="font-size: 20px; font-family: Roboto Mono;">
+                        <a href="/common/advice">Advices</a></li>
+                    <li sec:authorize="isAuthenticated()"
+                        style="font-size: 20px; font-family: Roboto Mono;">
+                        <a href="/common/help">Help</a></li>
+
                     <li sec:authorize="isAuthenticated()"
                         style="font-size: 20px; font-family: Roboto Mono; margin: auto">
                         <form id="logoutForm" name="logoutForm"
