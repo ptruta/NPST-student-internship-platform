@@ -33,8 +33,8 @@
     </style>
     <script th:inline="javascript">
         $(document).ready(function () {
-            $("#password").prop('required', false);
-            $("#confirmPassword").prop('required', false);
+<!--            $("#password").prop('required', false);-->
+<!--            $("#confirmPassword").prop('required', false);-->
             disableInputs();
 
 
@@ -47,8 +47,9 @@
         });
 
         function disableInputs() {
-            $('#passwordContainer').hide();
-            $('#confirmPasswordContainer').hide();
+            $('#passwordContainer');
+            $('#confirmPasswordContainer');
+            $('#usernameContainer');
             $('#userFormContainer input').prop('readonly', true);
             $('#gender').attr("disabled", true);
             $('#bio').prop('readonly', true);
@@ -87,12 +88,27 @@
                 <input type="text" id="id" th:value="${id}" th:field="*{id}" name="id"
                        th:hidden="true" hidden="true"/>
                 <div class="authInputContainer"
+                     id="usernameContainer">
+                    <label for="username"
+                           class="label">User Name:
+                    </label>
+                    <input type="text"
+                           th:value="${username}"
+                           th:field="*{username}"
+                           id="username"
+                           name="username"
+                           placeholder="username"
+                           th:required="required"
+                           class="authInputComponent"/>
+                </div>
+                <div class="authInputContainer"
                      id="passwordContainer">
                     <label for="password"
                            class="label">Password:
                     </label>
                     <input type="password"
                            th:value="${password}"
+                           th:field="*{password}"
                            id="password"
                            name="password"
                            placeholder="password"
@@ -101,7 +117,7 @@
                 </div>
                 <div class="authInputContainer" id="confirmPasswordContainer">
                     <label for="confirmPassword" class="label">Confirm Password:</label>
-                    <input type="password" th:value="${confirmPassword}" id="confirmPassword" name="confirmPassword"
+                    <input type="password" th:value="${confirmPassword}" th:field="*{confirmPassword}" id="confirmPassword" name="confirmPassword"
                            placeholder="password" th:required="required"
                            class="authInputComponent"/>
                 </div>

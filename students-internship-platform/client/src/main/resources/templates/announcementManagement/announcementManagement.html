@@ -70,6 +70,8 @@
                 })
         });
 
+
+
     </script>
 
 </head>
@@ -80,82 +82,99 @@
 <div class="appWrapper">
     <div th:include="fragments/header :: header"></div>
     <div class="heroContainer">
-    <div class="container table-responsive">
-    <h2 class="text-center">Internships</h2>
-    <br/>
-    <br/>
-    <div sec:authorize="hasAuthority('APPLICANT')" class="row">
-        <div class="form-group col-md-12" id="searchAnnouncementContainer">
-            <form action="#" th:action="@{/announcementManagement/searchAnnouncement}"
-                  th:object="${announcementSearch}" method="post" enctype="multipart/form-data">
-                <div class="col-md-6">
-                    <label class="control-label col-sm-2" for="announcementSearch1">Location:</label>
-                    <input type="text" id="announcementSearch1" th:value="${announcementSearch1}" name="announcementSearch1"
-                           autofocus="autofocus"
-                           placeholder="search"
-                           class="form-control"/>
-                    <label class="control-label col-sm-2" for="announcementSearch2">Start Date:</label>
-                    <div class="input-group input-append date col-sm-10" id="startDateRangePicker"
-                         style="padding-right: 15px;padding-left: 15px">
-                        <input type="text" id="announcementSearch2" th:value="${announcementSearch2}" name="announcementSearch2"
-                           autofocus="autofocus"
-                           placeholder="search"
-                           class="form-control"/>
-                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
-                    <label class="control-label col-sm-2" for="announcementSearch3">End Date:</label>
-                    <div class="input-group input-append date col-sm-10" id="endDateRangePicker"
-                         style="padding-right: 15px;padding-left: 15px">
-                    <input type="text" id="announcementSearch3" th:value="${announcementSearch3}" name="announcementSearch3"
-                           autofocus="autofocus"
-                           placeholder="search"
-                           class="form-control"/>
-                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
-                    <label class="control-label col-sm-2" for="announcementSearch4">Posting Date:</label>
-                    <div class="input-group input-append date col-sm-10" id="postingDateRangePicker"
-                         style="padding-right: 15px;padding-left: 15px">
-                    <input type="text" id="announcementSearch4" th:value="${announcementSearch4}" name="announcementSearch4"
-                           autofocus="autofocus"
-                           placeholder="search"
-                           class="form-control"/>
-                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
-                    <label class="control-label col-sm-2" for="announcementSearch5">Domains:</label>
-                    <input type="text" id="announcementSearch5" th:value="${announcementSearch5}" name="announcementSearch5"
-                           autofocus="autofocus"
-                           placeholder="search"
-                           class="form-control"/>
-                    <label class="control-label col-sm-2" for="announcementSearch6">Paid Or Not:</label>
-                    <select class="form-control col-sm-8" data-style="btn-primary" style="margin-left: 15px;margin-right:
+        <div class="authWrapper">
+            <h2 class="text-center">Internships</h2>
+            <div sec:authorize="hasAuthority('APPLICANT')" class="row">
+                <div class="form-group col-md-12" id="searchAnnouncementContainer">
+                    <form action="#" th:action="@{/announcementManagement/searchAnnouncement}"
+                          th:object="${announcementSearch}" method="post" enctype="multipart/form-data">
+                        <div class="col-md-6">
+<!--                            <label class="control-label col-sm-2" for="announcementSearch1">Location:</label>-->
+                            <input type="text" id="announcementSearch1" th:value="${announcementSearch1}"
+                                   name="announcementSearch1"
+                                   autofocus="autofocus"
+                                   placeholder="location"
+                                   class="form-control" style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;"/>
+<!--                            <label class="control-label col-sm-2" for="announcementSearch2">Start Date:</label>-->
+                            <div class="input-group input-append date col-sm-10" id="startDateRangePicker"
+                                 style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;">
+                                <input type="text" id="announcementSearch2" th:value="${announcementSearch2}"
+                                       name="announcementSearch2"
+                                       autofocus="autofocus"
+                                       placeholder="Start Date"
+                                       class="form-control"/>
+                                <span class="input-group-addon add-on"><span
+                                        class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+<!--                            <label class="control-label col-sm-2" for="announcementSearch3">End Date:</label>-->
+                            <div class="input-group input-append date col-sm-10" id="endDateRangePicker"
+                                 style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;">
+                                <input type="text" id="announcementSearch3" th:value="${announcementSearch3}"
+                                       name="announcementSearch3"
+                                       autofocus="autofocus"
+                                       placeholder="End Date"
+                                       class="form-control"/>
+                                <span class="input-group-addon add-on"><span
+                                        class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+<!--                            <label class="control-label col-sm-2" for="announcementSearch4">Posting Date:</label>-->
+                            <div class="input-group input-append date col-sm-10" id="postingDateRangePicker"
+                                 style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;">
+                                <input type="text" id="announcementSearch4" th:value="${announcementSearch4}"
+                                       name="announcementSearch4"
+                                       autofocus="autofocus"
+                                       placeholder="Posting Date"
+                                       class="form-control"/>
+                                <span class="input-group-addon add-on"><span
+                                        class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+<!--                            <label class="control-label col-sm-2" for="announcementSearch5">Domains:</label>-->
+                            <input type="text" id="announcementSearch5" th:value="${announcementSearch5}"
+                                   name="announcementSearch5"
+                                   autofocus="autofocus"
+                                   placeholder="Domains"
+                                   class="form-control"
+                                   style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;"/>
+                            <label class="control-label col-sm-2" for="announcementSearch6">Paid Or Not:</label>
+                            <select class="form-control col-sm-8" data-style="btn-primary" style="margin-left: 15px;margin-right:
                 15px;display: inline-block;min-width: 200px;" id="announcementSearch6"
-                            name="announcementSearch6" th:value="${announcementSearch6}">
-                        <option th:value="1">true</option>
-                        <option th:value="0">false</option>
-                    </select>
-<!--                    <input type="text" id="announcementSearch6" th:value="${announcementSearch6}" name="announcementSearch6"-->
-<!--                           autofocus="autofocus"-->
-<!--                           placeholder="search"-->
-<!--                           th:required="required" class="form-control"/>-->
-                    <label class="control-label col-sm-2" for="announcementSearch7">Duration:</label>
-                    <input type="text" id="announcementSearch7" th:value="${announcementSearch7}" name="announcementSearch7"
-                           autofocus="autofocus"
-                           placeholder="search"
-                           class="form-control"/>
-                    <label class="control-label col-sm-2" for="announcementSearch8">Working Time:</label>
-                    <input type="text" id="announcementSearch8" th:value="${announcementSearch8}" name="announcementSearch8"
-                           autofocus="autofocus"
-                           placeholder="search"
-                           class="form-control"/>
+                                    name="announcementSearch6" th:value="${announcementSearch6}">
+                                <option th:value="1">true</option>
+                                <option th:value="0">false</option>
+                            </select>
+                            <!--                    <input type="text" id="announcementSearch6" th:value="${announcementSearch6}" name="announcementSearch6"-->
+                            <!--                           autofocus="autofocus"-->
+                            <!--                           placeholder="search"-->
+                            <!--                           th:required="required" class="form-control"/>-->
+<!--                            <label class="control-label col-sm-2" for="announcementSearch7">Duration:</label>-->
+                            <input type="text" id="announcementSearch7" th:value="${announcementSearch7}"
+                                   name="announcementSearch7"
+                                   autofocus="autofocus"
+                                   placeholder="Durations"
+                                   class="form-control" style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;"/>
+<!--                            <label class="control-label col-sm-2" for="announcementSearch8">Working Time:</label>-->
+                            <input type="text" id="announcementSearch8" th:value="${announcementSearch8}"
+                                   name="announcementSearch8"
+                                   autofocus="autofocus"
+                                   placeholder="Working Time"
+                                   class="form-control" style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;"/>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary btn-md btn-success ">
+                                Search Announcement
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="pull-right">
-                    <button type="submit" class="btn btn-primary btn-md btn-success ">
-                        Search Announcement
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
         <table class="table">
 
             <tr th:each="announcement:${announcements}">
@@ -164,7 +183,9 @@
                     <div class="card-body">
 
                         <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                                data-target="#myModal">Open Modal
+                        </button>
 
                         <!-- Modal -->
                         <div id="myModal" class="modal fade" role="dialog">
@@ -177,11 +198,14 @@
                                     </div>
                                     <div class="modal-body">
                                         <p class="card-text" th:text="${announcement.company}">Company</p>
-                                        <p class="card-text" th:text="${'Location: ' + announcement.location}">Location</p>
-                                        <p class="card-text" th:text="${'Duration: ' + announcement.duration}">Duration</p>
+                                        <p class="card-text" th:text="${'Location: ' + announcement.location}">
+                                            Location</p>
+                                        <p class="card-text" th:text="${'Duration: ' + announcement.duration}">
+                                            Duration</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
                                     </div>
                                 </div>
 
@@ -191,14 +215,22 @@
                         <p class="card-text" th:text="${announcement.company}">Company</p>
                         <p class="card-text" th:text="${'Location: ' + announcement.location}">Location</p>
                         <p class="card-text" th:text="${'Duration: ' + announcement.duration}">Duration</p>
-                        <p class="card-text" th:text="${'Remote work: ' + announcement.possibilityOfRemoteWork}">Remote work</p>
-                        <p class="card-text" th:text="${'Working time: ' + announcement.workingTime}">workingTime</p>
-                        <p class="card-text" th:text="${'Number Of Positions: ' + announcement.numberOfPositions}">numberOfPositions</p>
-                        <p class="card-text" th:text="${'Availability Of TrainingCourse: ' + announcement.availabilityOfTrainingCourse}">availabilityOfTrainingCourse</p>
-                        <p class="card-text" th:text="${'Possibility Of Contract: ' + announcement.possibilityOfContract}">possibilityOfContract</p>
+                        <p class="card-text" th:text="${'Remote work: ' + announcement.possibilityOfRemoteWork}">
+                            Remote work</p>
+                        <p class="card-text" th:text="${'Working time: ' + announcement.workingTime}">
+                            workingTime</p>
+                        <p class="card-text" th:text="${'Number Of Positions: ' + announcement.numberOfPositions}">
+                            numberOfPositions</p>
+                        <p class="card-text"
+                           th:text="${'Availability Of TrainingCourse: ' + announcement.availabilityOfTrainingCourse}">
+                            availabilityOfTrainingCourse</p>
+                        <p class="card-text"
+                           th:text="${'Possibility Of Contract: ' + announcement.possibilityOfContract}">
+                            possibilityOfContract</p>
 
                         <p class="card-text" th:text="${'Benefits: ' + announcement.benefits}">benefits</p>
-                        <p class="card-text" th:text="${'Needed Skills: ' + announcement.neededSkills}">neededSkills</p>
+                        <p class="card-text" th:text="${'Needed Skills: ' + announcement.neededSkills}">
+                            neededSkills</p>
                         <p class="card-text" th:text="${'Paid: ' + announcement. paidOrNot}"> paidOrNot</p>
 
                         <p class="card-text" th:text="${'Start date: ' + announcement.startDate}">startDate</p>
@@ -206,9 +238,9 @@
                         <p class="card-text" th:text="${'Deadline: ' + announcement.deadline}">deadline</p>
 
                         <p sec:authorize="hasAuthority('APPLICANT')">
-                        <form  method="POST"
-                               th:action="@{/announcementManagement/apply/{announcementId}(announcementId=${announcement.id})}"
-                               style="height: 25%;width: 25%;">
+                        <form method="POST"
+                              th:action="@{/announcementManagement/apply/{announcementId}(announcementId=${announcement.id})}"
+                              style="height: 25%;width: 25%;">
                             <button type="submit" name="submit" value="value"><img
                                     src="../../static/images/action/Apply-Now-Button.png" width="50px" height="50px"
                                     class="img-rounded img-responsive"
@@ -240,53 +272,53 @@
                 </div>
             </tr>
         </table>
-<!--    <div class="table-pagination">-->
-<!--        <ul class="pagination">-->
-<!--            <div class="table-pagination">-->
-<!--                <ul class="pagination">-->
-<!--                    <li th:class="${page.firstPage}?'disabled':''">-->
-<!--                        <span th:if='${page.firstPage}'>← First</span>-->
-<!--                        <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>← First</a>-->
-<!--                    </li>-->
-<!--                    <li th:class="${page.hasPreviousPage}? '' : 'disabled'">-->
-<!--                        <span th:if='${not page.hasPreviousPage}'>«</span>-->
-<!--                        <a th:if='${page.hasPreviousPage}'-->
-<!--                           th:href='@{${page.url}(page=${page.number-2},size=${page.size})}'-->
-<!--                           title='Go to previous page'>«</a>-->
-<!--                    </li>-->
-<!--                    <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">-->
-<!--                        <span th:if='${item.current}' th:text='${item.number}'>1</span>-->
-<!--                        <a th:if='${not item.current}'-->
-<!--                           th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span-->
-<!--                                th:text='${item.number}'>1</span></a>-->
-<!--                    </li>-->
-<!--                    <li th:class="${page.hasNextPage}? '' : 'disabled'">-->
-<!--                        <span th:if='${not page.hasNextPage}'>»</span>-->
-<!--                        <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}'-->
-<!--                           title='Go to next page'>»</a>-->
-<!--                    </li>-->
-<!--                    <li th:class="${page.lastPage}? 'disabled' : ''">-->
-<!--                        <span th:if='${page.lastPage}'>Last →</span>-->
-<!--                        <a th:if='${not page.lastPage}'-->
-<!--                           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last →</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </ul>-->
-<!--    </div>-->
-    <div class="row">
-        <div sec:authorize="hasAnyAuthority('RECRUITER')" class="col-md-6 text-center">
-            <button class="btn btn-primary btn-lg btn-success " onclick="location.href='/announcementManagement/addAnnouncement'">Add
-                Announcement
-            </button>
+        <!--    <div class="table-pagination">-->
+        <!--        <ul class="pagination">-->
+        <!--            <div class="table-pagination">-->
+        <!--                <ul class="pagination">-->
+        <!--                    <li th:class="${page.firstPage}?'disabled':''">-->
+        <!--                        <span th:if='${page.firstPage}'>← First</span>-->
+        <!--                        <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>← First</a>-->
+        <!--                    </li>-->
+        <!--                    <li th:class="${page.hasPreviousPage}? '' : 'disabled'">-->
+        <!--                        <span th:if='${not page.hasPreviousPage}'>«</span>-->
+        <!--                        <a th:if='${page.hasPreviousPage}'-->
+        <!--                           th:href='@{${page.url}(page=${page.number-2},size=${page.size})}'-->
+        <!--                           title='Go to previous page'>«</a>-->
+        <!--                    </li>-->
+        <!--                    <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">-->
+        <!--                        <span th:if='${item.current}' th:text='${item.number}'>1</span>-->
+        <!--                        <a th:if='${not item.current}'-->
+        <!--                           th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span-->
+        <!--                                th:text='${item.number}'>1</span></a>-->
+        <!--                    </li>-->
+        <!--                    <li th:class="${page.hasNextPage}? '' : 'disabled'">-->
+        <!--                        <span th:if='${not page.hasNextPage}'>»</span>-->
+        <!--                        <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number},size=${page.size})}'-->
+        <!--                           title='Go to next page'>»</a>-->
+        <!--                    </li>-->
+        <!--                    <li th:class="${page.lastPage}? 'disabled' : ''">-->
+        <!--                        <span th:if='${page.lastPage}'>Last →</span>-->
+        <!--                        <a th:if='${not page.lastPage}'-->
+        <!--                           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last →</a>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </ul>-->
+        <!--    </div>-->
+        <div class="row">
+            <div sec:authorize="hasAnyAuthority('RECRUITER')" class="col-md-6 text-center">
+                <button class="btn btn-primary btn-lg btn-success "
+                        onclick="location.href='/announcementManagement/addAnnouncement'">Add
+                    Announcement
+                </button>
+            </div>
+            <div class="col-md-6 text-center">
+                <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
+                    Back
+                </button>
+            </div>
         </div>
-        <div class="col-md-6 text-center">
-            <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
-                Back
-            </button>
-        </div>
-    </div>
-</div>
     </div>
 </div>
 
