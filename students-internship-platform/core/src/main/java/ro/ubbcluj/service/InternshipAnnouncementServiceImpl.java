@@ -223,6 +223,24 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         }
         internshipAnnouncement.setAvailability(true);
         internshipAnnouncement.setApplications(new ArrayList<>());
+        internshipAnnouncement.setDeadline(internshipAnnouncementDTO.getDeadline());
+        internshipAnnouncement.setTitle(internshipAnnouncementDTO.getTitle());
+        internshipAnnouncement.setStartDate(internshipAnnouncementDTO.getStartDate());
+        internshipAnnouncement.setEndDate(internshipAnnouncementDTO.getEndDate());
+        internshipAnnouncement.setWorkingTime(internshipAnnouncement.getWorkingTime());
+        internshipAnnouncement.setDeadline(internshipAnnouncement.getDeadline());
+        internshipAnnouncement.setPostingDate(internshipAnnouncement.getPostingDate());
+        internshipAnnouncement.setCompany(internshipAnnouncement.getCompany());
+        internshipAnnouncement.setLocation(internshipAnnouncement.getLocation());
+        internshipAnnouncement.setDuration(internshipAnnouncement.getDuration());
+        internshipAnnouncement.setPossibilityOfRemoteWork(internshipAnnouncement.getPossibilityOfRemoteWork());
+        internshipAnnouncement.setWorkingTime(internshipAnnouncement.getWorkingTime());
+        internshipAnnouncement.setNumberOfPositions(internshipAnnouncement.getNumberOfPositions());
+        internshipAnnouncement.setAvailabilityOfTrainingCourse(internshipAnnouncement.getAvailabilityOfTrainingCourse());
+        internshipAnnouncement.setPossibilityOfContract(internshipAnnouncement.getPossibilityOfContract());
+        internshipAnnouncement.setBenefits(internshipAnnouncement.getBenefits());
+        internshipAnnouncement.setNeededSkills(internshipAnnouncement.getNeededSkills());
+        internshipAnnouncement.setPaidOrNot(internshipAnnouncement.isPaidOrNot());
 
         InternshipAnnouncement savedEntity = internshipAnnouncementRepository.save(internshipAnnouncement);
         return InternshipAnnouncementConverter.convertToDTO(savedEntity);

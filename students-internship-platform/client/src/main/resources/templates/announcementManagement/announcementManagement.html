@@ -52,19 +52,19 @@
         $(document).ready(function () {
             $('#startDateRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#endDateRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#postingDateRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 })
@@ -308,12 +308,13 @@
         <!--        </ul>-->
         <!--    </div>-->
         <div class="row">
-            <div sec:authorize="hasAnyAuthority('RECRUITER')" class="col-md-6 text-center">
+            <div sec:authorize="hasAnyAuthority('RECRUITER')" class="col-md-10 text-center">
                 <button class="btn btn-primary btn-lg btn-success "
                         onclick="location.href='/announcementManagement/addAnnouncement'">Add
                     Announcement
                 </button>
             </div>
+            <br/>
             <div class="col-md-6 text-center">
                 <button class="btn btn-primary btn-lg btn-success pull-right" onclick="location.href='/'">
                     Back

@@ -14,7 +14,7 @@ import java.util.Date;
 public class DateFormatter {
     public static Date getDate(String dateInString) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        simpleDateFormat.applyPattern("MM/dd/yyyy");
+        simpleDateFormat.applyPattern("dd/MM/yyyy");
 
         try {
             return simpleDateFormat.parse(dateInString);

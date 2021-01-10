@@ -39,25 +39,25 @@
         $(document).ready(function () {
             $('#startDateRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#endDateRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#postingDatePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#deadlineRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 })
@@ -249,9 +249,9 @@
                             <label class="control-label col-sm-2" for="startDate">Deadline:</label>
                             <div class="input-group input-append date col-sm-10" id="deadlineRangePicker"
                                  style="padding-right: 15px;padding-left: 15px">
-                                <input type="text" class="form-control" name="startDate" id="deadline"
-                                       th:value="${startDate}"
-                                       th:field="*{startDate}"
+                                <input type="text" class="form-control" name="deadline" id="deadline"
+                                       th:value="${deadline}"
+                                       th:field="*{deadline}"
                                        th:required="required"/>
                                 <span class="input-group-addon add-on"><span
                                         class="glyphicon glyphicon-calendar"></span></span>

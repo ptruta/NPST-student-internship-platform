@@ -56,25 +56,25 @@
         $(document).ready(function () {
             $('#startDateRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#endDateRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#postingDatePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
             $('#deadlineRangePicker')
                 .datepicker({
-                    format: 'mm/dd/yyyy',
+                    format: 'dd/mm/yyyy',
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 })
@@ -147,7 +147,9 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="announcementCompany">Company:</label>
                             <div class="col-sm-10">
-                                <input type="text" id="announcementCompany" th:value="${company}" th:field="*{company}"
+                                <input type="text" id="announcementCompany"
+                                       th:value="${company}"
+                                       th:field="*{company}"
                                        name="announcementCompany"
                                        placeholder="Your internshipAnnouncement company here"
                                        th:required="required" class="form-control"/>
@@ -156,7 +158,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="announcementLocation">Location:</label>
                             <div class="col-sm-10">
-                                <input type="text" id="announcementLocation" th:value="${location}"
+                                <input type="text" id="announcementLocation"
+                                       th:value="${location}"
                                        th:field="*{location}"
                                        name="announcementLocation"
                                        placeholder="Your internshipAnnouncement location here"
@@ -166,7 +169,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="announcementDuration">Duration:</label>
                             <div class="col-sm-10">
-                                <input type="text" id="announcementDuration" th:value="${duration}"
+                                <input type="text" id="announcementDuration"
+                                       th:value="${duration}"
                                        th:field="*{duration}"
                                        name="announcementDuration"
                                        placeholder="Your internshipAnnouncement duration here"
@@ -259,12 +263,12 @@
                             </div>
                         </div>
                         <div class="form-group" id="deadlineContainer">
-                            <label class="control-label col-sm-2" for="startDate">Deadline:</label>
+                            <label class="control-label col-sm-2" for="deadline">Deadline:</label>
                             <div class="input-group input-append date col-sm-10" id="deadlineRangePicker"
                                  style="padding-right: 15px;padding-left: 15px">
-                                <input type="text" class="form-control" name="startDate" id="deadline"
-                                       th:value="${startDate}"
-                                       th:field="*{startDate}"
+                                <input type="text" class="form-control" name="deadline" id="deadline"
+                                       th:value="${deadline}"
+                                       th:field="*{deadline}"
                                        th:required="required"/>
                                 <span class="input-group-addon add-on"><span
                                         class="glyphicon glyphicon-calendar"></span></span>

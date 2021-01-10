@@ -1,6 +1,7 @@
 package ro.ubbcluj.dto;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -29,9 +30,13 @@ public class InternshipAnnouncementDTO {
     private String possibilityOfContract;
     private String benefits;
     private String neededSkills;
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date postingDate;
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date deadline;
     private String username;
     private boolean availability;
