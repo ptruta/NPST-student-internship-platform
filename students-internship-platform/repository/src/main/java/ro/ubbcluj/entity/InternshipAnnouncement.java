@@ -1,8 +1,11 @@
 package ro.ubbcluj.entity;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,10 +40,19 @@ public class InternshipAnnouncement {
     private String possibilityOfContract;
     private String benefits;
     private String neededSkills;
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date startDate;
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date endDate;
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date postingDate;
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date deadline;
+
     private String username;
     private boolean availability;
 

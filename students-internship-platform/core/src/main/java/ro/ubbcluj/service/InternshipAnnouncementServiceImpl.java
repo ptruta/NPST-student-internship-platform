@@ -243,9 +243,9 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
 
     @Override
     public List<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
-                                                                       Date postingDate,
                                                                        Date startingDate,
                                                                        Date endDate,
+                                                                       Date postingDate,
                                                                        String domains,
                                                                        boolean paidOrNot,
                                                                        String duration,
@@ -259,24 +259,6 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
                     .filter(internshipAnnouncement -> internshipAnnouncement.getLocation().equals(location));
         }
 
-        java.util.Date date=new java.util.Date();
-
-
-        if(postingDate.getTime() < date.getTime()-60000) {
-            announcementsStream = announcementsStream
-                    .filter(internshipAnnouncement -> internshipAnnouncement.getPostingDate().equals(postingDate));
-        }
-
-        if(date.getTime()-70000 < startingDate.getTime() &&  startingDate.getTime() < date.getTime()-60000) {
-            announcementsStream = announcementsStream
-                    .filter(internshipAnnouncement -> internshipAnnouncement.getStartDate().equals(startingDate));
-        }
-
-        if(date.getTime()-70000 < endDate.getTime() && endDate.getTime() < date.getTime()-60000) {
-            announcementsStream = announcementsStream
-                    .filter(internshipAnnouncement -> internshipAnnouncement.getEndDate().equals(endDate));
-        }
-
         if(!domains.equals("")) {
             announcementsStream = announcementsStream
                     .filter(internshipAnnouncement -> internshipAnnouncement.getDomains().equals(domains));
@@ -285,12 +267,12 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         announcementsStream = announcementsStream
                 .filter(internshipAnnouncement -> internshipAnnouncement.isPaidOrNot() == paidOrNot);
 
-        if(!duration.contains("2021")) {
+        if(!duration.equals("")) {
             announcementsStream = announcementsStream
                     .filter(internshipAnnouncement -> internshipAnnouncement.getDuration().equals(duration));
         }
 
-        if(!workingTime.contains("2021")) {
+        if(!workingTime.equals("")) {
             announcementsStream = announcementsStream
                     .filter(internshipAnnouncement -> internshipAnnouncement.getWorkingTime().equals(workingTime));
         }

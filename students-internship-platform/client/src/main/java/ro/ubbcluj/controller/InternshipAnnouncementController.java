@@ -166,8 +166,8 @@ public class InternshipAnnouncementController {
                                      @ModelAttribute(value = "announcementSearch4") Date announcementSearch4,
                                      @ModelAttribute(value = "announcementSearch5") String announcementSearch5,
                                      @ModelAttribute(value = "announcementSearch6") boolean announcementSearch6,
-                                     @ModelAttribute(value = "announcementSearch3") String announcementSearch7,
-                                     @ModelAttribute(value = "announcementSearch4") String announcementSearch8,
+                                     @ModelAttribute(value = "announcementSearch7") String announcementSearch7,
+                                     @ModelAttribute(value = "announcementSearch8") String announcementSearch8,
                                      RedirectAttributes redirectAttributes) {
         final List<InternshipAnnouncementDTO> announcementDTOPage = internshipAnnouncementService.findAnnouncementsByAnyField(announcementSearch1,
                 announcementSearch2,
