@@ -25,6 +25,8 @@ VALUES (1, 'Junior-Looking for a junior java developer', 'Generix Group Romania'
 INSERT INTO internship_announcement (id, title, company, user_authentication_id, location, duration, domains, possibility_of_remote_work, paid_or_not, working_time, number_of_positions, requirements, availability_of_training_course, possibility_of_contract, benefits, needed_skills, start_date, end_date, posting_date, deadline, username, availability)
 VALUES (2, 'Internship-Looking for a junior python developer', 'Generix Group Romania', 2, 'Cluj-Napoca', '3 months', 'JAVA', 'Possible to work remote', 1, 'full time', 4, '0 years of experience', 'Available of training courde', 'Possibility of contract after', 'Benefits: going to teambuildings', 'To have skills of Java, of OOP', '2021-05-15 12:00:00', '2021-08-15 18:00:00', '2021-01-16 18:00:00', '2021-02-16 18:00:00', 'applicant', 1);
 
+INSERT INTO internship_announcement (id, title, company, user_authentication_id, location, duration, domains, possibility_of_remote_work, paid_or_not, working_time, number_of_positions, requirements, availability_of_training_course, possibility_of_contract, benefits, needed_skills, start_date, end_date, posting_date, deadline, username, availability)
+VALUES (3, 'Internship-Looking for a junior front-end developer', 'SDL Solutions', 2, 'Bucuresti', '1 months', 'JAVA', 'Possible to work remote', 1, 'full time', 4, '0 years of experience', 'Available of training courde', 'Possibility of contract after', 'Benefits: going to teambuildings', 'To have skills of Java, of OOP', '2021-05-15 12:00:00', '2021-08-15 18:00:00', '2021-01-16 18:00:00', '2021-02-16 18:00:00', 'applicant', 1);
 
 -- APPLICATION
 INSERT INTO application (id, user_authentication_id, internship_announcement_id)
