@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ro.ubbcluj.dto.InternshipAnnouncementDTO;
+import ro.ubbcluj.model.frontObjects.InternshipAnnouncementSearchDTO;
 import ro.ubbcluj.enums.RoleEnum;
-import ro.ubbcluj.interfaces.InternshipAnnouncementService;
 import ro.ubbcluj.interfaces.ApplicationService;
+import ro.ubbcluj.interfaces.InternshipAnnouncementService;
 import ro.ubbcluj.interfaces.UserAuthenticationService;
 import ro.ubbcluj.pagination.PageWrapper;
 import ro.ubbcluj.utils.ApplicationValidation;
 import ro.ubbcluj.utils.Constants;
 import ro.ubbcluj.utils.User;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,27 +51,28 @@ public class InternshipAnnouncementController {
     public String announcementManagement(Model model, final @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable) {
         String username = User.getCurrentUserName();
 
-        Page<InternshipAnnouncementDTO> announcementDTOPage = null;
-        PageWrapper<InternshipAnnouncementDTO> page;
+//        Page<InternshipAnnouncementDTO> announcementDTOPage = null;
+//        PageWrapper<InternshipAnnouncementDTO> page;
+//
+//        if (!model.containsAttribute("announcements")) {
+//
+//            RoleEnum userRole = userAuthenticationService.findByUsername(username).getRole();
+//
+//            if (userRole.equals(RoleEnum.APPLICANT)) {
+//                announcementDTOPage = internshipAnnouncementService.getAllAnnouncements(pageable);
+//            }
+//
+//            if (userRole.equals(RoleEnum.RECRUITER)) {
+//                announcementDTOPage = internshipAnnouncementService.findAnnouncementByCompany(username, pageable);
+//            }
+//
+//            page = new PageWrapper<>(announcementDTOPage, "/announcementManagement/announcementManagement");
+//            model.addAttribute("announcements", announcementDTOPage);
+//            model.addAttribute("page", page);
+//        }
 
-        if (!model.containsAttribute("announcements")) {
-
-            RoleEnum userRole = userAuthenticationService.findByUsername(username).getRole();
-
-            if (userRole.equals(RoleEnum.APPLICANT)) {
-                announcementDTOPage = internshipAnnouncementService.getAllAnnouncements(pageable);
-            }
-
-            if (userRole.equals(RoleEnum.RECRUITER)) {
-                announcementDTOPage = internshipAnnouncementService.findAnnouncementByCompany(username, pageable);
-            }
-
-            page = new PageWrapper<>(announcementDTOPage, "/announcementManagement/announcementManagement");
-            model.addAttribute("announcements", announcementDTOPage);
-            model.addAttribute("page", page);
-
-        }
-
+        model.addAttribute("announcements", internshipAnnouncementService.getAllAnnouncements());
+        model.addAttribute("internshipAnnouncementSearchDTO", new InternshipAnnouncementSearchDTO());
         return "announcementManagement/announcementManagement";
     }
 
@@ -105,7 +106,7 @@ public class InternshipAnnouncementController {
      * Method used to delete a announcement
      *
      * @param model
-     * @param announcementId    : the announcementId of the announcement that should be deleted
+     * @param announcementId : the announcementId of the announcement that should be deleted
      * @return
      */
     @RequestMapping(value = "/announcementManagement/apply/{announcementId}", method = RequestMethod.POST)
@@ -153,32 +154,33 @@ public class InternshipAnnouncementController {
     }
 
     /**
-     * Method used to search announcements by title.
+     * Method used to search announcements by location.
      *
-     * @param announcementSearch1
+     * @param internshipAnnouncementSearchDTO
      * @param redirectAttributes
      * @return
      */
+    @Autowired
     @RequestMapping(value = "/announcementManagement/searchAnnouncement", method = RequestMethod.POST)
-    public String searchAnnouncement(@ModelAttribute(value = "announcementSearch1") String announcementSearch1,
-                                     @ModelAttribute(value = "announcementSearch2") Date announcementSearch2,
-                                     @ModelAttribute(value = "announcementSearch3") Date announcementSearch3,
-                                     @ModelAttribute(value = "announcementSearch4") Date announcementSearch4,
-                                     @ModelAttribute(value = "announcementSearch5") String announcementSearch5,
-                                     @ModelAttribute(value = "announcementSearch6") boolean announcementSearch6,
-                                     @ModelAttribute(value = "announcementSearch3") String announcementSearch7,
-                                     @ModelAttribute(value = "announcementSearch4") String announcementSearch8,
-                                     RedirectAttributes redirectAttributes) {
-        final List<InternshipAnnouncementDTO> announcementDTOPage = internshipAnnouncementService.findAnnouncementsByAnyField(announcementSearch1,
-                announcementSearch2,
-                announcementSearch3,
-                announcementSearch4,
-                announcementSearch5,
-                announcementSearch6,
-                announcementSearch7,
-                announcementSearch8);
+    public String searchAnnouncement(@ModelAttribute(value = "internshipAnnouncementSearchDTO") InternshipAnnouncementSearchDTO internshipAnnouncementSearchDTO,
+                                     RedirectAttributes redirectAttributes, Model model) {
+        List<InternshipAnnouncementDTO> announcementDTOPage = internshipAnnouncementService.findAnnouncementsByAnyField(internshipAnnouncementSearchDTO.getLocation(),
+                internshipAnnouncementSearchDTO.getStartDate(),
+                internshipAnnouncementSearchDTO.getEndDate(),
+                internshipAnnouncementSearchDTO.getPostingDate(),
+                internshipAnnouncementSearchDTO.getDuration(),
+                internshipAnnouncementSearchDTO.isPaidOrNot(),
+                internshipAnnouncementSearchDTO.getDomains(),
+                internshipAnnouncementSearchDTO.getWorkingTime());
+        //final PageWrapper<InternshipAnnouncementDTO> page = new PageWrapper<InternshipAnnouncementDTO>(announcementDTOPage, "/announcementManagement/internshipAnnouncementSearchDTO");
+        model.addAttribute("announcements", announcementDTOPage);
+        //model.addAttribute("page", page);
+        model.addAttribute("internshipAnnouncementSearchDTO", internshipAnnouncementSearchDTO);
 
         redirectAttributes.addFlashAttribute("announcements", announcementDTOPage);
+        //redirectAttributes.addFlashAttribute("page", page);
+        redirectAttributes.addFlashAttribute("internshipAnnouncementSearchDTO", internshipAnnouncementSearchDTO);
+
         return "redirect:/announcementManagement";
     }
 

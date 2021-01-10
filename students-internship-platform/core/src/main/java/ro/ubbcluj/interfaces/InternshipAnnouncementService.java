@@ -1,9 +1,10 @@
 package ro.ubbcluj.interfaces;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ro.ubbcluj.dto.InternshipAnnouncementDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import ro.ubbcluj.entity.InternshipAnnouncement;
 
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,16 @@ public interface InternshipAnnouncementService {
     void applyForAnnouncement(String username, Long announcementId);
 
 
-    List<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
+//    Page<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
+//                                                                Date postingDate,
+//                                                                Date startingDate,
+//                                                                Date endDate,
+//                                                                String domains,
+//                                                                boolean paidOrNot,
+//                                                                String duration,
+//                                                                String workingTime,
+//                                                                Pageable pageable);
+        List<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
                                                                 Date postingDate,
                                                                 Date startingDate,
                                                                 Date endDate,
@@ -41,4 +51,5 @@ public interface InternshipAnnouncementService {
                                                                 boolean paidOrNot,
                                                                 String duration,
                                                                 String workingTime);
+
 }

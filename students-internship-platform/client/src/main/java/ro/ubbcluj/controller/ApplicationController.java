@@ -13,11 +13,11 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ro.ubbcluj.dto.InternshipAnnouncementDTO;
 import ro.ubbcluj.dto.ApplicationDTO;
+import ro.ubbcluj.dto.InternshipAnnouncementDTO;
 import ro.ubbcluj.enums.RoleEnum;
-import ro.ubbcluj.interfaces.InternshipAnnouncementService;
 import ro.ubbcluj.interfaces.ApplicationService;
+import ro.ubbcluj.interfaces.InternshipAnnouncementService;
 import ro.ubbcluj.interfaces.UserAuthenticationService;
 import ro.ubbcluj.model.frontObjects.ApplicationOption;
 import ro.ubbcluj.model.frontObjects.SearchOption;
@@ -50,7 +50,7 @@ public class ApplicationController {
      */
     @RequestMapping(value = "/announcementManagement/applicationsManagement", method = RequestMethod.POST)
     public String searchByAnnouncement(@ModelAttribute(value = "searchOption") SearchOption searchOption, Model model,
-                                @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable) {
+                                       @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable) {
         PageWrapper<ApplicationDTO> page;
         Page<ApplicationDTO> applicationDTOPage;
 
@@ -76,7 +76,7 @@ public class ApplicationController {
      */
     @RequestMapping(value = "/announcementManagement/applicationsManagement", method = RequestMethod.GET)
     public String announcementManagement(Model model,
-                                  @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable) {
+                                         @PageableDefault(value = Constants.DEFAULT_PAGE_SIZE) Pageable pageable) {
         String username = User.getCurrentUserName();
 
         PageWrapper<ApplicationDTO> page;
@@ -114,44 +114,6 @@ public class ApplicationController {
         model.addAttribute("applicationDTO", new ApplicationDTO());
         return "applications/newApplication";
     }
-
-//    /**
-//     * Method used to create a new application
-//     *
-//     * @param applicationOption
-//     * @param model
-//     * @return
-//     */
-//    @RequestMapping(value = "/applications/newApplication", method = RequestMethod.POST)
-//    public String newApplication(@ModelAttribute(value = "applicationOption") ApplicationOption applicationOption, Model model) {
-//        List<AnnouncementDTO> allAnnouncements = announcementService.getAllAnnouncements();
-//        model.addAttribute("announcements", allAnnouncements);
-//
-//        model.addAttribute("applicationOption", applicationOption);
-//        ApplicationDTO applicationDTO = new ApplicationDTO();
-//        applicationDTO.setAnnouncementId(Long.parseLong(applicationOption.getAnnouncementId()));
-//
-//        Date startDateTemp = DateFormatter.getDate(applicationOption.getStartDate());
-//        Date endDateTemp = DateFormatter.getDate(applicationOption.getEndDate());
-//
-//        ApplicationValidation.isBefore(startDateTemp, endDateTemp);
-//        applicationDTO.setStartDate(startDateTemp);
-//
-//        applicationDTO.setEndDate(endDateTemp);
-//
-//        model.addAttribute("rooms", roomService
-//                .getAllAvailableRoomsByAnnouncementBetween(applicationDTO.getAnnouncementId(),
-//                        applicationDTO.getStartDate(),
-//                        applicationDTO.getEndDate())
-//                .stream()
-//                .filter(Util.distinctByKey(RoomDTO::getSize))
-//                .sorted(Comparator.comparing(RoomDTO::getSize))
-//                .collect(Collectors.toList()));
-//
-//        model.addAttribute("applicationDTO", applicationDTO);
-//
-//        return "applications/newApplication";
-//    }
 
     /**
      * Method used to load current user applications and display them.

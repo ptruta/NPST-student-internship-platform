@@ -226,7 +226,37 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         return (InternshipAnnouncementConverter.convertToDTOPage(internshipAnnouncementRepository.findByTitle(name, pageable)));
     }
 
+//    @Override
+//    @Transactional
+//    public Page<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
+//                                                                       Date postingDate,
+//                                                                       Date startingDate,
+//                                                                       Date endDate,
+//                                                                       String domains,
+//                                                                       boolean paidOrNot,
+//                                                                       String duration,
+//                                                                       String workingTime,
+//                                                                       Pageable pageable) {
+//        notNull(location);
+//        notNull(postingDate);
+//        notNull(startingDate);
+//        notNull(endDate);
+//        notNull(domains);
+//        notNull(paidOrNot);
+//        notNull(duration);
+//        notNull(workingTime);
+//
+//        Page<InternshipAnnouncement> announcements = internshipAnnouncementRepository
+//                .findAllByLocationOrPostingDateOrStartDateOrEndDateOrDomainsOrPaidOrNotOrDurationOrWorkingTime(location,
+//                        postingDate,startingDate,endDate,domains,paidOrNot,duration,workingTime,pageable);
+//
+//
+//        notNull(announcements);
+//
+//        return InternshipAnnouncementConverter.convertToDTOPage(announcements);
+
     @Override
+    @Transactional
     public List<InternshipAnnouncementDTO> findAnnouncementsByAnyField(String location,
                                                                        Date postingDate,
                                                                        Date startingDate,
@@ -244,18 +274,8 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         notNull(duration);
         notNull(workingTime);
 
-        List<InternshipAnnouncement> announcements = internshipAnnouncementRepository
-                .findAll()
-                .stream()
-                .filter(internshipAnnouncement -> internshipAnnouncement.getLocation().equals(location))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getPostingDate().equals(postingDate))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getEndDate().equals(endDate))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getStartDate().equals(startingDate))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getDomains().equals(domains))
-                .filter(internshipAnnouncement -> internshipAnnouncement.isPaidOrNot() == paidOrNot)
-                .filter(internshipAnnouncement -> internshipAnnouncement.getDuration().equals(duration))
-                .filter(internshipAnnouncement -> internshipAnnouncement.getWorkingTime().equals(workingTime))
-                .collect(Collectors.toList());
+        //TODO:
+        List<InternshipAnnouncement> announcements = internshipAnnouncementRepository.findAll();
 
 
         notNull(announcements);
