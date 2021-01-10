@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 
 <head>
     <title>HollyStart</title>
@@ -31,12 +31,34 @@
     <div class="heroContainer">
         <div class="authWrapper">
             <div class="title">
-                <span class="white">Welcome to</span>
-                <span class="blue">HolyStart</span>
+                <span class="white">Our Advices</span>
             </div>
+
+            <form action="#" th:action="@{/advice}" th:object="${userAuthenticationDTO}" method="get"
+                  class="form-horizontal"
+                  id="registerFormContainer">
+                <div class="d-flex p-2">
+                    <p class="text-justify">Hello! Here you can receive an advice of how to create your RESUME in order
+                        to apply to
+                        the internships or announcements of jobs available.</p>
+                    <p class="text-justify">If you will listen to our advice, your RESUME will be accepted easily by any
+                        company.</p>
+                    <p class="text-justify">Here are 4 steps which will help you create a great RESUME:</p>
+                    <p class="text-justify">1. First, you can have a specific template of RESUME in which you can
+                        construct your resume. Until we will have that
+                        feature in our application for giving specific templates, you can use a few of them which are
+                        already available online like: resume.io, canvas.com</p>
+                    <p class="text-justify">2. Second, you need to think about what makes you out of common.</p>
+                    <p class="text-justify">3. After making an honest opinion about you, you will need to write down a
+                        list containing the following step. </p>
+                    <p class="text-justify">4. The content of the list should be displayed on this order: Education,
+                        Work Experience, Skills, Personal Projects, Spare Time Activity, Volunteering Work </p>
+                </div>
+            </form>
+
+
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

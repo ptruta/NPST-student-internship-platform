@@ -84,7 +84,7 @@ public class InternshipAnnouncementController {
      */
     @RequestMapping(value = "/announcementManagement/announcementInfo/{id}", method = RequestMethod.GET)
     public String showUpdateAnnouncementForm(@PathVariable Long id, Model model) {
-        model.addAttribute("announcementDTO", internshipAnnouncementService.createAnnouncementDTO(id));
+        model.addAttribute("internshipAnnouncementDTO", internshipAnnouncementService.createAnnouncementDTO(id));
         return "announcementManagement/announcementInformation";
     }
 
@@ -95,7 +95,7 @@ public class InternshipAnnouncementController {
      * @return
      */
     @RequestMapping(value = "/announcementManagement/announcementInfo", method = RequestMethod.POST)
-    public String updateAnnouncement(@ModelAttribute(value = "announcementDTO") InternshipAnnouncementDTO internshipAnnouncementDTO, Model model) {
+    public String updateAnnouncement(@ModelAttribute(value = "internshipAnnouncementDTO") InternshipAnnouncementDTO internshipAnnouncementDTO, Model model) {
         ApplicationValidation.isBefore(internshipAnnouncementDTO.getStartDate(), internshipAnnouncementDTO.getEndDate());
         internshipAnnouncementService.updateAnnouncement(internshipAnnouncementDTO);
         return "redirect:/announcementManagement";
@@ -134,7 +134,7 @@ public class InternshipAnnouncementController {
      * @param internshipAnnouncementDTO
      */
     @RequestMapping(value = "/announcementManagement/addAnnouncement", method = RequestMethod.POST)
-    public String addAnnouncement(@ModelAttribute(value = "announcementDTO") InternshipAnnouncementDTO internshipAnnouncementDTO) {
+    public String addAnnouncement(@ModelAttribute(value = "internshipAnnouncementDTO") InternshipAnnouncementDTO internshipAnnouncementDTO) {
         String username = User.getCurrentUserName();
         internshipAnnouncementDTO.setUsername(username);
         internshipAnnouncementService.createAnnouncement(internshipAnnouncementDTO);
@@ -148,7 +148,7 @@ public class InternshipAnnouncementController {
      */
     @RequestMapping(value = "/announcementManagement/addAnnouncement", method = RequestMethod.GET)
     public String showAddAnnouncementForm(Model model) {
-        model.addAttribute("announcementDTO", new InternshipAnnouncementDTO());
+        model.addAttribute("internshipAnnouncementDTO", new InternshipAnnouncementDTO());
         return "announcementManagement/addAnnouncement";
     }
 

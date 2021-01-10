@@ -65,7 +65,13 @@
                     startDate: '01/01/2018',
                     endDate: '01/31/2030'
                 });
-            $('#deadlineDateRangePicker')
+            $('#postingDatePicker')
+                .datepicker({
+                    format: 'mm/dd/yyyy',
+                    startDate: '01/01/2018',
+                    endDate: '01/31/2030'
+                });
+            $('#deadlineRangePicker')
                 .datepicker({
                     format: 'mm/dd/yyyy',
                     startDate: '01/01/2018',
@@ -89,62 +95,177 @@
           id="announcementFormContainer">
         <input type="text" id="id" th:value="${id}" th:field="*{id}" name="id" th:hidden="true" hidden="true"/>
         <div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="title">Title:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="title" th:value="${title}" th:field="*{title}" name="title"
-                           placeholder="Your title here"
-                           th:required="required" class="form-control"/>
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementName">Title:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementName" th:value="${title}" th:field="*{title}"
+                               name="announcementName"
+                               placeholder="Your internshipAnnouncement title here"
+                               th:required="required" class="form-control"/>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="description">Description:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="description" th:value="${description}"
-                           th:field="*{description}" name="description"
-                           placeholder="Your description here"
-                           th:required="required" class="form-control"/>
+                <div class="form-group" id="startDateContainer">
+                    <label class="control-label col-sm-2" for="startDate">Start Date:</label>
+                    <div class="input-group input-append date col-sm-10" id="startDateRangePicker"
+                         style="padding-right: 15px;padding-left: 15px">
+                        <input type="text" class="form-control" name="startDate" id="startDate"
+                               th:value="${startDate}"
+                               th:field="*{startDate}"
+                               th:required="required"/>
+                        <span class="input-group-addon add-on"><span
+                                class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="technologies">Technologies:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="technologies" th:value="${technologies}" th:field="*{technologies}"
-                           name="technologies"
-                           placeholder="Your technologies here"
-                           th:required="required" class="form-control"/>
+                <div class="form-group" id="endDateContainer">
+                    <label class="control-label col-sm-2" for="endDate">End Date:</label>
+                    <div class="input-group input-append date col-sm-10" id="endDateRangePicker"
+                         style="padding-right: 15px;padding-left: 15px">
+                        <input type="text" class="form-control" name="endDate" id="endDate"
+                               th:value="${endDate}"
+                               th:field="*{endDate}"
+                               th:required="required"/>
+                        <span class="input-group-addon add-on"><span
+                                class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group" id="startDateContainer">
-                <label class="control-label col-sm-2" for="startDate">Start Date:</label>
-                <div class="input-group input-append date col-sm-10" id="startDateRangePicker"
-                     style="padding-right: 15px;padding-left: 15px">
-                    <input type="text" class="form-control" name="startDate" id="startDate" th:value="${startDate}"
-                           th:field="*{startDate}"
-                           th:required="required"/>
-                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                <div class="form-group" id="postingDateContainer">
+                    <label class="control-label col-sm-2" for="postingDate">Posting Date:</label>
+                    <div class="input-group input-append date col-sm-10" id="postingDatePicker"
+                         style="padding-right: 15px;padding-left: 15px">
+                        <input type="text" class="form-control" name="postingDate" id="postingDate"
+                               th:value="${postingDate}"
+                               th:field="*{postingDate}"
+                               th:required="required"/>
+                        <span class="input-group-addon add-on"><span
+                                class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group" id="endDateContainer">
-                <label class="control-label col-sm-2" for="endDate">End Date:</label>
-                <div class="input-group input-append date col-sm-10" id="endDateRangePicker"
-                     style="padding-right: 15px;padding-left: 15px">
-                    <input type="text" class="form-control" name="endDate" id="endDate" th:value="${endDate}"
-                           th:field="*{endDate}"
-                           th:required="required"/>
-                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementCompany">Company:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementCompany" th:value="${company}" th:field="*{company}"
+                               name="announcementCompany"
+                               placeholder="Your internshipAnnouncement company here"
+                               th:required="required" class="form-control"/>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group" id="deadlineDateContainer">
-                <label class="control-label col-sm-2" for="deadline">Deadline Date:</label>
-                <div class="input-group input-append date col-sm-10" id="deadlineDateRangePicker"
-                     style="padding-right: 15px;padding-left: 15px">
-                    <input type="text" class="form-control" name="deadline" id="deadline" th:value="${deadline}"
-                           th:field="*{deadline}"
-                           th:required="required"/>
-                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementLocation">Location:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementLocation" th:value="${location}"
+                               th:field="*{location}"
+                               name="announcementLocation"
+                               placeholder="Your internshipAnnouncement location here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementDuration">Duration:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementDuration" th:value="${duration}"
+                               th:field="*{duration}"
+                               name="announcementDuration"
+                               placeholder="Your internshipAnnouncement duration here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementRemoteWork">Remote Work:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementRemoteWork" th:value="${possibilityOfRemoteWork}"
+                               th:field="*{possibilityOfRemoteWork}"
+                               name="announcementRemoteWork"
+                               placeholder="Your internshipAnnouncement remote work here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementWorkingTime">Working time:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementWorkingTime" th:value="${workingTime}"
+                               th:field="*{workingTime}"
+                               name="announcementWorkingTime"
+                               placeholder="Your internshipAnnouncement working time here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementNumberOfPositions">Number Of
+                        Positions:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementNumberOfPositions" th:value="${numberOfPositions}"
+                               th:field="*{numberOfPositions}"
+                               name="announcementNumberOfPositions"
+                               placeholder="Your internshipAnnouncement number of positions here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementAvailabilityOfTrainingCourse">Availability
+                        of Training Course:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementAvailabilityOfTrainingCourse"
+                               th:value="${availabilityOfTrainingCourse}"
+                               th:field="*{availabilityOfTrainingCourse}"
+                               name="announcementAvailabilityOfTrainingCourse"
+                               placeholder="Your internshipAnnouncement training course availability YES/NO here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementPossibilityOfContract">Possibility Of
+                        Contract:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementPossibilityOfContract"
+                               th:value="${possibilityOfContract}" th:field="*{possibilityOfContract}"
+                               name="announcementPossibilityOfContract"
+                               placeholder="Your internshipAnnouncement contract possibility YES/NO here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementBenefits">Benefits:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementBenefits" th:value="${benefits}"
+                               th:field="*{benefits}"
+                               name="announcementBenefits"
+                               placeholder="Your internshipAnnouncement benefits here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementNeededSkills">Needed Skills:</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="announcementNeededSkills" th:value="${neededSkills}"
+                               th:field="*{neededSkills}"
+                               name="announcementNeededSkills"
+                               placeholder="Your internshipAnnouncement needed skills here"
+                               th:required="required" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="announcementPaidOrNot">Paid Or Not:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control col-sm-8" data-style="btn-primary" style="margin-left: 15px;margin-right:
+                15px;display: inline-block;min-width: 200px;" id="announcementPaidOrNot"
+                                name="announcementPaidOrNot" th:value="${paidOrNot}">
+                            <option th:value="1">true</option>
+                            <option th:value="0">false</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="deadlineContainer">
+                    <label class="control-label col-sm-2" for="startDate">Deadline:</label>
+                    <div class="input-group input-append date col-sm-10" id="deadlineRangePicker"
+                         style="padding-right: 15px;padding-left: 15px">
+                        <input type="text" class="form-control" name="startDate" id="deadline"
+                               th:value="${startDate}"
+                               th:field="*{startDate}"
+                               th:required="required"/>
+                        <span class="input-group-addon add-on"><span
+                                class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 
 <head>
     <title>HollyStart</title>
@@ -31,9 +31,63 @@
     <div class="heroContainer">
         <div class="authWrapper">
             <div class="title">
-                <span class="white">Welcome to</span>
-                <span class="blue">HolyStart</span>
+                <span class="white">Our Help</span>
             </div>
+
+            <form action="#" th:action="@{/help}" th:object="${userAuthenticationDTO}" method="get"
+                  class="form-horizontal"
+                  id="registerFormContainer">
+                <div class="d-flex p-2">
+                    <p class="text-justify">The purpose of this specification is to provide a set of documentation
+                        that describes the features and behavior of a software application for organising, searching and
+                        finding internships.
+
+                    </p>
+                    <p class="text-justify">
+                        The readership of the current document may consist of system end-users, client engineers, system
+                        architects or software developers. All the information will be shared in such a manner that any
+                        person that is targeted to have access to this paper might be able to comprehend without issues.
+                    </p>
+                    <p class="text-justify">
+                        The application has the goal of easily providing stakeholders with all the information and
+                        functionalities they demand when looking for an internship opportunity. The requirements that
+                        will furthermore be presented in this document help the readers understand what are the needs
+                        that this software application will supply.
+                    </p>
+                    <p class="text-justify">
+                        Throughout the information that is presented here it can be found a detailed description of what
+                        functionalities should be implemented.
+                    </p>
+                    <p class="text-justify">
+                        The software system to be produced is a Students Internship Platform, which will be referred to
+                        as “HollyStart” throughout this document.
+                    </p>
+                    <p class="text-justify">
+                        The platform will offer functionalities for facilitating the communication between the employer
+                        and the employee, particularly the students audience.
+                    </p>
+                    <p class="text-justify">
+                        The objective of the HollyStart is to record the internship announcements posted by companies
+                        from which a student may choose to apply to. The goals are multiple depending on the users of
+                        the
+                        HollyStart.
+                    </p>
+                    <p class="text-justify">
+                        The platform is designed to be used by two types of users: the applicant and the company
+                        representative(recruiter). The recruiter can post internship
+                        announcements, can edit his account, can delete internship announcements and edit internship
+                        announcements, while the applicant has the possibility to surf the announcements when
+                        interested, apply for an internship, edit his/her account.
+                        Both types of users will have to make an account(to register) in order to use the platform.
+                    </p>
+                    <p class="text-justify">
+                        The profile of each user will contain relevant information which will interest the other party
+                        and also make the entire recruitment process easier.
+                    </p>
+                </div>
+            </form>
+
+
         </div>
     </div>
 </div>

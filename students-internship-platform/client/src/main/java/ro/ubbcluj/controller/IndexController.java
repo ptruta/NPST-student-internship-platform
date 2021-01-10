@@ -140,7 +140,12 @@ public class IndexController {
         } else {
            // emailService.sendEmail(userAuthenticationDTO.getEmail(), ANNOUNCEMENT_EMAIL, SUBJECT, TEXT);
             userAuthenticationDTO.setPassword(bCryptPasswordEncoder.encode(userAuthenticationDTO.getPassword()));
-            userAuthenticationDTO.setRole(RoleEnum.APPLICANT);
+            if (("APPLICANT").equals(userAuthenticationDTO.getStatus())) {
+                userAuthenticationDTO.setRole(RoleEnum.APPLICANT);
+            }
+            else {
+                userAuthenticationDTO.setRole(RoleEnum.RECRUITER);
+            }
             userAuthenticationDTO.setRegistrationDate(new Date());
             userAuthenticationDTO.setAvailability(true);
             userAuthenticationService.createUser(userAuthenticationDTO);
@@ -162,5 +167,15 @@ public class IndexController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/advice", method = RequestMethod.GET)
+    public String advice(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO) {
+        return "common/advice";
+    }
+
+    @RequestMapping(value = "/help", method = RequestMethod.GET)
+    public String help(@ModelAttribute(value = "userAuthenticationDTO") UserAuthenticationDTO userAuthenticationDTO) {
+        return "common/help";
     }
 }
