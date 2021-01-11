@@ -294,19 +294,21 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         ValidationUtil.notNull(account);
 
         account.setUsername(userAuthenticationDTO.getUsername());
+        account.setPassword(userAuthenticationDTO.getPassword());
         UserAuthentication person = account.getUserAuthentication();
         person.setRole(new Role(userAuthenticationDTO.getRole()));
         person.setFirstName(userAuthenticationDTO.getFirstName());
         person.setLastName(userAuthenticationDTO.getLastName());
         person.setEmail(userAuthenticationDTO.getEmail());
         person.setSkills(userAuthenticationDTO.getSkills());
-        person.setAvailability(userAuthenticationDTO.isAvailability());
+        //person.setAvailability(userAuthenticationDTO.isAvailability());
         person.setContact(userAuthenticationDTO.getContact());
         person.setDomainsOfInterest(userAuthenticationDTO.getDomainsOInterest());
         person.setEducation(userAuthenticationDTO.getEducation());
         person.setVolunteerExperience(userAuthenticationDTO.getVolunteerExperience());
         person.setHobbies(userAuthenticationDTO.getHobbies());
         person.setWorkHistory(userAuthenticationDTO.getWorkHistory());
+        person.setAvailability(true);
 
         accountRepository.save(account);
         userAuthenticationRepository.save(person);
@@ -329,6 +331,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         ValidationUtil.notNull(account);
         account.setUsername(userAuthenticationDTO.getUsername());
+        account.setPassword(userAuthenticationDTO.getPassword());
 
         UserAuthentication person = account.getUserAuthentication();
 
@@ -336,13 +339,14 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         person.setLastName(userAuthenticationDTO.getLastName());
         person.setEmail(userAuthenticationDTO.getEmail());
         person.setSkills(userAuthenticationDTO.getSkills());
-        person.setAvailability(userAuthenticationDTO.isAvailability());
+        //person.setAvailability(userAuthenticationDTO.isAvailability());
         person.setContact(userAuthenticationDTO.getContact());
         person.setDomainsOfInterest(userAuthenticationDTO.getDomainsOInterest());
         person.setEducation(userAuthenticationDTO.getEducation());
         person.setVolunteerExperience(userAuthenticationDTO.getVolunteerExperience());
         person.setHobbies(userAuthenticationDTO.getHobbies());
         person.setWorkHistory(userAuthenticationDTO.getWorkHistory());
+        person.setAvailability(true);
 
         accountRepository.save(account);
         userAuthenticationRepository.save(person);
