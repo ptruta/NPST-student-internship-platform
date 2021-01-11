@@ -111,7 +111,8 @@ public class InternshipAnnouncementServiceImpl implements InternshipAnnouncement
         accountRepository.save(account);
 
         internshipAnnouncement.setAvailability(false);
-        internshipAnnouncementRepository.save(internshipAnnouncement);
+        internshipAnnouncementRepository.delete(internshipAnnouncement);
+        //internshipAnnouncementRepository.save(internshipAnnouncement);
     }
 
     /**
