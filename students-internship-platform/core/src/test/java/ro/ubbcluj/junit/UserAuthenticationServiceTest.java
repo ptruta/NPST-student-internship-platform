@@ -35,11 +35,11 @@ public class UserAuthenticationServiceTest {
     private static final String USERNAME = "user";
     private static final String USERNAME1 = "user1";
     private static final String FIRST_NAME = "Raluca";
-    private static final String FIRST_NAME1 = "Diana";
+    private static final String FIRST_NAME1 = "Patricia";
     private static final String LAST_NAME = "Sechel";
     private static final String LAST_NAME1 = "Truta";
     private static final String EMAIL = "raluca.sechel@pitechnologies.ro";
-    private static final String EMAIL1 = "diana.truta@pitechnologies.ro";
+    private static final String EMAIL1 = "patricia.truta@pitechnologies.ro";
     private static final String ADDRESS = "Cluj";
     private static final String ADDRESS1 = "Zalau";
     private static final String ANNOUNCEMENT_TITLE = "Plaza";

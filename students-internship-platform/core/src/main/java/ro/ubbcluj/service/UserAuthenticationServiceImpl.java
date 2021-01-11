@@ -296,6 +296,17 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         account.setUsername(userAuthenticationDTO.getUsername());
         UserAuthentication person = account.getUserAuthentication();
         person.setRole(new Role(userAuthenticationDTO.getRole()));
+        person.setFirstName(userAuthenticationDTO.getFirstName());
+        person.setLastName(userAuthenticationDTO.getLastName());
+        person.setEmail(userAuthenticationDTO.getEmail());
+        person.setSkills(userAuthenticationDTO.getSkills());
+        person.setAvailability(userAuthenticationDTO.isAvailability());
+        person.setContact(userAuthenticationDTO.getContact());
+        person.setDomainsOfInterest(userAuthenticationDTO.getDomainsOInterest());
+        person.setEducation(userAuthenticationDTO.getEducation());
+        person.setVolunteerExperience(userAuthenticationDTO.getVolunteerExperience());
+        person.setHobbies(userAuthenticationDTO.getHobbies());
+        person.setWorkHistory(userAuthenticationDTO.getWorkHistory());
 
         accountRepository.save(account);
         userAuthenticationRepository.save(person);
